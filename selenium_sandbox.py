@@ -7,7 +7,7 @@ PATH = "C:/Users/hussa/Documents/chromedriver.exe"
 
 driver = webdriver.Chrome(PATH)
 
-driver.get("https://www.google.com")
+driver.get("https://www.facebook.com")
 
 sleep(1) 
 
