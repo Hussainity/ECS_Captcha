@@ -7,7 +7,7 @@ from time import sleep
 PATH = "C:/Users/hussa/Documents/chromedriver.exe"
 driver = webdriver.Chrome(PATH)
 
-url = "https://www.google.com"
+url = "https://www.facebook.com"
 
 # get website
 driver.get(url)
@@ -20,23 +20,27 @@ sleep(1)
 3. look for log in text
 4. look for sign in by ID # x = driver.find_element(By.XPATH, "//*[ID()='Sign in']")
 '''
-x = driver.find_element(By.XPATH, "//*[text()='Sign in']")
+# x = driver.find_element(By.XPATH, "//*[text()='Sign in']")
+x = driver.find_element(By.XPATH, "//*[text()='Log In']")
 x.click()
 sleep(2) 
 
 # find username password input boxes
-    # driver.find_element(By.ID, "login-username").send_keys("hotdog@hotdog.com" + Keys.ENTER)
-x = driver.find_element(By.ID, "identifierId")
-x.send_keys("hotdog@hotdog.com" + Keys.ENTER)
+# driver.find_element(By.ID, "login-username").send_keys("hotdog@hotdog.com" + Keys.ENTER)
+# x = driver.find_element(By.ID, "identifierId")
+x = driver.find_element(By.ID, "email")
+x.send_keys("hotdog@hotdog.com")
+x = driver.find_element(By.ID, "pass")
+x.send_keys("SUHSUHSUH1!" + Keys.ENTER)
 sleep(2) 
 
 # grab source code, dump to url
 source_code = driver.page_source
-with open(url[12:-4] + "_source.html", "w", encoding="utf-8") as f:
-    f.write(source_code)
-    
+#with open(url[12:-4] + "_source.html", "w", encoding="utf-8") as f:
+    #f.write(source_code)
+
 # grab screen shot, save it
-driver.get_screenshot_as_file(url[12:-4] + "_screenshot.png")
+# driver.get_screenshot_as_file(url[12:-4] + "_screenshot.png")
 
 print(source_code.find("recaptcha"))
 
