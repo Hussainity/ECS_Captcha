@@ -1,3 +1,4 @@
+from curses import KEY_A1
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver import *
@@ -10,31 +11,94 @@ PATH = "C:/Users/hussa/Documents/chromedriver.exe"
 #PATH = "C:/Users/korib/OneDrive - Georgia Institute of Technology/ECSproj/chromedriver.exe"
 #driver = webdriver.Chrome(PATH)
 options = webdriver.ChromeOptions()
+options.add_experimental_option("prefs", { 
+    "profile.default_content_setting_values.notifications": 1 
+})
+options.add_argument("--disable-infobars")
+options.add_argument("--disable-extensions")
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
 s=Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(PATH, service=s, options=options)
 driver.maximize_window()
 
 # TODO: replace with toplist urls
-urls = ["https://www.google.com","https://www.yahoo.com", "https://www.amazon.com", "https://www.facebook.com", "https://www.reddit.com", "https://www.instagram.com", "https://en.wikipedia.org/wiki/Main_Page", "https://www.bing.com", "https://www.linkedin.com", "https://www.twitter.com", "https://www.zoom.us", "https://www.ebay.com", "https://www.office.com", "https://www.live.com",  "https://www.fandom.com/", "https://www.microsoft.com", "https://www.nytimes.com"]
+# urls = ["https://www.google.com","https://www.yahoo.com", "https://www.amazon.com", "https://www.reddit.com", "https://www.instagram.com", "https://en.wikipedia.org/wiki/Main_Page", "https://www.bing.com", "https://www.linkedin.com", "https://www.twitter.com", "https://www.zoom.us", "https://www.ebay.com", "https://www.office.com", "https://www.live.com",  "https://www.fandom.com/", "https://www.microsoft.com", "https://www.nytimes.com"]
 #restricted sites= ["https://www.chaturbate.com","https://www.xvideos.com"]
 #websitesnotfound= ["https://microsoftonline.com"]
+#  "https://www.facebook.com"
 
-# urls = ["https://www.google.com"]
+urls = ["https://www.reddit.com/login"]
 
 urls_found_signin_btn = 0
 urls_no_login = []
+
+def find_password():
+    
+    # password find
+    # ref: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete and https://www.lambdatest.com/blog/locators-in-selenium-webdriver-with-examples/
+    count = 8 # set this to the number of ways we are looking for the log in button
+    password_box = None
+    while (count >= 0):
+        try:
+            if (count == 9):
+                password_box = driver.find_element(By.XPATH, "//input[@id= 'loginPassword']")
+                password_box.send_keys("P")
+                break
+            if (count == 8):
+                password_box = driver.find_element(By.XPATH, "//select[@autocomplete= 'new-password']")
+                password_box.send_keys("P")
+                break
+            if (count == 7):
+                password_box = driver.find_element(By.XPATH, "//input[@autocomplete= 'new-password']")
+                password_box.send_keys("P")
+                break
+            if (count == 6):
+                password_box = driver.find_element(By.XPATH, "//textarea[@autocomplete= 'new-password']")
+                password_box.send_keys("P")
+                break
+            if (count == 5):
+                password_box = driver.find_element(By.XPATH, "//select[@autocomplete= 'current-password']")
+                password_box.send_keys("P")
+                break
+            if (count == 4):
+                password_box = driver.find_element(By.XPATH, "//input[@autocomplete= 'current-password']")
+                password_box.send_keys("P")
+                break
+            if (count == 3):
+                password_box = driver.find_element(By.XPATH, "//textarea[@autocomplete= 'current-password']")
+                password_box.send_keys("P")
+                break
+            if (count == 2):
+                password_box = driver.find_element(By.XPATH, "//input[@id= 'password']")
+                password_box.send_keys("P")
+                break
+            if (count == 1):
+                password_box = driver.find_element(By.XPATH, "//input[@name= 'password']")
+                password_box.send_keys("P")
+                break
+            if (count == 0):
+                print(url + ": no password box found in login page")
+                break
+        except:
+          # if just needs user--> send to keyboard and click enter if possible
+            count -= 1
+            password_box = None
+
+    return password_box
 
 for url in urls:
 
     # get website
     driver.get(url)
-    sleep(1) 
+    sleep(2) 
 
     # find sign in
-    count = 26 # set this to the number of ways we are looking for the log in button
+    count = 27 # set this to the number of ways we are looking for the log in button
     while (count >= 0):
         try:
+            if (count == 27): 
+                driver.find_element(By.XPATH, "//input[@id= 'loginUsername']").click() 
+                break
             if (count == 26): 
                 driver.find_element(By.XPATH, "//*[text()=' Sign In']").click() 
                 break
@@ -126,33 +190,83 @@ for url in urls:
     sleep(1)
     urls_found_signin_btn += 1 # increment counter of urls_found_signin
 
+    # username find
     # ref: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete and https://www.lambdatest.com/blog/locators-in-selenium-webdriver-with-examples/
-    count = 3 # set this to the number of ways we are looking for the log in button
+    count = 11 # set this to the number of ways we are looking for the log in button
+    username_box = None
     while (count >= 0):
         try:
-
-            x = None
-
-            if (count == 3): x = driver.find_element(By.XPATH, "//select[@autocomplete= 'username']")
-            if (count == 2): x = driver.find_element(By.XPATH, "//input[@autocomplete= 'username']")
-            if (count == 1): x = driver.find_element(By.XPATH, "//textarea[@autocomplete= 'username']")
-            if (count == 0):
-                print("no username found in login page")
+            if (count == 11):
+                username_box = driver.find_element(By.XPATH, "//input[@type= 'email']")
                 break
-            sleep(1)
-            x.send_keys("ece8803@hotmail.com" + Keys.ENTER)
-            break
+            if (count == 10):
+                username_box = driver.find_element(By.XPATH, "//input[@name= 'Username']")
+                break
+            if (count == 9):
+                username_box = driver.find_element(By.XPATH, "//input[@name= 'username']")
+                break
+            if (count == 8):
+                username_box = driver.find_element(By.XPATH, "//input[@name= 'email']")
+                break
+            if (count == 7):
+                username_box = driver.find_element(By.XPATH, "//select[@autocomplete= 'new-username']")
+                break
+            if (count == 6):
+                username_box = driver.find_element(By.XPATH, "//input[@autocomplete= 'new-username']")
+                break
+            if (count == 5):
+                username_box = driver.find_element(By.XPATH, "//textarea[@autocomplete= 'new-username']")
+                break
+            if (count == 4):
+                username_box = driver.find_element(By.ID, "email")
+                break
+            if (count == 3):
+                username_box = driver.find_element(By.XPATH, "//select[@autocomplete= 'username']")
+                break
+            if (count == 2):
+                username_box = driver.find_element(By.XPATH, "//input[@autocomplete= 'username']")
+                break
+            if (count == 1):
+                username_box = driver.find_element(By.XPATH, "//textarea[@autocomplete= 'username']")
+                break
+            if (count == 0):
+                print(url + ": no username box found in login page")
+                break
         except:
           # if just needs user--> send to keyboard and click enter if possible
             count -= 1
 
-        #except Exception as e:
-         #   count -= 1
+    password_box = find_password()
+
+    if (username_box and password_box):
+        username_box.send_keys("ece8803@hotmail.com")
+        password_box.send_keys("Password1!" + Keys.ENTER)
+    elif (username_box):
+        username_box.send_keys("ece8803@hotmail.com" + Keys.ENTER)
+
+    sleep(2)
+
+    password_box = find_password()
+
+    if (password_box):
+        password_box.send_keys("Password1!" + Keys.ENTER)
+
+    sleep(2)
+
+    # grab source code, dump to url
+    source_code = driver.page_source
+    with open("./sourcecode/"+ url.split(".")[1] + "_source.html", "w", encoding="utf-8") as f:
+        f.write(source_code)
+    # grab screen shot1, save it
+    driver.get_screenshot_as_file("./screenshots/" + url.split(".")[1] + "_screenshot.png")
+
+    #foucsed something 
 
 
 print(urls_no_login) # prints out webpages without a login button- may include those already on a login page- IG, linkeDIn
 sleep(2)
 driver.close()
+
 
 
 
@@ -186,7 +300,7 @@ driver.close()
     #driver.close()
 
 '''
-            if (count == 10): x = driver.find_element(By.__text_signature__, "user")
+        if (count == 10): x = driver.find_element(By.__text_signature__, "user")
         if (count == 9): x = driver.find_element(By.__text_signature__, "login-username")
         if (count == 8): x = driver.find_element(By.__text_signature__, "username")
         if (count == 7): x = driver.find_element(By.__text_signature__, "email")

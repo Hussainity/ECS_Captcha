@@ -1,0 +1,332 @@
+<html lang="en"><head>
+    <title>Create account - The New York Times</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="sourceApp" content="nyt-lire">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta name="et2Host" content="https://a.et.nytimes.com/">
+
+    <style>
+        @font-face {
+            font-family: nyt-franklin;
+            src: url(//typeface.nyt.com/fonts/nyt-franklin-300-normal.woff)
+            format('woff');
+            font-style: normal;
+            font-weight: 300;
+        }
+
+        @font-face {
+            font-family: nyt-franklin;
+            src: url(//typeface.nyt.com/fonts/nyt-franklin-500-normal.woff)
+            format('woff');
+            font-style: normal;
+            font-weight: 500;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            position: relative;
+            margin: 0;
+            font-size: 16px;
+            font-family: 'nyt-franklin', arial, helvetica, sans-serif;
+            -moz-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body.embedded {
+            height: auto;
+            overflow: hidden;
+        }
+
+        .full-page {
+            display: flex;
+            flex-flow: column nowrap;
+            flex: 0 0 auto;
+            height: 100%;
+        }
+    </style>
+    <script async="" src="https://dd.nytimes.com/tags.js"></script><script>
+    /* eslint-disable */
+    /**
+     * Provided by Akamai for integration with mPulse.
+     * Original source available from mPulse settings.
+     * See https://developer.akamai.com/akamai-mpulse-real-user-monitoring-solution for more details.
+     */
+    (function() {
+      // Boomerang Loader Snippet version 14
+      if (window.BOOMR && (window.BOOMR.version || window.BOOMR.snippetExecuted)) {
+          return;
+      }
+    
+      window.BOOMR = window.BOOMR || {};
+      window.BOOMR.snippetStart = new Date().getTime();
+      window.BOOMR.snippetExecuted = true;
+      window.BOOMR.snippetVersion = 14;
+    
+      window.BOOMR.url = "https://s.go-mpulse.net/boomerang/" +
+        "ATH8A-MAMN8-XPXCH-N5KAX-8D239";
+    
+      var // document.currentScript is supported in all browsers other than IE
+          where = document.currentScript || document.getElementsByTagName("script")[0],
+          // Parent element of the script we inject
+          parentNode = where.parentNode,
+          // Whether or not Preload method has worked
+          promoted = false,
+          // How long to wait for Preload to work before falling back to iframe method
+          LOADER_TIMEOUT = 3000;
+    
+      // Tells the browser to execute the Preloaded script by adding it to the DOM
+      function promote() {
+          if (promoted) {
+              return;
+          }
+    
+          var script = document.createElement("script");
+          script.id = "boomr-scr-as";
+          script.src = window.BOOMR.url;
+    
+          // Not really needed since dynamic scripts are async by default and the script is already in cache at this point,
+          // but some naive parsers will see a missing async attribute and think we're not async
+          script.async = true;
+    
+          parentNode.appendChild(script);
+    
+          promoted = true;
+      }
+    
+      // Non-blocking iframe loader (fallback for non-Preload scenarios) for all recent browsers.
+      // For IE 6/7, falls back to dynamic script node.
+      function iframeLoader(wasFallback) {
+          promoted = true;
+    
+          var dom, doc = document, bootstrap, iframe, iframeStyle, win = window;
+    
+          window.BOOMR.snippetMethod = wasFallback ? "if" : "i";
+    
+          // Adds Boomerang within the iframe
+          bootstrap = function(parent, scriptId) {
+              var script = doc.createElement("script");
+              script.id = scriptId || "boomr-if-as";
+              script.src = window.BOOMR.url;
+    
+              BOOMR_lstart = new Date().getTime();
+    
+              parent = parent || doc.body;
+              parent.appendChild(script);
+          };
+    
+          // For IE 6/7, we'll just load the script in the current frame, as those browsers don't support 'about:blank'
+          // for an iframe src (it triggers warnings on secure sites).  This means loading on IE 6/7 may cause SPoF.
+          if (!window.addEventListener && window.attachEvent && navigator.userAgent.match(/MSIE [67]\./)) {
+              window.BOOMR.snippetMethod = "s";
+    
+              bootstrap(parentNode, "boomr-async");
+              return;
+          }
+    
+          // The rest of this function is IE8+ and other browsers that don't support Preload hints but will work with CSP & iframes
+          iframe = document.createElement("IFRAME");
+    
+          // An empty frame
+          iframe.src = "about:blank";
+    
+          // We set title and role appropriately to play nicely with screen readers and other assistive technologies
+          iframe.title = "";
+          iframe.role = "presentation";
+    
+          // Ensure we're not loaded lazily
+          iframe.loading = "eager";
+    
+          // Hide the iframe
+          iframeStyle = (iframe.frameElement || iframe).style;
+          iframeStyle.width = 0;
+          iframeStyle.height = 0;
+          iframeStyle.border = 0;
+          iframeStyle.display = "none";
+    
+          // Append to the end of the current block
+          parentNode.appendChild(iframe);
+    
+          // Try to get the iframe's document object
+          try {
+              win = iframe.contentWindow;
+              doc = win.document.open();
+          }
+          catch (e) {
+              // document.domain has been changed and we're on an old version of IE, so we got an access denied.
+              // Note: the only browsers that have this problem also do not have CSP support.
+    
+              // Get document.domain of the parent window
+              dom = document.domain;
+    
+              // Set the src of the iframe to a JavaScript URL that will immediately set its document.domain to match the parent.
+              // This lets us access the iframe document long enough to inject our script.
+              // Our script may need to do more domain massaging later.
+              iframe.src = "javascript:var d=document.open();d.domain='" + dom + "';void 0;";
+              win = iframe.contentWindow;
+    
+              doc = win.document.open();
+          }
+    
+          if (dom) {
+              // Unsafe version for IE8 compatibility. If document.domain has changed, we can't use win, but we can use doc.
+              doc._boomrl = function() {
+                  this.domain = dom;
+                  bootstrap();
+              };
+    
+              // Run our function at load.
+              // Split the string so HTML code injectors don't get confused and add code here.
+              doc.write("<bo" + "dy onload='document._boomrl();'>");
+          }
+          else {
+              // document.domain hasn't changed, regular method should be OK
+              win._boomrl = function() {
+                  bootstrap();
+              };
+    
+              if (win.addEventListener) {
+                  win.addEventListener("load", win._boomrl, false);
+              }
+              else if (win.attachEvent) {
+                  win.attachEvent("onload", win._boomrl);
+              }
+          }
+    
+          // Finish the document
+          doc.close();
+      }
+    
+      // See if Preload is supported or not
+      var link = document.createElement("link");
+    
+      if (link.relList &&
+          typeof link.relList.supports === "function" &&
+          link.relList.supports("preload") &&
+          ("as" in link)) {
+          window.BOOMR.snippetMethod = "p";
+    
+          // Set attributes to trigger a Preload
+          link.href = window.BOOMR.url;
+          link.rel  = "preload";
+          link.as   = "script";
+    
+          // Add our script tag if successful, fallback to iframe if not
+          link.addEventListener("load", promote);
+          link.addEventListener("error", function() {
+              iframeLoader(true);
+          });
+    
+          // Have a fallback in case Preload does nothing or is slow
+          setTimeout(function() {
+              if (!promoted) {
+                  iframeLoader(true);
+              }
+          }, LOADER_TIMEOUT);
+    
+          // Note the timestamp we started trying to Preload
+          BOOMR_lstart = new Date().getTime();
+    
+          // Append our link tag
+          parentNode.appendChild(link);
+      }
+      else {
+          // No Preload support, use iframe loader
+          iframeLoader(false);
+      }
+    
+      // Save when the onload event happened, in case this is a non-NavigationTiming browser
+      function boomerangSaveLoadTime(e) {
+          window.BOOMR_onload = (e && e.timeStamp) || new Date().getTime();
+      }
+    
+      if (window.addEventListener) {
+          window.addEventListener("load", boomerangSaveLoadTime, false);
+      }
+      else if (window.attachEvent) {
+          window.attachEvent("onload", boomerangSaveLoadTime);
+      }
+    })();
+    </script><link href="https://s.go-mpulse.net/boomerang/ATH8A-MAMN8-XPXCH-N5KAX-8D239" rel="preload" as="script"><style data-emotion="css-global"></style><style data-emotion="css"></style><script id="boomr-scr-as" src="https://s.go-mpulse.net/boomerang/ATH8A-MAMN8-XPXCH-N5KAX-8D239" async=""></script></head>
+<body>
+<script>
+    
+!function(s,e){var c,p,_,d,l,u,f=[],g={pv_id:"",ctx_id:"",intra:!1,force_xhr:!1,
+store_last_response:!1},
+v="object"==typeof s.navigator&&"string"==typeof s.navigator.userAgent&&/iP(ad|hone|od)/.test(
+s.navigator.userAgent),y="object"==typeof s.navigator&&s.navigator.sendBeacon,
+h=y?v?"xhr_ios":"beacon":"xhr";function b(){var e,t,n=s.crypto||s.msCrypto;if(n)t=n.getRandomValues(
+new Uint8Array(18));else for(t=[];t.length<18;)t.push(256*Math.random()^255&(e=e||+new Date)),
+e=Math.floor(e/256);return btoa(String.fromCharCode.apply(String,t)).replace(/\+/g,"-").replace(
+/\//g,"_")}if(s.nyt_et)try{console.warn("et2 snippet should only load once per page")}catch(e
+){}else s.nyt_et=function(){var e,t,n,o,r=arguments;function i(e){f.length&&(function(e,t,n,o,r){if(
+!o&&("beacon"===h||y&&n)){var i=s.navigator.sendBeacon(e,t);return r&&(u=i)}
+var a="undefined"!=typeof XMLHttpRequest?new XMLHttpRequest:new ActiveXObject("Microsoft.XMLHTTP")
+;a.open("POST",e),a.withCredentials=!0,a.setRequestHeader("Accept","*/*"),
+"string"==typeof t?a.setRequestHeader("Content-Type","text/plain;charset=UTF-8"
+):"[object Blob]"==={}.toString.call(t)&&t.type&&a.setRequestHeader("Content-Type",t.type),
+r&&!a.onload&&(a.onload=function(){u=a.response},a.onerror=function(e){u=!1}),a.send(t)}(c+"track",
+JSON.stringify(f),e,g.force_xhr,g.store_last_response),f.length=0,clearTimeout(l),l=null)}if(
+"string"==typeof r[0]&&/init/.test(r[0])&&(g=function(e,t){var n="",o="",r=!1,i=!1,a=!1;if(
+"string"==typeof e&&"init"==e&&"object"==typeof t&&("boolean"==typeof t.intranet&&t.intranet&&(r=!0)
+,"boolean"==typeof t.force_xhr&&t.force_xhr&&(i=!0),
+"boolean"==typeof t.store_last_response&&t.store_last_response&&(a=!0),
+"string"==typeof t.pv_id_override&&"string"==typeof t.ctx_id_override))if(
+24<=t.pv_id_override.length&&24<=t.ctx_id_override.length)n=t.pv_id_override,
+o=t.ctx_id_override;else try{console.warn("override id(s) must be >= 24 chars long")}catch(e){}
+return{pv_id:n,ctx_id:o,intra:r,store_last_response:a,force_xhr:i}}(r[0],r[3]),_=g.pv_id||b(),
+"init"==r[0]&&!p)){if(p=g.ctx_id||b(),"string"!=typeof r[1]||!/^http/.test(r[1]))throw new Error(
+"init must include an et host url");if(c=String(r[1]).replace(/([^\/])$/,"$1/"),
+"string"!=typeof r[2])throw new Error("init must include a source app name");d=r[2]}var a=r.length-1
+;r[a]&&"object"==typeof r[a]&&(e=r[a]),e||/init/.test(r[0])?e&&!e.subject&&console.warn(
+"event data {} must include a subject"):console.warn(
+"when invoked without 'init' or 'pageinit', nyt_et() must include a event data"),c&&e&&e.subject&&(
+t=e.subject,delete e.subject,o="page_exit"==t||"ob_click"==(e.eventData||{}).type,
+n="page"==t||"page_soft"==t?_:b(),f.push({context_id:p,pageview_id:_,event_id:n,client_lib:"v1.2.0",
+sourceApp:d,intranet:g.intra?1:void 0,subject:t,how:o&&v&&y?"beacon_ios":h,client_ts:+new Date,
+data:JSON.parse(JSON.stringify(e))}),"send"==r[0]||n==_||o?i(o):l||(l=setTimeout(i,5500)))},
+s.nyt_et.get_pageview_id=function(){return _},s.nyt_et.get_context_id=function(){return p},
+s.nyt_et.get_host=function(){return c},s.nyt_et.get_last_send_response=function(){var e=u
+;return e&&(u=null),e}}(window);
+
+
+    var referrer = document.referrer || null;
+    var sourceApp = document.querySelector('meta[name=sourceApp]') || {};
+    var sourceAppContent = sourceApp.content || null;
+    var et2Host = document.querySelector('meta[name=et2Host]') || {};
+    var url = et2Host.content || 'https://a.et.nytimes.com/';
+    var isIframe = window !== window.parent;
+
+    nyt_et('init', url, sourceAppContent, {
+        subject: 'page',
+        url: location.href,
+        referrer: referrer,
+        client_tz_offset: (new Date).getTimezoneOffset(),
+        is_iframe: isIframe
+    });
+</script><script>
+  !function(r){var n,t;r="undefined"!=typeof globalThis?globalThis:r||self,n=r.Abra,(t=r.Abra=function(){"use strict";var r=Array.isArray,n=function(r,n,t){var e=r(t,n),u=e[0],o=e[1];if(null==u||""===u)return n;for(var i=String(u).split("."),a=0;a<i.length&&(n=n[i[a]]);a++);return null==n&&(n=o),null!=n?n:null},t=function(r,n,t){return r(t,n).reduce((function(r,n){return parseFloat(r)+parseFloat(n)}),0)},e=function(r,n,t){var e=r(t,n);return e[0]/e[1]},u=function(r,n,t){var e=r(t,n);return e[0]%e[1]},o=function(r,n,t){return r(t,n).reduce((function(r,n){return parseFloat(r)*parseFloat(n)}),1)},i=function(r,n,t){var e=r(t,n),u=e[0],o=e[1];return void 0===o?-u:u-o};function a(n){return!(r(n)&&0===n.length||!n)}var f=function(r,n,t){for(var e,u=0;u<t.length;u++)if(!a(e=r(t[u],n)))return e;return e},c=function(r,n,t){var e;for(e=0;e<t.length-1;e+=2)if(a(r(t[e],n)))return r(t[e+1],n);return t.length===e+1?r(t[e],n):null},l=function(r,n,t){return!a(r(t,n)[0])},v=function(r,n,t){for(var e,u=0;u<t.length;u++)if(a(e=r(t[u],n)))return e;return e},d=function(r,n,t){var e=r(t,n);return e[0]===e[1]},s=function(r,n,t){var e=r(t,n);return e[0]!==e[1]},h=function(r,n,t){var e=r(t,n),u=e[0],o=e[1];return!(!o||void 0===o.indexOf)&&-1!==o.indexOf(u)},g=function(r,n,t){var e=r(t,n);return e[0]>e[1]},p=function(r,n,t){var e=r(t,n);return e[0]>=e[1]},b=function(r,n,t){var e=r(t,n),u=e[0],o=e[1],i=e[2];return void 0===i?u<o:u<o&&o<i},w=function(r,n,t){var e=r(t,n),u=e[0],o=e[1],i=e[2];return void 0===i?u<=o:u<=o&&o<=i},y=function(r,n,t){var e=t[0],u=t[1],o=t.slice(2),i=r(e,n);if(!i)return null;if(0===o.length)return null;if(1===o.length)return r(o[0],n);if(4294967295===o[0])return r(o[1],n);for(var a=function(r){var n,t,e,u,o,i=[],a=[t=1732584193,e=4023233417,~t,~e,3285377520],f=[],c=unescape(encodeURI(r))+"\x80",l=c.length;for(f[r=--l/4+2|15]=8*l;~l;)f[l>>2]|=c.charCodeAt(l)<<8*~l--;for(n=l=0;n<r;n+=16){for(t=a;l<80;t=[t[4]+(i[l]=l<16?~~f[n+l]:2*c|c<0)+1518500249+[e&u|~e&o,c=341275144+(e^u^o),882459459+(e&u|e&o|u&o),c+1535694389][l++/5>>2]+((c=t[0])<<5|c>>>27),c,e<<30|e>>>2,u,o])c=i[l-3]^i[l-8]^i[l-14]^i[l-16],e=t[1],u=t[2],o=t[3];for(l=5;l;)a[--l]+=t[l]}return a[0]>>>0}(i+" "+r(u,n));o.length>1;){var f=o.splice(0,2),c=f[0],l=f[1];if(a<=r(c,n))return r(l,n)}return 0===o.length?null:r(o[0],n)},k=function(r,n,t){var e=t[0],u=t[1],o=r(e,n);return null==o?null:new RegExp(u).test(o)};return function(a,m,O,A){void 0===a&&(a={}),void 0===m&&(m={}),void 0===O&&(O={}),void 0===A&&(A=!1);var j=function(){var r={},n=function(n){if(n)for(var t,e=decodeURIComponent(n[1]),u=/(?:^|,)([^,=]+)=([^,]*)/g;t=u.exec(e);){var o=t,i=o[1],a=o[2];r[i]=a||null}};n(document.cookie.match(/(?:^|;) *abra-overrides=([^;]+)/)),n(window.location.search.match(/(?:\?|&)abra-overrides=([^&]+)/));var t=/(?:^|;) *abra-nuke=true(?:;|$)/.test(document.cookie)||/(?:\?|&)abra-nuke=true(?:&|$)/.test(window.location.search);return[r,t]}(),x=j[0],E=j[1];Object.keys(O).forEach((function(r){x[r]=O[r]}));var F,C=A||E,R=(F={var:n,if:c,"===":d,"!==":s,and:f,or:v,"!":l,">":g,">=":p,"<":b,"<=":w,"+":t,"-":i,"*":o,"/":e,"%":u,in:h,abtest_partition:y,regex_match:k,ref:function(r,n,t){var e=r(t,n)[0];return U(e)}},function n(t,e){if(e||(e={}),r(t))return t.map((function(r){return n(r,e)}));if(!function(n){return"object"==typeof n&&null!==n&&!r(n)&&1===Object.keys(n).length}(t))return t;var u=function(r){return Object.keys(r)[0]}(t),o=t[u];r(o)||(o=[o]);var i=F[u];if(!i)throw new Error("Unrecognized operation "+u);return i(n,e,o)}),U=function(r){if(!r)return null;var n=x[r];if(void 0===n){if(!C){if(Object.prototype.hasOwnProperty.call(x,r))throw new Error("circular logic");x[r]=void 0,n=R(a[r],m)}void 0===n&&(n=null),x[r]=n}return n};return U}}()).noConflict=function(){return r.Abra=n,t}}(this);
+
+</script><script>
+if ('5F35800FA2155BC5833193CFCB9E4D') {
+    !function (a, b, c, d, e, f) {
+        a.ddjskey = e;
+        a.ddoptions = f || null;
+        var m = b.createElement(c), n = b.getElementsByTagName(c)[0];
+        m.async = 1, m.src = d, n.parentNode.insertBefore(m, n);
+    }(window, document, "script", "https://dd.nytimes.com/tags.js", '5F35800FA2155BC5833193CFCB9E4D', {
+       ajaxListenerPath: "nytimes.com/svc/lire_ui/",
+       endpoint: "https://dd.nytimes.com/js/",
+    });
+}
+</script>
+<div id="myAccountAuth" class="full-page" data-auth-options="{&quot;abraConfig&quot;:{&quot;.ver&quot;:9054,&quot;LIRE_SSO_Opt_In&quot;:{&quot;if&quot;:[{&quot;and&quot;:[{&quot;===&quot;:[{&quot;var&quot;:&quot;geo_country&quot;},&quot;US&quot;]}]},{&quot;abtest_partition&quot;:[{&quot;var&quot;:&quot;agent_id&quot;},&quot;LIRE_SSO_Opt_In&quot;,4294967295,&quot;0_control&quot;]}]},&quot;FREEX_Regi_Auth_Legal&quot;:{&quot;if&quot;:[{&quot;and&quot;:[{&quot;===&quot;:[{&quot;var&quot;:&quot;ul_client_id&quot;},&quot;freex&quot;]}]},{&quot;abtest_partition&quot;:[{&quot;var&quot;:&quot;agent_id&quot;},&quot;FREEX_Regi_Auth_Legal&quot;,4294967295,&quot;0_control&quot;]}]}},&quot;asset&quot;:&quot;masthead&quot;,&quot;authToken&quot;:&quot;H4sIAAAAAAAAA32QS2/CMBCE/4slekLEj7wlVPVQpNBTH0jckFlvwMJJLNuBIsp/r8mxh0p7mdHOp9m9EdBakZq0ozE7Kw9I5gSMxj5M9llHrbS3Rl5J3UrjcU7w22qHntQsT6ucZyljc2LPU0DkKGiRU8ELxpC1QrCUl0XKuMxB0jziHEqFrnlsT0pFGITd6HR0jiFYXyfJ5XJZ9NegO/QLGLrEj3sPTtughz7pRhO0dYMaISTGlm/vm8/FMXTmGWRnpT70jVoW69V6+/S6bb52m49mOYFn4mXGV3H+4KMzVfF26D3uwtVi7ALDcNKPhwR3IvWNSO8xRL+TPhzjEVOkRefQxfbmn/bkfv+hbSU5q7Jc7Uspsj0tOBNpW5SSVqIFVBS4omVZCM4ryABbgHwvFFBegmT8F23cqY+rAQAA&quot;,&quot;campaignId&quot;:&quot;&quot;,&quot;captchaSiteKey&quot;:&quot;6Ld2YVIUAAAAAC7yEp9y1m_Cu2PkbZY_lx9pv99F&quot;,&quot;clientId&quot;:&quot;vi&quot;,&quot;currentYear&quot;:&quot;2022&quot;,&quot;displayVariation&quot;:false,&quot;topLevelError&quot;:&quot;&quot;,&quot;userName&quot;:&quot;&quot;,&quot;displayType&quot;:&quot;full-page&quot;,&quot;environment&quot;:&quot;production&quot;,&quot;eventTrackerUrl&quot;:&quot;//et.nytimes.com/&quot;,&quot;hostName&quot;:&quot;https://myaccount.nytimes.com&quot;,&quot;jkiddHost&quot;:&quot;a.nytimes.com&quot;,&quot;mnlConsentRequired&quot;:false,&quot;preferredView&quot;:&quot;enterEmail&quot;}"><header><div role="banner" class="css-1ui765s-container-PageHeader"><div class="css-lsmc2h-nytLogo-nytLogo-PageHeader"><a href="https://www.nytimes.com"><svg width="100%" height="100%" role="img" aria-label="The New York Times"><image width="100%" height="100%" xlink:href="/lire_ui/img/nyt-logo.svg" src="/lire_ui/img/nyt-logo.png" alt="The New York Times"></image></svg></a></div></div></header><div class="css-1xd1ug7-Container edabiy60"><div data-testid="main-page-body" role="main" class="css-cqbhbz-Body edabiy61"><form method="POST" data-testid="register-form" novalidate="" class="css-1454qe9-form-Form"><div class="css-ocsmg3-FormBox es4z1fx0"><h2 class="css-1dn1p34 e1khi2pz0">Create your free account</h2><fieldset type="email" class="css-bgwg67-FieldHolder e1e6zg661"><label for="email" class="css-tt4tkg-InputLabel e1e6zg660">Email Address</label><div class="css-1g8s7vj-FieldWrapper e1e6zg662"><div class="css-1q3wmo4-FieldBox e1e6zg663"><input id="email" name="email" type="email" placeholder="" maxlength="64" disabled="" autocapitalize="off" autocomplete="off" tabindex="0" aria-hidden="false" aria-invalid="false" class="css-14dcmmn-InputBox e1e6zg664" value="ece8803@hotmail.com"><button type="button" aria-label="edit email" tabindex="0" data-testid="edit-email" class="css-21h1bf-WidgetButton e1e6zg6612">Edit</button></div></div></fieldset><div class="css-1tqimwb-AnimatedDiv e1e6zg6614"><fieldset type="password" class="css-bgwg67-FieldHolder e1e6zg661"><label for="password" class="css-tt4tkg-InputLabel e1e6zg660">Password</label><div class="css-1g8s7vj-FieldWrapper e1e6zg662"><div class="css-1hkrq3u-FieldBox e1e6zg663"><input id="password" name="password" type="password" placeholder="" maxlength="255" autocapitalize="off" autocomplete="off" tabindex="0" aria-hidden="false" aria-invalid="false" class="css-14dcmmn-InputBox e1e6zg664" value=""><button type="button" aria-label="Show password" tabindex="0" data-testid="show-password" class="css-21h1bf-WidgetButton e1e6zg6612">Show</button></div></div></fieldset><div class="css-gbkugs-LegalElements e1e6zg6611"><div class="css-29zp9i-CheckboxHolder e1e6zg667"><fieldset class="css-45qis5-CheckBox-CheckBox"><div class="css-w2j9yh-CheckBox-CheckBox"><input id="ac0id" name="mnl_consent" type="checkbox" tabindex="0" data-testid="mnl_consent" data-codes="MM" class="css-17uw339-CheckBox-CheckBox" value="" checked=""><label for="ac0id" class="css-4k2mhc-CheckBox-CheckBox"><div class="css-y9lwis-IconCheckHolder esiwdzg0"><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.07655 2.29405L0 3.3706L2.85246 6.22306L8.00027 1.07655L6.92373 0L2.85311 4.07061L1.07655 2.29405Z" fill="white"></path></svg></div>You agree to receive updates and offers from The Times. You may opt out anytime.</label></div></fieldset></div><div class="css-1iwfw13-legaleseLinks-DefaultLegaleseLinks"><span>By creating an account, you agree to the <a href="https://www.nytimes.com/content/help/rights/terms/terms-of-service.html" target="_blank" rel="noopener noreferrer" tabindex="0">Terms of Service</a> and acknowledge our <a href="https://www.nytimes.com/content/help/rights/privacy/policy/privacy-policy.html" target="_blank" rel="noopener noreferrer" tabindex="0">Privacy Policy</a>.</span></div></div><div data-testid="api-error" class="css-14aku9h-ApiError-ApiError"></div></div><div class="css-vs2mmd-buttonWrapper-Button"><button type="submit" tabindex="0" data-testid="register-button" class="css-9c8h5i-buttonBox-buttonBox-primaryButton-primaryButton-Button"><span>Create Account</span></button></div></div></form></div></div><footer class="css-10rnxzk-footer-footer-PageFooter"><div class="css-16l09k2-GoogleLegal e1cqsr5t0">This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and <span class="css-t33rj8-Nowrap e1cqsr5t1"><a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Terms of Service</a> apply.</span></div><ul class="css-1dc088t-footerItems-footerItems-PageFooter"><li><div class="css-13bzgxg-copyright-copyright-PageFooter">© 2022 The New York Times Company</div></li><li><a href="https://www.nytimes.com/content/help/rights/privacy/policy/privacy-policy.html">Privacy Policy</a></li><li><a href="https://www.nytimes.com/membercenter/sitehelp.html">Help</a></li><li><a href="https://www.nytimes.com/help/index.html">Contact Us</a></li><li><a href="https://www.nytimes.com/privacy/california-notice">California Notices</a></li></ul></footer></div>
+<script type="text/javascript" src="/lire_ui/js/unified-lire.bundle.js?v=5190f6b"></script>
+
+</body></html>
