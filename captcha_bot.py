@@ -6,6 +6,9 @@ from time import sleep
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
+USERNAME = "hussain_miya@hotmail.com"
+PASSWORD = "Password1!"
+
 # Set Up
 PATH = "C:/Users/hussa/Documents/chromedriver.exe"
 #PATH = "C:/Users/korib/OneDrive - Georgia Institute of Technology/ECSproj/chromedriver.exe"
@@ -31,6 +34,7 @@ urls = ["https://www.reddit.com/login"]
 
 urls_found_signin_btn = 0
 urls_no_login = []
+urls_cannot_resolve = []
 
 def find_password():
     
@@ -42,39 +46,39 @@ def find_password():
         try:
             if (count == 9):
                 password_box = driver.find_element(By.XPATH, "//input[@id= 'loginPassword']")
-                password_box.send_keys("P")
+                password_box.send_keys(Keys.BACKSPACE)
                 break
             if (count == 8):
                 password_box = driver.find_element(By.XPATH, "//select[@autocomplete= 'new-password']")
-                password_box.send_keys("P")
+                password_box.send_keys(Keys.BACKSPACE)
                 break
             if (count == 7):
                 password_box = driver.find_element(By.XPATH, "//input[@autocomplete= 'new-password']")
-                password_box.send_keys("P")
+                password_box.send_keys(Keys.BACKSPACE)
                 break
             if (count == 6):
                 password_box = driver.find_element(By.XPATH, "//textarea[@autocomplete= 'new-password']")
-                password_box.send_keys("P")
+                password_box.send_keys(Keys.BACKSPACE)
                 break
             if (count == 5):
                 password_box = driver.find_element(By.XPATH, "//select[@autocomplete= 'current-password']")
-                password_box.send_keys("P")
+                password_box.send_keys(Keys.BACKSPACE)
                 break
             if (count == 4):
                 password_box = driver.find_element(By.XPATH, "//input[@autocomplete= 'current-password']")
-                password_box.send_keys("P")
+                password_box.send_keys(Keys.BACKSPACE)
                 break
             if (count == 3):
                 password_box = driver.find_element(By.XPATH, "//textarea[@autocomplete= 'current-password']")
-                password_box.send_keys("P")
+                password_box.send_keys(Keys.BACKSPACE)
                 break
             if (count == 2):
                 password_box = driver.find_element(By.XPATH, "//input[@id= 'password']")
-                password_box.send_keys("P")
+                password_box.send_keys(Keys.BACKSPACE)
                 break
             if (count == 1):
                 password_box = driver.find_element(By.XPATH, "//input[@name= 'password']")
-                password_box.send_keys("P")
+                password_box.send_keys(Keys.BACKSPACE)
                 break
             if (count == 0):
                 print(url + ": no password box found in login page")
@@ -86,10 +90,23 @@ def find_password():
 
     return password_box
 
-for url in urls:
+toplist = open("./top-1m.csv", "r")
+for siteCount in range(1000):
+
+    l = toplist.readline()
+    base = l.split(",")[1].strip()    
+    if (l.split(",")[0] != "*"):
+        url = "http://www." + base
+    else:
+        url = base
 
     # get website
-    driver.get(url)
+    try:
+        driver.get(url)
+    except:
+        urls_cannot_resolve.append(url)
+        continue
+
     sleep(2) 
 
     # find sign in
@@ -239,17 +256,18 @@ for url in urls:
     password_box = find_password()
 
     if (username_box and password_box):
-        username_box.send_keys("ece8803@hotmail.com")
-        password_box.send_keys("Password1!" + Keys.ENTER)
+        username_box.send_keys(USERNAME)
+        password_box.send_keys(PASSWORD + Keys.ENTER)
     elif (username_box):
-        username_box.send_keys("ece8803@hotmail.com" + Keys.ENTER)
+        username_box.send_keys(USERNAME + Keys.ENTER)
 
     sleep(2)
 
-    password_box = find_password()
 
-    if (password_box):
-        password_box.send_keys("Password1!" + Keys.ENTER)
+    if (not password_box):
+        password_box = find_password()
+        if (password_box):
+            password_box.send_keys(PASSWORD + Keys.ENTER)
 
     sleep(2)
 
