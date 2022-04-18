@@ -333,18 +333,18 @@ driver.close()
 
 
 
-#1. have a list of URLs want to access alexa top 50
-
-#2. search the page for a sign in link, click on it
- #-> try different casing/phrasing of this
-
-#3. search the page for username and password slots, put in info, hit enter/ find submit
- #-> autocomplete tag? 
-
-#4. grab the source code after the attempt, take a screenshot and save it, take the source code and save it,
-
-#...
-
- #1. search for recaptcha string and update some dictionary to keep track as you traverse through source code
-
-#'''
+# TODO:
+# - Debug why facebook will not work
+# - Make sure the top 50 are able to grab the login page and input username password
+# - Create signals for missed websites at different stages
+# - Create retry functionality
+# 
+# TODO:
+# - Create analysis script to parse source code
+# - Read through top 25 to find captcha types
+# - Try and trigger 10 websites manually
+# 
+# 
+# 
+# 
+# 
