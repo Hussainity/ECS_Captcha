@@ -5,6 +5,7 @@ from selenium.webdriver import *
 from time import sleep
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+from collections import defaultdict
 
 USERNAME = "hussain_miya@hotmail.com"
 PASSWORD = "Password1!"
@@ -25,25 +26,103 @@ driver = webdriver.Chrome(PATH, service=s, options=options)
 driver.maximize_window()
 
 # TODO: replace with toplist urls
-# urls = ["https://www.google.com","https://www.yahoo.com", "https://www.amazon.com", "https://www.reddit.com", "https://www.instagram.com", "https://en.wikipedia.org/wiki/Main_Page", "https://www.bing.com", "https://www.linkedin.com", "https://www.twitter.com", "https://www.zoom.us", "https://www.ebay.com", "https://www.office.com", "https://www.live.com",  "https://www.fandom.com/", "https://www.microsoft.com", "https://www.nytimes.com"]
-#restricted sites= ["https://www.chaturbate.com","https://www.xvideos.com"]
-#websitesnotfound= ["https://microsoftonline.com"]
-#  "https://www.facebook.com"
+urls = ["https://www.google.com","https://www.yahoo.com", "https://www.amazon.com", "https://www.reddit.com", "https://www.instagram.com", "https://en.wikipedia.org/wiki/Main_Page", "https://www.bing.com", "https://www.linkedin.com", "https://www.twitter.com", "https://www.zoom.us", "https://www.ebay.com", "https://www.office.com", "https://www.live.com",  "https://www.fandom.com/", "https://www.microsoft.com", "https://www.nytimes.com"]
+# urls = ["https://www.reddit.com/login"]
 
-urls = ["https://www.reddit.com/login"]
+
+records = defaultdict(dict())
+
+'''
+records:
+    - url:
+        - login:    code #
+        - username: code #
+        - password: code #
+        - readdress: code #
+        - recaptcha_clicked: code #
+    
+'''
 
 urls_found_signin_btn = 0
 urls_no_login = []
 urls_cannot_resolve = []
 
+def find_username():
+    count = 17 # set this to the number of ways we are looking for the log in button
+    username_box = None
+    while (count >= 0):
+        try:
+            if (count == 17):
+                username_box = driver.find_element(By.XPATH, "//input[@type= 'email']")
+                break
+            if (count == 16):
+                username_box = driver.find_element(By.XPATH, "//input[@id= 'user_login']")
+                break
+            if (count == 15):
+                username_box = driver.find_element(By.XPATH, "//input[@name= 'log']")
+                break
+            if (count == 14):
+                username_box = driver.find_element(By.XPATH, "//select[@autocomplete= 'email']")
+                break
+            if (count == 13):
+                username_box = driver.find_element(By.XPATH, "//input[@autocomplete= 'email']")
+                break
+            if (count == 12):
+                username_box = driver.find_element(By.XPATH, "//textarea[@autocomplete= 'email']")
+                break
+            if (count == 11):
+                username_box = driver.find_element(By.XPATH, "//input[@type= 'email']")
+                break
+            if (count == 10):
+                username_box = driver.find_element(By.XPATH, "//input[@name= 'Username']")
+                break
+            if (count == 9):
+                username_box = driver.find_element(By.XPATH, "//input[@name= 'username']")
+                break
+            if (count == 8):
+                username_box = driver.find_element(By.XPATH, "//input[@name= 'email']")
+                break
+            if (count == 7):
+                username_box = driver.find_element(By.XPATH, "//select[@autocomplete= 'new-username']")
+                break
+            if (count == 6):
+                username_box = driver.find_element(By.XPATH, "//input[@autocomplete= 'new-username']")
+                break
+            if (count == 5):
+                username_box = driver.find_element(By.XPATH, "//textarea[@autocomplete= 'new-username']")
+                break
+            if (count == 4):
+                username_box = driver.find_element(By.ID, "email")
+                break
+            if (count == 3):
+                username_box = driver.find_element(By.XPATH, "//select[@autocomplete= 'username']")
+                break
+            if (count == 2):
+                username_box = driver.find_element(By.XPATH, "//input[@autocomplete= 'username']")
+                break
+            if (count == 1):
+                username_box = driver.find_element(By.XPATH, "//textarea[@autocomplete= 'username']")
+                break
+            if (count == 0):
+                print(url + ": no username box found in login page")
+                break
+        except:
+          # if just needs user--> send to keyboard and click enter if possible
+            count -= 1
+    return username_box
+
 def find_password():
     
     # password find
     # ref: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete and https://www.lambdatest.com/blog/locators-in-selenium-webdriver-with-examples/
-    count = 8 # set this to the number of ways we are looking for the log in button
+    count = 10 # set this to the number of ways we are looking for the log in button
     password_box = None
     while (count >= 0):
         try:
+            if (count == 10):
+                password_box = driver.find_element(By.XPATH, "//input[@type= 'password']")
+                password_box.send_keys(Keys.BACKSPACE)
+                break
             if (count == 9):
                 password_box = driver.find_element(By.XPATH, "//input[@id= 'loginPassword']")
                 password_box.send_keys(Keys.BACKSPACE)
@@ -91,7 +170,13 @@ def find_password():
     return password_box
 
 toplist = open("./top-1m.csv", "r")
-for siteCount in range(1000):
+
+for i in range(0):
+    l = toplist.readline()
+
+for siteCount in range(1, 1000):
+
+    login_not_found = False
 
     l = toplist.readline()
     base = l.split(",")[1].strip()    
@@ -203,139 +288,74 @@ for siteCount in range(1000):
             count -= 1
             continue
 
+    if (login_not_found):
+        count = 4
+        while (count >= 0):
+            try:
+                if (count == 4): print()
+                elif (count == 3): driver.get(url + "/login")
+                elif (count == 2): driver.get(url + "/signin")
+                elif (count == 1): driver.get(url + "/sign_in")
+                elif (count == 0): break
+                if (find_username()):
+                    login_not_found = False
+                    break
+                else:
+                    count -= 1
+            except:
+                count -= 1
+
+    if (login_not_found):
+        continue
+
     # At this point, bot should be at login page... now look for username box
-    sleep(1)
+    sleep(2)
     urls_found_signin_btn += 1 # increment counter of urls_found_signin
 
     # username find
     # ref: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete and https://www.lambdatest.com/blog/locators-in-selenium-webdriver-with-examples/
-    count = 11 # set this to the number of ways we are looking for the log in button
-    username_box = None
-    while (count >= 0):
-        try:
-            if (count == 11):
-                username_box = driver.find_element(By.XPATH, "//input[@type= 'email']")
-                break
-            if (count == 10):
-                username_box = driver.find_element(By.XPATH, "//input[@name= 'Username']")
-                break
-            if (count == 9):
-                username_box = driver.find_element(By.XPATH, "//input[@name= 'username']")
-                break
-            if (count == 8):
-                username_box = driver.find_element(By.XPATH, "//input[@name= 'email']")
-                break
-            if (count == 7):
-                username_box = driver.find_element(By.XPATH, "//select[@autocomplete= 'new-username']")
-                break
-            if (count == 6):
-                username_box = driver.find_element(By.XPATH, "//input[@autocomplete= 'new-username']")
-                break
-            if (count == 5):
-                username_box = driver.find_element(By.XPATH, "//textarea[@autocomplete= 'new-username']")
-                break
-            if (count == 4):
-                username_box = driver.find_element(By.ID, "email")
-                break
-            if (count == 3):
-                username_box = driver.find_element(By.XPATH, "//select[@autocomplete= 'username']")
-                break
-            if (count == 2):
-                username_box = driver.find_element(By.XPATH, "//input[@autocomplete= 'username']")
-                break
-            if (count == 1):
-                username_box = driver.find_element(By.XPATH, "//textarea[@autocomplete= 'username']")
-                break
-            if (count == 0):
-                print(url + ": no username box found in login page")
-                break
-        except:
-          # if just needs user--> send to keyboard and click enter if possible
-            count -= 1
 
+    username_box = find_username()
     password_box = find_password()
 
     if (username_box and password_box):
         username_box.send_keys(USERNAME)
-        password_box.send_keys(PASSWORD + Keys.ENTER)
+        password_box.send_keys(PASSWORD)
+        sleep(0.5)
+        password_box.send_keys(Keys.ENTER)
+
     elif (username_box):
-        username_box.send_keys(USERNAME + Keys.ENTER)
+        username_box.send_keys(USERNAME)
+        sleep(0.5)
+        username_box.send_keys(Keys.ENTER)
 
     sleep(2)
-
 
     if (not password_box):
         password_box = find_password()
         if (password_box):
-            password_box.send_keys(PASSWORD + Keys.ENTER)
-
+            password_box.send_keys(PASSWORD)
+            sleep(0.5)
+            password_box.send_keys(Keys.ENTER)
+    
     sleep(2)
 
     # grab source code, dump to url
     source_code = driver.page_source
     with open("./sourcecode/"+ url.split(".")[1] + "_source.html", "w", encoding="utf-8") as f:
         f.write(source_code)
-    # grab screen shot1, save it
+    # grab screen shot, save it
     driver.get_screenshot_as_file("./screenshots/" + url.split(".")[1] + "_screenshot.png")
 
-    #foucsed something 
 
-
-print(urls_no_login) # prints out webpages without a login button- may include those already on a login page- IG, linkeDIn
 sleep(2)
 driver.close()
 
 
 
-
-
-### WORK BOX BELOW - IGNORE ###
-
-#'''
-
-
-    # find username password input boxes
-    # driver.find_element(By.ID, "login-username").send_keys("hotdog@hotdog.com" + Keys.ENTER)
-    # 
-    
-    #x.send_keys("hotdog@hotdog.com")
-    #x = driver.find_element(By.ID, "pass")
-    #x.send_keys("SUHSUHSUH1!" + Keys.ENTER)
-    #sleep(2) 
-
-    # grab source code, dump to url
-    #source_code = driver.page_source
-    #with open(url[12:-4] + "_source.html", "w", encoding="utf-8") as f:
-        #f.write(source_code)
-
-    # grab screen shot, save it
-    # driver.get_screenshot_as_file(url[12:-4] + "_screenshot.png")
-
-    #print(source_code.find("recaptcha"))
-
-    #driver.send_keys("")
-
-    #driver.close()
-
-'''
-        if (count == 10): x = driver.find_element(By.__text_signature__, "user")
-        if (count == 9): x = driver.find_element(By.__text_signature__, "login-username")
-        if (count == 8): x = driver.find_element(By.__text_signature__, "username")
-        if (count == 7): x = driver.find_element(By.__text_signature__, "email")
-        if (count == 6): x = driver.find_element(By.__text_signature__, "Email")
-        if (count == 5): x = driver.find_element(By.__text_signature__, "Email or Phone")
-        if (count == 4): x = driver.find_element(By.__text_signature__, "Email or phone")
-        if (count == 3): x = driver.find_element(By.__text_signature__, "email or phone")
-        if (count == 2): x = driver.find_element(By.__text_signature__, "Phone")
-        if (count == 1): x = driver.find_element(By.__text_signature__, "phone")
-'''
-
-
-
-
 # TODO:
-# - Debug why facebook will not work
-# - Make sure the top 50 are able to grab the login page and input username password
+# DONE - Debug why facebook will not work
+# DONE - Make sure the top 50 are able to grab the login page and input username password
 # - Create signals for missed websites at different stages
 # - Create retry functionality
 # 
@@ -343,8 +363,4 @@ driver.close()
 # - Create analysis script to parse source code
 # - Read through top 25 to find captcha types
 # - Try and trigger 10 websites manually
-# 
-# 
-# 
-# 
 # 
