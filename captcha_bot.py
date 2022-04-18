@@ -30,17 +30,15 @@ urls = ["https://www.google.com","https://www.yahoo.com", "https://www.amazon.co
 # urls = ["https://www.reddit.com/login"]
 
 
-records = defaultdict(dict())
+records = defaultdict(dict)
 
 '''
 records:
     - url:
+        - resolved: T/F
         - login:    code #
         - username: code #
-        - password: code #
-        - readdress: code #
-        - recaptcha_clicked: code #
-    
+        - password: code # 
 '''
 
 urls_found_signin_btn = 0
@@ -109,7 +107,7 @@ def find_username():
         except:
           # if just needs user--> send to keyboard and click enter if possible
             count -= 1
-    return username_box
+    return (username_box, count)
 
 def find_password():
     
@@ -167,7 +165,7 @@ def find_password():
             count -= 1
             password_box = None
 
-    return password_box
+    return (password_box, count)
 
 toplist = open("./top-1m.csv", "r")
 
@@ -175,180 +173,194 @@ for i in range(0):
     l = toplist.readline()
 
 for siteCount in range(1, 1000):
-
-    login_not_found = False
-
-    l = toplist.readline()
-    base = l.split(",")[1].strip()    
-    if (l.split(",")[0] != "*"):
-        url = "http://www." + base
-    else:
-        url = base
-
-    # get website
     try:
-        driver.get(url)
-    except:
-        urls_cannot_resolve.append(url)
-        continue
 
-    sleep(2) 
+        login_not_found = False
 
-    # find sign in
-    count = 27 # set this to the number of ways we are looking for the log in button
-    while (count >= 0):
+        l = toplist.readline()
+        base = l.split(",")[1].strip()    
+        if (l.split(",")[0] != "*"):
+            url = "http://www." + base
+        else:
+            url = base
+
+        records[base] = dict()
+
+        # get website
         try:
-            if (count == 27): 
-                driver.find_element(By.XPATH, "//input[@id= 'loginUsername']").click() 
-                break
-            if (count == 26): 
-                driver.find_element(By.XPATH, "//*[text()=' Sign In']").click() 
-                break
-            if (count == 25): 
-                driver.find_element(By.XPATH, "//*[text()=' Sign In ']").click() 
-                break
-            if (count == 24): 
-                driver.find_element(By.XPATH, "//*[text()='log in']").click() 
-                break
-            if (count == 23): 
-                driver.find_element(By.XPATH, "//*[text()='login']").click()
-                break
-            if (count == 22): 
-                driver.find_element(By.XPATH, "//*[text()='log-in']").click()
-                break
-            if (count == 21): 
-                driver.find_element(By.XPATH, "//*[text()='log on']").click()
-                break
-            if (count == 20): 
-                driver.find_element(By.XPATH, "//*[text()='Log on']").click(); 
-                break
-            if (count == 19): 
-                driver.find_element(By.XPATH, "//*[text()='Log in']").click()
-                break
-            if (count == 18): 
-                driver.find_element(By.XPATH, "//*[text()='Log-in']").click()
-                break
-            if (count == 17): 
-                driver.find_element(By.XPATH, "//*[text()='Log In']").click(); 
-                break
-            if (count == 16): 
-                driver.find_element(By.XPATH, "//*[text()='LOG-IN']").click()
-                break
-            if (count == 15): 
-                driver.find_element(By.XPATH, "//*[text()='LOG IN']").click()
-                break
-            if (count == 14): 
-                driver.find_element(By.XPATH, "//*[text()='LOGIN']").click()
-                break
-            if (count == 13): 
-                driver.find_element(By.XPATH, "//*[text()='Hello, Sign in']").click() #thanks Amazon
-                break
-            if (count == 12): 
-                driver.find_element(By.XPATH, "//*[text()='SignIn']").click()
-                break
-            if (count == 11): 
-                driver.find_element(By.XPATH, "//*[text()='signIn']").click()
-                break
-            if (count == 10): 
-                driver.find_element(By.XPATH, "//*[text()='signin']").click()
-                break
-            if (count == 9): 
-                driver.find_element(By.XPATH, "//*[text()='sign-in']").click()
-                break
-            if (count == 8): 
-                driver.find_element(By.XPATH, "//*[text()='sign in']").click()
-                break
-            if (count == 7): 
-                driver.find_element(By.XPATH, "//*[text()='Sign-in']").click()
-                break
-            if (count == 6): 
-                driver.find_element(By.XPATH, "//*[text()='Sign-In']").click()
-                break
-            if (count == 5): 
-                driver.find_element(By.XPATH, "//*[text()='Sign in']").click(); 
-                break
-            if (count == 4): 
-                driver.find_element(By.XPATH, "//*[text()='Sign In']").click()
-                break
-            if (count == 3): 
-                driver.find_element(By.XPATH, "//*[text()='SIGN-IN']").click()
-                break
-            if (count == 2): 
-                driver.find_element(By.XPATH, "//*[text()='SIGN IN']").click()
-                break
-            if (count == 1): 
-                driver.find_element(By.XPATH, "//*[text()='SIGNIN']").click()
-                break
-            if (count == 0):
-                 login_not_found = True
-                 urls_no_login.append(url) # no log in found
-                 break 
-                
-        except Exception as e:
-            count -= 1
+            driver.get(url)
+            records[base]['resolved'] = True
+        except:
+            urls_cannot_resolve.append(url)
+            records[base]['resolved'] = False
             continue
 
-    if (login_not_found):
-        count = 4
+        sleep(2) 
+
+        # find sign in
+        count = 27 # set this to the number of ways we are looking for the log in button
         while (count >= 0):
             try:
-                if (count == 4): print()
-                elif (count == 3): driver.get(url + "/login")
-                elif (count == 2): driver.get(url + "/signin")
-                elif (count == 1): driver.get(url + "/sign_in")
-                elif (count == 0): break
-                if (find_username()):
-                    login_not_found = False
+                if (count == 27): 
+                    driver.find_element(By.XPATH, "//input[@id= 'loginUsername']").click() 
                     break
-                else:
-                    count -= 1
-            except:
+                if (count == 26): 
+                    driver.find_element(By.XPATH, "//*[text()=' Sign In']").click() 
+                    break
+                if (count == 25): 
+                    driver.find_element(By.XPATH, "//*[text()=' Sign In ']").click() 
+                    break
+                if (count == 24): 
+                    driver.find_element(By.XPATH, "//*[text()='log in']").click() 
+                    break
+                if (count == 23): 
+                    driver.find_element(By.XPATH, "//*[text()='login']").click()
+                    break
+                if (count == 22): 
+                    driver.find_element(By.XPATH, "//*[text()='log-in']").click()
+                    break
+                if (count == 21): 
+                    driver.find_element(By.XPATH, "//*[text()='log on']").click()
+                    break
+                if (count == 20): 
+                    driver.find_element(By.XPATH, "//*[text()='Log on']").click(); 
+                    break
+                if (count == 19): 
+                    driver.find_element(By.XPATH, "//*[text()='Log in']").click()
+                    break
+                if (count == 18): 
+                    driver.find_element(By.XPATH, "//*[text()='Log-in']").click()
+                    break
+                if (count == 17): 
+                    driver.find_element(By.XPATH, "//*[text()='Log In']").click(); 
+                    break
+                if (count == 16): 
+                    driver.find_element(By.XPATH, "//*[text()='LOG-IN']").click()
+                    break
+                if (count == 15): 
+                    driver.find_element(By.XPATH, "//*[text()='LOG IN']").click()
+                    break
+                if (count == 14): 
+                    driver.find_element(By.XPATH, "//*[text()='LOGIN']").click()
+                    break
+                if (count == 13): 
+                    driver.find_element(By.XPATH, "//*[text()='Hello, Sign in']").click() #thanks Amazon
+                    break
+                if (count == 12): 
+                    driver.find_element(By.XPATH, "//*[text()='SignIn']").click()
+                    break
+                if (count == 11): 
+                    driver.find_element(By.XPATH, "//*[text()='signIn']").click()
+                    break
+                if (count == 10): 
+                    driver.find_element(By.XPATH, "//*[text()='signin']").click()
+                    break
+                if (count == 9): 
+                    driver.find_element(By.XPATH, "//*[text()='sign-in']").click()
+                    break
+                if (count == 8): 
+                    driver.find_element(By.XPATH, "//*[text()='sign in']").click()
+                    break
+                if (count == 7): 
+                    driver.find_element(By.XPATH, "//*[text()='Sign-in']").click()
+                    break
+                if (count == 6): 
+                    driver.find_element(By.XPATH, "//*[text()='Sign-In']").click()
+                    break
+                if (count == 5): 
+                    driver.find_element(By.XPATH, "//*[text()='Sign in']").click(); 
+                    break
+                if (count == 4): 
+                    driver.find_element(By.XPATH, "//*[text()='Sign In']").click()
+                    break
+                if (count == 3): 
+                    driver.find_element(By.XPATH, "//*[text()='SIGN-IN']").click()
+                    break
+                if (count == 2): 
+                    driver.find_element(By.XPATH, "//*[text()='SIGN IN']").click()
+                    break
+                if (count == 1): 
+                    driver.find_element(By.XPATH, "//*[text()='SIGNIN']").click()
+                    break
+                if (count == 0):
+                    login_not_found = True
+                    urls_no_login.append(url) # no log in found
+                    break 
+                    
+            except Exception as e:
                 count -= 1
+                continue
+        
+        if (not login_not_found):
+            records[base]['login'] = count
 
-    if (login_not_found):
-        continue
+        if (login_not_found):
+            count = 4
+            while (count >= 0):
+                try:
+                    if (count == 4): print()
+                    elif (count == 3): driver.get(url + "/login")
+                    elif (count == 2): driver.get(url + "/signin")
+                    elif (count == 1): driver.get(url + "/sign_in")
+                    elif (count == 0): records[base]['login'] = 0; break
+                    if (find_username()[0]):
+                        login_not_found = False
+                        records[base]['login'] = count
+                        break
+                    else:
+                        count -= 1
+                except:
+                    count -= 1
 
-    # At this point, bot should be at login page... now look for username box
-    sleep(2)
-    urls_found_signin_btn += 1 # increment counter of urls_found_signin
+        if (login_not_found):
+            continue
 
-    # username find
-    # ref: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete and https://www.lambdatest.com/blog/locators-in-selenium-webdriver-with-examples/
+        # At this point, bot should be at login page... now look for username box
+        sleep(2)
 
-    username_box = find_username()
-    password_box = find_password()
+        (username_box, username_code) = find_username()
+        (password_box, password_code) = find_password()
 
-    if (username_box and password_box):
-        username_box.send_keys(USERNAME)
-        password_box.send_keys(PASSWORD)
-        sleep(0.5)
-        password_box.send_keys(Keys.ENTER)
+        records[base]['username'] = username_code
+        records[base]['password'] = password_code
 
-    elif (username_box):
-        username_box.send_keys(USERNAME)
-        sleep(0.5)
-        username_box.send_keys(Keys.ENTER)
-
-    sleep(2)
-
-    if (not password_box):
-        password_box = find_password()
-        if (password_box):
+        if (username_box and password_box):
+            username_box.send_keys(USERNAME)
             password_box.send_keys(PASSWORD)
             sleep(0.5)
             password_box.send_keys(Keys.ENTER)
-    
-    sleep(2)
 
-    # grab source code, dump to url
-    source_code = driver.page_source
-    with open("./sourcecode/"+ url.split(".")[1] + "_source.html", "w", encoding="utf-8") as f:
-        f.write(source_code)
-    # grab screen shot, save it
-    driver.get_screenshot_as_file("./screenshots/" + url.split(".")[1] + "_screenshot.png")
+        elif (username_box):
+            username_box.send_keys(USERNAME)
+            sleep(0.5)
+            username_box.send_keys(Keys.ENTER)
+
+        sleep(2)
+
+        if (not password_box and username_box):
+            (password_box, password_code) = find_password()
+            records[base]['password'] = password_code
+            if (password_box):
+                password_box.send_keys(PASSWORD)
+                sleep(0.5)
+                password_box.send_keys(Keys.ENTER)
+        
+        sleep(2)
+
+        # grab source code, dump to url
+        source_code = driver.page_source
+        with open("./sourcecode/"+ url.split(".")[1] + "_source.html", "w", encoding="utf-8") as f:
+            f.write(source_code)
+        # grab screen shot, save it
+        driver.get_screenshot_as_file("./screenshots/" + url.split(".")[1] + "_screenshot.png")
+    
+    except Exception as E:
+        print("Error found")
+        print(E.with_traceback())
 
 
 sleep(2)
+print(records)
 driver.close()
 
 
