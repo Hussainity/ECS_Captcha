@@ -1,4 +1,3 @@
-from curses import KEY_A1
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver import *
@@ -169,7 +168,7 @@ def find_password():
 
 toplist = open("./top-1m.csv", "r")
 
-for i in range(0):
+for i in range(84):
     l = toplist.readline()
 
 for siteCount in range(1, 1000):
@@ -346,6 +345,41 @@ for siteCount in range(1, 1000):
                 password_box.send_keys(Keys.ENTER)
         
         sleep(2)
+
+        try:
+            x = driver.find_element(By.XPATH, "//iframe[@id='recaptcha-iframe']")
+            driver.switch_to.frame(x)
+            x = driver.find_element(By.XPATH, "//iframe[@title='reCAPTCHA']")
+            driver.switch_to.frame(x)
+        except:
+            print("No recaptcha frame")
+
+        count = 5 # set this to the number of ways we are looking for CAPTCHA
+        while (count >= 0):
+            try:
+                if (count == 5): 
+                    driver.find_element(By.XPATH, "//div[@role='checkbox']").click()
+                    break
+                if (count == 4): 
+                    x = driver.find_element(By.XPATH, "//div[@class='recaptcha-checkbox-borderAnimation']")
+                    x.click()
+                    break
+                if (count == 3): 
+                    driver.find_element(By.XPATH, "//div[@role='checkbox']").click()
+                    break
+                if (count == 2): 
+                    driver.find_element(By.XPATH, "//div[@id='recaptcha-accessible-status']").click()
+                    break
+                if (count == 1): 
+                    driver.find_element(By.XPATH, "//span[@role='checkbox']").click()
+                    break
+                if (count == 0):
+                    CAPTCHA_NOTFOUND = True
+                    print(CAPTCHA_NOTFOUND)
+                    break
+            except:
+                count -= 1
+                continue
 
         # grab source code, dump to url
         source_code = driver.page_source
