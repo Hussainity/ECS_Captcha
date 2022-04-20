@@ -1,0 +1,124 @@
+<html><head><meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>
+	Log in
+</title><meta http-equiv="Status" content="410 Gone"><meta name="robots" content="noindex,nofollow"><link type="text/css" rel="stylesheet" href="/static/css/farlex.css?19">
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/static/js/m.js?12"></script><style type="text/css">@font-face{font-family:'TFDfont';src: url('/static/font/TFDfont.eot');src: url('/static/font/TFDfont.eot#iefix') format('embedded-opentype'),url('/static/font/TFDfont.woff') format('woff'),url('/static/font/TFDfont.ttf') format('truetype'),url('/static/font/TFDfont.svg') format('svg');font-weight: normal;font-style: normal} [class^="tab"]:before{visibility:visible!important}</style>
+	<script type="text/javascript">var userId = -1;var GENERIC_ERROR = "An error occurred. Please try again."</script>
+	<meta property="og:site_name" content="TheFreeDictionary.com">
+	<meta name="Description" content="The Free Dictionary">
+</head>
+<body>
+
+<div class="menu">
+	<span class="img A logo" onclick="location.href='https://www.thefreedictionary.com'">The Free Dictionary</span>
+	
+		<select id="ddLang" name="lang" onchange="setLang(this.value)">
+			
+			<option selected="selected" value="en">English</option>
+			
+			<option value="zh">Chinese Simplified (中文简体)</option>
+			
+			<option value="nl">Dutch (Nederlands)</option>
+			
+			<option value="fr">French (Français)</option>
+			
+			<option value="de">German (Deutsch)</option>
+			
+			<option value="el">Greek (Ελληνική)</option>
+			
+			<option value="it">Italian (Italiano)</option>
+			
+			<option value="pl">Polish (Polski)</option>
+			
+			<option value="pt">Portuguese (Português)</option>
+			
+			<option value="ru">Russian (Русский)</option>
+			
+			<option value="es">Spanish (Español)</option>
+			
+			<option value="tr">Turkish (Türkçe)</option>
+			
+			<option value="ar">Arabic (العربية)</option>
+			
+			<option value="no">Norwegian (Norsk)</option>
+			
+		</select>
+	<div class="my3"><a class="tab" href="https://www.thefreedictionary.com/">Return to <span itemprop="title">The Free Dictionary</span></a></div>
+	<div class="my2"> 
+		<ul class="my">
+			<li class="sel"><a class="tab" href="/Login.aspx">Log in</a></li><li><a class="tab" href="/Registration.aspx">Register</a></li>
+		</ul>
+	</div>
+</div>
+<div class="nfobox">
+	
+	<fieldset>
+		<legend>Log in</legend>
+		
+<div id="SocialLogin">
+    <a href="/ExtLogin/FacebookLogin.aspx?"><span class="fcImg lgFacebook"></span></a>
+    <a href="/ExtLogin/GoogleSignIn.ashx"><span class="fcImg lgGoogle"></span></a>
+    <a href="?twitter&amp;"><span class="fcImg lgTwitter"></span></a>
+    <a href="/ExtLogin/VkLogin.aspx?"><span class="fcImg lgVkontakte"></span></a>
+</div>
+<div style="clear:both"></div>
+
+		<form id="login_form" name="login_form" method="POST" action="/Login.aspx" onsubmit="return LogSubmit()">
+		<span class="error_txt" id="err">Wrong e-mail or password.</span>
+
+		
+
+<table>
+	<tbody><tr>
+		<td style="vertical-align: middle;">
+			<b>E-mail</b>
+		</td>
+		<td>
+			<input type="text" id="usrName" name="usrName" autocomplete="username" maxlength="96" value="hussain_miya@hotmail.com">
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: middle;">
+			<b>Password</b>
+		</td>
+		<td>
+			<input id="usrPwd" name="usrPwd" type="password" autocomplete="current-password" maxlength="32" value="Password1!">
+			<p style="font-size: small; margin: 0; padding: 0">
+				<a onclick="location.href='/PasswordRecovery.aspx?user=' + ById('usrName').value;return false;" href="">Forgot or do not have yet?</a>
+		</p></td>
+	</tr>
+</tbody></table>
+
+<p>
+	<input type="checkbox" id="remMe" name="rememberMe"><label for="remMe">Remember Me</label>
+</p>
+<noscript>
+	<span class="error_txt"><b>Javascript is required for the form to work properly. Please enable Javascript in your browser.</b></span>
+</noscript>
+<input type="submit" name="submit" value="Log in">
+
+
+		</form> 
+	</fieldset>
+	<script type="text/javascript">
+		function ById(el) { return document.getElementById(el); }
+		function LogSubmit() {
+			if (ById('usrName').value.length == 0) { ById('err').innerHTML = "E-mail address is required."; return false}
+			if (ById('usrPwd').value.length == 0) {	ById('err').innerHTML = "Password is required.";	return false}
+			return true;
+		}
+	</script>
+
+</div>
+<div class="footer">
+	<a id="feedChild" href="/FeedChildProgram.aspx">Feed your brain, feed a hungry child</a>
+	<a id="feedback" target="feedback" href="http://app.thefreedictionary.com/feedback.aspx" onclick="open('http://app.thefreedictionary.com/feedback.aspx?url='+escape(document.location)+'&amp;ref='+escape(document.referrer), 'feedback','width=630,height=370,resizable=1');return false">Feedback</a>
+	
+	<p class="copyright">
+		Copyright © 2022 Farlex, Inc.
+	</p>
+</div>
+
+
+</body></html>

@@ -1,41 +1,219 @@
-<html lang="en"><head><base href="/"><meta charset="utf-8"><link rel="icon" href="/offshoot_assets/favicon.ico"><link rel="preconnect" href="https://analytics.archive.org"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="google-site-verification" content="Q2YSouphkkgHkFNP7FgAkc4TmBs1Gmag3uGNndb53B8"><meta name="google-site-verification" content="bpjKvUvsX0lxfmjg19TLblckWkDpnptZEYsBntApxUk"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate"><link rel="stylesheet" href="/offshoot_assets/index.56c7d2ac8e12.css"><title>Internet Archive: Digital Library of Free &amp; Borrowable Books, Movies, Music &amp; Wayback Machine</title><script src="https://polyfill.archive.org/v3/polyfill.min.js?features=fetch%2CIntersectionObserver%2CResizeObserver%2CglobalThis%2CElement.prototype.getAttributeNames%2CString.prototype.startsWith%2CArray.prototype.flat%2CURL%2CURLSearchParams"></script><script src="/offshoot_assets/vendor/lit@2.0.2/polyfill-support.js"></script><script src="/offshoot_assets/vendor/@webcomponents/webcomponentsjs@2.6.0/webcomponents-loader.js"></script><script src="/offshoot_assets/vendor/@elastic/apm-rum@5.9.1/elastic-apm-rum.umd.min.js"></script><script>// disable apm during unit testing and prerendering
-        var urlParams = new URLSearchParams(window.location.search);
-        var prerenderParam = urlParams.get('prerender');
-        var isPrerendering = prerenderParam === '1';
+<html lang="en"><!-- __ _ _ _ __| |_ (_)__ _____
+    / _` | '_/ _| ' \| |\ V / -_)
+    \__,_|_| \__|_||_|_| \_/\___| --><head data-release="a998911f"><style>body {transition: opacity ease-in 0.2s; } 
+body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
+</style>
+    <title>Log in to the Internet Archive</title>
 
-      if (!isPrerendering && 'false' !== 'true') {
-        elasticApm.init({
-          serviceName: 'offshoot',
-          serverUrl: 'https://apm.ux.archive.org',
-        });
-      }</script><script>/* @licstart  The following is the entire license notice for the
-      * JavaScript code in this page.
-      *
-      * This program is free software: you can redistribute it and/or modify
-      * it under the terms of the GNU Affero General Public License as published by
-      * the Free Software Foundation, either version 3 of the License, or
-      * (at your option) any later version.
-      *
-      * This program is distributed in the hope that it will be useful,
-      * but WITHOUT ANY WARRANTY; without even the implied warranty of
-      * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-      * GNU Affero General Public License for more details.
-      *
-      * You should have received a copy of the GNU Affero General Public License
-      * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-      *
-      * @licend  The above is the entire license notice
-      * for the JavaScript code in this page.
-      */</script><script charset="utf-8" src="/offshoot_assets/js/commons.ac6faaac2a73e2c7c382.js"></script><script charset="utf-8" src="/offshoot_assets/js/psaBanners.8dc71c1ca34d431dc326.js"></script><script charset="utf-8" src="/offshoot_assets/js/modalManager.2cf044e79051a809383f.js"></script><script charset="utf-8" src="/offshoot_assets/js/appServices.d2834bfd8d46b61e21e4.js"></script><script charset="utf-8" src="/offshoot_assets/js/sentry.0def750166649c08f34b.js"></script><script charset="utf-8" src="/offshoot_assets/js/fetchHandler.dc033210c5d4bcd4a7d4.js"></script><script charset="utf-8" src="/offshoot_assets/js/bannerService.726515bd79d445dfa362.js"></script><script charset="utf-8" src="/offshoot_assets/js/keyValueStoreManager.49ae10440a457501b54b.js"></script><script charset="utf-8" src="/offshoot_assets/js/configService.ee2104d1eba14a6d9014.js"></script><script charset="utf-8" src="/offshoot_assets/js/themeManager.47564160538cd540876b.js"></script><script charset="utf-8" src="/offshoot_assets/js/userService.4ea83753c28ea7eae1fa.js"></script><script charset="utf-8" src="/offshoot_assets/js/sharedResizeObserver.abf2908eb51e46ec7254.js"></script><script charset="utf-8" src="/offshoot_assets/js/localCache.2af197664f40c57cec43.js"></script><script charset="utf-8" src="/offshoot_assets/js/appFooter.e40da25d3d40f4fb71cf.js"></script><script charset="utf-8" src="/offshoot_assets/js/homePage.b2a40cbc318f2c777377.js"></script><script charset="utf-8" src="/offshoot_assets/js/pageMetadataService.4dcb16d0722beb66cfd6.js"></script><script charset="utf-8" src="/offshoot_assets/js/lightDomTunnel.40023ff8be2d76c30cb4.js"></script><script charset="utf-8" src="/offshoot_assets/js/mediaCountService.654af5055c1a21f3e120.js"></script><style data-manager="theme-manager"><!----><!---->
-      :root {
-        --ia-theme-primary-background-color: #eee;
-        --ia-theme-secondary-background-color: #fff;
-        --ia-theme-primary-text-color: #2c2c2c;
-        --ia-theme-secondary-text-color: #666;
-        --ia-theme-link-color: #4b64ff;
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <meta name="google-site-verification" content="Q2YSouphkkgHkFNP7FgAkc4TmBs1Gmag3uGNndb53B8">
+    <meta name="google-site-verification" content="bpjKvUvsX0lxfmjg19TLblckWkDpnptZEYsBntApxUk">
+
+    <script>
+/* @licstart  The following is the entire license notice for the
+ * JavaScript code in this page.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @licend  The above is the entire license notice
+ * for the JavaScript code in this page.
+ */
+</script>
+              <script>window.archive_setup=[]</script>
+        <script src="https://polyfill.archive.org/v3/polyfill.min.js?features=fetch%2CIntersectionObserver%2CResizeObserver%2CglobalThis%2CElement.prototype.getAttributeNames%2CString.prototype.startsWith%2CArray.prototype.flat"></script>
+    <meta charset="UTF-8">
+    <script src="//archive.org/includes/build/js/ia-sentry.min.js?v=a998911f" type="text/javascript"></script>
+    <script src="//archive.org/includes/build/npm/jquery/dist/jquery.min.js?v1.12.4" type="text/javascript"></script>
+    <script src="//archive.org/includes/build/npm/jquery-ui-dist/jquery-ui.min.js?v1.12.1" type="text/javascript"></script>
+    <script src="//archive.org/includes/build/npm/bootstrap/dist/js/bootstrap.min.js?v3.0.0" type="text/javascript"></script>
+    <script src="//archive.org/components/npm/clipboard/dist/clipboard.js?v=a998911f" type="text/javascript"></script>
+    <script src="//archive.org/components/npm/@babel/polyfill/dist/polyfill.min.js?v=a998911f" type="text/javascript"></script>
+    <script src="//archive.org/includes/build/js/ie-dom-node-remove-polyfill.min.js?v=a998911f" type="text/javascript"></script>
+    <script src="//archive.org/includes/build/npm/lit/polyfill-support.js?v=a998911f" type="text/javascript"></script>
+    <script src="//archive.org/includes/build/js/polyfill.min.js?v=a998911f" type="text/javascript"></script>
+                      <meta property="mediatype" content="">
+                      <meta property="primary_collection" content="">
+            <script src="//archive.org/includes/analytics.js?v=a998911f" type="text/javascript"></script>
+    <script src="//archive.org/components/npm/@webcomponents/webcomponentsjs/webcomponents-bundle.js?v=a998911f" type="text/javascript"></script>
+    <script src="//archive.org/includes/build/js/more-facets.min.js?v=a998911f" type="text/javascript"></script>
+    <script src="//archive.org/includes/build/js/ia-topnav.min.js?v=a998911f" type="text/javascript"></script>
+    <script src="//archive.org/includes/build/js/archive.min.js?v=a998911f" type="text/javascript"></script>
+    <script src="//archive.org/includes/build/js/login.min.js?v=a998911f" type="text/javascript"></script>
+    <link href="//archive.org/includes/build/css/archive.min.css?v=a998911f" rel="stylesheet" type="text/css">
+    <link rel="SHORTCUT ICON" href="https://archive.org/images/glogo.jpg">
+      <script src="https://accounts.google.com/gsi/client" async="" onload="window.onGoogleAuthLoad()" onerror="window.onGoogleAuthLoadError()" dynamicimportloaded="true"></script><link media="screen" href="/components/manage/manage.css" type="text/css" rel="stylesheet"><style id="googleidentityservice_button_styles">.qJTHM{-webkit-user-select:none;color:#202124;direction:ltr;-webkit-touch-callout:none;font-family:'Roboto-Regular',arial,sans-serif;-webkit-font-smoothing:antialiased;font-weight:400;margin:0;overflow:hidden;-webkit-text-size-adjust:100%}.ynRLnc{left:-9999px;position:absolute;top:-9999px}.L6cTce{display:none}.bltWBb{word-break:break-all}.hSRGPd{color:#1a73e8;cursor:pointer;font-weight:500;text-decoration:none}.Bz112c-W3lGp{height:16px;width:16px}.Bz112c-E3DyYd{height:20px;width:20px}.Bz112c-r9oPif{height:24px;width:24px}.Bz112c-uaxL4e{-webkit-border-radius:10px;border-radius:10px}.LgbsSe-Bz112c{display:block}.S9gUrf-YoZ4jf,.S9gUrf-YoZ4jf *{border:none;margin:0;padding:0}.fFW7wc-ibnC6b>.aZ2wEe>div{border-color:#4285f4}.P1ekSe-ZMv3u>div:nth-child(1){background-color:#1a73e8!important}.P1ekSe-ZMv3u>div:nth-child(2),.P1ekSe-ZMv3u>div:nth-child(3){background-image:linear-gradient(to right,rgba(255,255,255,.7),rgba(255,255,255,.7)),linear-gradient(to right,#1a73e8,#1a73e8)!important}.haAclf{display:inline-block}.nsm7Bb-HzV7m-LgbsSe{-webkit-border-radius:4px;border-radius:4px;-webkit-box-sizing:border-box;box-sizing:border-box;-webkit-transition:background-color .218s,border-color .218s;transition:background-color .218s,border-color .218s;-webkit-user-select:none;-webkit-appearance:none;background-color:#fff;background-image:none;border:1px solid #dadce0;color:#3c4043;cursor:pointer;font-family:'Google Sans',arial,sans-serif;font-size:14px;height:40px;letter-spacing:0.25px;outline:none;overflow:hidden;padding:0 12px;position:relative;text-align:center;vertical-align:middle;white-space:nowrap;width:auto}@media screen and (-ms-high-contrast:active){.nsm7Bb-HzV7m-LgbsSe{border:2px solid windowText;color:windowText}}.nsm7Bb-HzV7m-LgbsSe.pSzOP-SxQuSe{font-size:14px;height:32px;letter-spacing:0.25px;padding:0 10px}.nsm7Bb-HzV7m-LgbsSe.purZT-SxQuSe{font-size:11px;height:20px;letter-spacing:0.3px;padding:0 8px}.nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe{padding:0;width:40px}.nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe.pSzOP-SxQuSe{width:32px}.nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe.purZT-SxQuSe{width:20px}.nsm7Bb-HzV7m-LgbsSe.JGcpL-RbRzK{-webkit-border-radius:20px;border-radius:20px}.nsm7Bb-HzV7m-LgbsSe.JGcpL-RbRzK.pSzOP-SxQuSe{-webkit-border-radius:16px;border-radius:16px}.nsm7Bb-HzV7m-LgbsSe.JGcpL-RbRzK.purZT-SxQuSe{-webkit-border-radius:10px;border-radius:10px}.nsm7Bb-HzV7m-LgbsSe.MFS4be-Ia7Qfc{border:none;color:#fff}.nsm7Bb-HzV7m-LgbsSe.MFS4be-v3pZbf-Ia7Qfc{background-color:#1a73e8}.nsm7Bb-HzV7m-LgbsSe.MFS4be-JaPV2b-Ia7Qfc{background-color:#202124;color:#e8eaed}.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c{height:18px;margin-right:8px;min-width:18px;width:18px}.nsm7Bb-HzV7m-LgbsSe.pSzOP-SxQuSe .nsm7Bb-HzV7m-LgbsSe-Bz112c{height:14px;min-width:14px;width:14px}.nsm7Bb-HzV7m-LgbsSe.purZT-SxQuSe .nsm7Bb-HzV7m-LgbsSe-Bz112c{height:10px;min-width:10px;width:10px}.nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-Bz112c{margin-left:8px;margin-right:-4px}.nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c{margin:0;padding:10px}.nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe.pSzOP-SxQuSe .nsm7Bb-HzV7m-LgbsSe-Bz112c{padding:8px}.nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe.purZT-SxQuSe .nsm7Bb-HzV7m-LgbsSe-Bz112c{padding:4px}.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{-webkit-border-top-left-radius:3px;border-top-left-radius:3px;-webkit-border-bottom-left-radius:3px;border-bottom-left-radius:3px;display:-webkit-box;display:-webkit-flex;display:flex;justify-content:center;-webkit-align-items:center;align-items:center;background-color:#fff;height:36px;margin-left:-10px;margin-right:12px;min-width:36px;width:36px}.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf .nsm7Bb-HzV7m-LgbsSe-Bz112c,.nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf .nsm7Bb-HzV7m-LgbsSe-Bz112c{margin:0;padding:0}.nsm7Bb-HzV7m-LgbsSe.pSzOP-SxQuSe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{height:28px;margin-left:-8px;margin-right:10px;min-width:28px;width:28px}.nsm7Bb-HzV7m-LgbsSe.purZT-SxQuSe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{height:16px;margin-left:-6px;margin-right:8px;min-width:16px;width:16px}.nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{-webkit-border-radius:3px;border-radius:3px;margin-left:2px;margin-right:0;padding:0}.nsm7Bb-HzV7m-LgbsSe.JGcpL-RbRzK .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{-webkit-border-radius:18px;border-radius:18px}.nsm7Bb-HzV7m-LgbsSe.pSzOP-SxQuSe.JGcpL-RbRzK .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{-webkit-border-radius:14px;border-radius:14px}.nsm7Bb-HzV7m-LgbsSe.purZT-SxQuSe.JGcpL-RbRzK .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{-webkit-border-radius:8px;border-radius:8px}.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-bN97Pc-sM5MNb{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-flex-direction:row;flex-direction:row;justify-content:space-between;-webkit-flex-wrap:nowrap;flex-wrap:nowrap;height:100%;position:relative;width:100%}.nsm7Bb-HzV7m-LgbsSe .oXtfBe-l4eHX{justify-content:center}.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-BPrWId{-webkit-flex-grow:1;flex-grow:1;font-family:'Google Sans',arial,sans-serif;font-weight:500;overflow:hidden;text-overflow:ellipsis;vertical-align:top}.nsm7Bb-HzV7m-LgbsSe.purZT-SxQuSe .nsm7Bb-HzV7m-LgbsSe-BPrWId{font-weight:300}.nsm7Bb-HzV7m-LgbsSe .oXtfBe-l4eHX .nsm7Bb-HzV7m-LgbsSe-BPrWId{-webkit-flex-grow:0;flex-grow:0}.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-MJoBVe{-webkit-transition:background-color .218s;transition:background-color .218s;bottom:0;left:0;position:absolute;right:0;top:0}.nsm7Bb-HzV7m-LgbsSe:hover{-webkit-box-shadow:none;box-shadow:none;border-color:#d2e3fc;outline:none}.nsm7Bb-HzV7m-LgbsSe:focus{-webkit-box-shadow:none;box-shadow:none;border-color:#d2e3fc;outline:none}.nsm7Bb-HzV7m-LgbsSe:hover .nsm7Bb-HzV7m-LgbsSe-MJoBVe{background:rgba(66,133,244,.04)}.nsm7Bb-HzV7m-LgbsSe:focus .nsm7Bb-HzV7m-LgbsSe-MJoBVe{background:rgba(66,133,244,.04)}.nsm7Bb-HzV7m-LgbsSe:active .nsm7Bb-HzV7m-LgbsSe-MJoBVe{background:rgba(66,133,244,.1)}.nsm7Bb-HzV7m-LgbsSe.MFS4be-Ia7Qfc:hover .nsm7Bb-HzV7m-LgbsSe-MJoBVe{background:rgba(255,255,255,.24)}.nsm7Bb-HzV7m-LgbsSe.MFS4be-Ia7Qfc:focus .nsm7Bb-HzV7m-LgbsSe-MJoBVe{background:rgba(255,255,255,.24)}.nsm7Bb-HzV7m-LgbsSe.MFS4be-Ia7Qfc:active .nsm7Bb-HzV7m-LgbsSe-MJoBVe{background:rgba(255,255,255,.32)}.nsm7Bb-HzV7m-LgbsSe .n1UuX-DkfjY{-webkit-border-radius:50%;border-radius:50%;display:-webkit-box;display:-webkit-flex;display:flex;height:20px;margin-left:-4px;margin-right:8px;min-width:20px;width:20px}.nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-BPrWId{font-family:'Roboto';font-size:12px;text-align:left}.nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-BPrWId .ssJRIf,.nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-BPrWId .K4efff .fmcmS{overflow:hidden;text-overflow:ellipsis}.nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-BPrWId .K4efff{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;color:#5f6368;fill:#5f6368;font-size:11px;font-weight:400}.nsm7Bb-HzV7m-LgbsSe.jVeSEe.MFS4be-Ia7Qfc .nsm7Bb-HzV7m-LgbsSe-BPrWId .K4efff{color:#e8eaed;fill:#e8eaed}.nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-BPrWId .K4efff .Bz112c{height:18px;margin:-3px -3px -3px 2px;min-width:18px;width:18px}.nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{-webkit-border-top-left-radius:0;border-top-left-radius:0;-webkit-border-bottom-left-radius:0;border-bottom-left-radius:0;-webkit-border-top-right-radius:3px;border-top-right-radius:3px;-webkit-border-bottom-right-radius:3px;border-bottom-right-radius:3px;margin-left:12px;margin-right:-10px}.nsm7Bb-HzV7m-LgbsSe.jVeSEe.JGcpL-RbRzK .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{-webkit-border-radius:18px;border-radius:18px}.L5Fo6c-sM5MNb{border:0;display:block;left:0;position:relative;top:0}.L5Fo6c-bF1uUb{-webkit-border-radius:4px;border-radius:4px;bottom:0;cursor:pointer;left:0;position:absolute;right:0;top:0}.L5Fo6c-bF1uUb:focus{border:none;outline:none}sentinel{}
+/*# sourceURL=/_/gsi/_/ss/k=gsi.gsi.9X8X3kFk4XI.L.W.O/am=Qg/d=1/rs=AF0KOtUKEJzY41aSO3cC39DyjO1s9WJLjg/m=gis_client_button_style */</style><link id="googleidentityservice" type="text/css" media="all" rel="stylesheet" href="https://accounts.google.com/gsi/style"></head>
+  <body class="navia ">
+    <a href="#maincontent" class="hidden-for-screen-readers">Skip to main content</a>
+
+    <!-- Wraps all page content -->
+    <div id="wrap">
+                    <div class="ia-banners">
+              <div class="ia-banner hidden outage-2022-01-14 visible" data-campaign="outage-2022-01-14">
+        <p>Due to a planned power outage on Friday, 1/14, between 8am-1pm PST, some services may be impacted.</p>
+        <form class="banner-close" action="" method="get" data-action="ia-banner-close">
+          <fieldset>
+            <button aria-label="Close Banner" type="submit"></button>
+          </fieldset>
+        </form>
+      </div>
+          </div>
+                    <div id="topnav">
+                    <ia-topnav basehost="https://archive.org" mediabasehost="https://archive.org" username="" userprofilelastmodified="" screenname="" searchquery="" config="eyJ1cGxvYWRVUkwiOiJodHRwczpcL1wvYXJjaGl2ZS5vcmdcL2NyZWF0ZSIsImV2ZW50Q2F0ZWdvcnkiOiJUb3BOYXYiLCJ3YXliYWNrUGFnZXNBcmNoaXZlZCI6IjY4MCBiaWxsaW9uIn0=" menus="eyJhdWRpbyI6eyJoZWFkaW5nIjoiSW50ZXJuZXQgQXJjaGl2ZSBBdWRpbyIsImljb25MaW5rcyI6W3siaWNvbiI6Imh0dHBzOlwvXC9hcmNoaXZlLm9yZ1wvc2VydmljZXNcL2ltZ1wvZXRyZWUiLCJ0aXRsZSI6IkxpdmUgTXVzaWMgQXJjaGl2ZSIsInVybCI6IlwvZGV0YWlsc1wvZXRyZWUifSx7Imljb24iOiJodHRwczpcL1wvYXJjaGl2ZS5vcmdcL3NlcnZpY2VzXC9pbWdcL2xpYnJpdm94YXVkaW8iLCJ0aXRsZSI6IkxpYnJpdm94IEZyZWUgQXVkaW8iLCJ1cmwiOiJcL2RldGFpbHNcL2xpYnJpdm94YXVkaW8ifV0sImZlYXR1cmVkTGlua3MiOlt7InRpdGxlIjoiQWxsIEF1ZGlvIiwidXJsIjoiXC9kZXRhaWxzXC9hdWRpbyJ9LHsidGl0bGUiOiJUaGlzIEp1c3QgSW4iLCJ1cmwiOiJcL3NlYXJjaC5waHA/cXVlcnk9bWVkaWF0eXBlOmF1ZGlvJnNvcnQ9LXB1YmxpY2RhdGUifSx7InRpdGxlIjoiR3JhdGVmdWwgRGVhZCIsInVybCI6IlwvZGV0YWlsc1wvR3JhdGVmdWxEZWFkIn0seyJ0aXRsZSI6Ik5ldGxhYmVscyIsInVybCI6IlwvZGV0YWlsc1wvbmV0bGFiZWxzIn0seyJ0aXRsZSI6Ik9sZCBUaW1lIFJhZGlvIiwidXJsIjoiXC9kZXRhaWxzXC9vbGR0aW1lcmFkaW8ifSx7InRpdGxlIjoiNzggUlBNcyBhbmQgQ3lsaW5kZXIgUmVjb3JkaW5ncyIsInVybCI6IlwvZGV0YWlsc1wvNzhycG0ifV0sImxpbmtzIjpbeyJ0aXRsZSI6IkF1ZGlvIEJvb2tzICYgUG9ldHJ5IiwidXJsIjoiXC9kZXRhaWxzXC9hdWRpb19ib29rc3BvZXRyeSJ9LHsidGl0bGUiOiJDb21wdXRlcnMsIFRlY2hub2xvZ3kgYW5kIFNjaWVuY2UiLCJ1cmwiOiJcL2RldGFpbHNcL2F1ZGlvX3RlY2gifSx7InRpdGxlIjoiTXVzaWMsIEFydHMgJiBDdWx0dXJlIiwidXJsIjoiXC9kZXRhaWxzXC9hdWRpb19tdXNpYyJ9LHsidGl0bGUiOiJOZXdzICYgUHVibGljIEFmZmFpcnMiLCJ1cmwiOiJcL2RldGFpbHNcL2F1ZGlvX25ld3MifSx7InRpdGxlIjoiU3Bpcml0dWFsaXR5ICYgUmVsaWdpb24iLCJ1cmwiOiJcL2RldGFpbHNcL2F1ZGlvX3JlbGlnaW9uIn0seyJ0aXRsZSI6IlBvZGNhc3RzIiwidXJsIjoiXC9kZXRhaWxzXC9wb2RjYXN0cyJ9LHsidGl0bGUiOiJSYWRpbyBOZXdzIEFyY2hpdmUiLCJ1cmwiOiJcL2RldGFpbHNcL3JhZGlvIn1dfSwiaW1hZ2VzIjp7ImhlYWRpbmciOiJJbWFnZXMiLCJpY29uTGlua3MiOlt7Imljb24iOiJodHRwczpcL1wvYXJjaGl2ZS5vcmdcL3NlcnZpY2VzXC9pbWdcL21ldHJvcG9saXRhbm11c2V1bW9mYXJ0LWdhbGxlcnkiLCJ0aXRsZSI6Ik1ldHJvcG9saXRhbiBNdXNldW0iLCJ1cmwiOiJcL2RldGFpbHNcL21ldHJvcG9saXRhbm11c2V1bW9mYXJ0LWdhbGxlcnkifSx7Imljb24iOiJodHRwczpcL1wvYXJjaGl2ZS5vcmdcL3NlcnZpY2VzXC9pbWdcL2NsZXZlbGFuZGFydCIsInRpdGxlIjoiQ2xldmVsYW5kIE11c2V1bSBvZiBBcnQiLCJ1cmwiOiJcL2RldGFpbHNcL2NsZXZlbGFuZGFydCJ9XSwiZmVhdHVyZWRMaW5rcyI6W3sidGl0bGUiOiJBbGwgSW1hZ2VzIiwidXJsIjoiXC9kZXRhaWxzXC9pbWFnZSJ9LHsidGl0bGUiOiJUaGlzIEp1c3QgSW4iLCJ1cmwiOiJcL3NlYXJjaC5waHA/cXVlcnk9bWVkaWF0eXBlOmltYWdlJnNvcnQ9LXB1YmxpY2RhdGUifSx7InRpdGxlIjoiRmxpY2tyIENvbW1vbnMiLCJ1cmwiOiJcL2RldGFpbHNcL2ZsaWNrcmNvbW1vbnMifSx7InRpdGxlIjoiT2NjdXB5IFdhbGwgU3RyZWV0IEZsaWNrciIsInVybCI6IlwvZGV0YWlsc1wvZmxpY2tyLW93cyJ9LHsidGl0bGUiOiJDb3ZlciBBcnQiLCJ1cmwiOiJcL2RldGFpbHNcL2NvdmVyYXJ0YXJjaGl2ZSJ9LHsidGl0bGUiOiJVU0dTIE1hcHMiLCJ1cmwiOiJcL2RldGFpbHNcL21hcHNfdXNncyJ9XSwibGlua3MiOlt7InRpdGxlIjoiTkFTQSBJbWFnZXMiLCJ1cmwiOiJcL2RldGFpbHNcL25hc2EifSx7InRpdGxlIjoiU29sYXIgU3lzdGVtIENvbGxlY3Rpb24iLCJ1cmwiOiJcL2RldGFpbHNcL3NvbGFyc3lzdGVtY29sbGVjdGlvbiJ9LHsidGl0bGUiOiJBbWVzIFJlc2VhcmNoIENlbnRlciIsInVybCI6IlwvZGV0YWlsc1wvYW1lc3Jlc2VhcmNoY2VudGVyaW1hZ2VsaWJyYXJ5In1dfSwibW9yZSI6W3sidGl0bGUiOiJBYm91dCIsInVybCI6IlwvYWJvdXRcLyJ9LHsidGl0bGUiOiJCbG9nIiwidXJsIjoiaHR0cHM6XC9cL2Jsb2cuYXJjaGl2ZS5vcmcifSx7InRpdGxlIjoiUHJvamVjdHMiLCJ1cmwiOiJcL3Byb2plY3RzXC8ifSx7InRpdGxlIjoiSGVscCIsInVybCI6IlwvYWJvdXRcL2ZhcXMucGhwIn0seyJ0aXRsZSI6IkRvbmF0ZSIsInVybCI6IlwvZG9uYXRlP29yaWdpbj1pYXd3dy1Ub3BOYXZEb25hdGVCdXR0b24ifSx7InRpdGxlIjoiQ29udGFjdCIsInVybCI6IlwvYWJvdXRcL2NvbnRhY3QucGhwIn0seyJ0aXRsZSI6IkpvYnMiLCJ1cmwiOiJcL2Fib3V0XC9qb2JzLnBocCJ9LHsidGl0bGUiOiJWb2x1bnRlZXIiLCJ1cmwiOiJcL2Fib3V0XC92b2x1bnRlZXJwb3NpdGlvbnMucGhwIn0seyJ0aXRsZSI6IlBlb3BsZSIsInVybCI6IlwvYWJvdXRcL2Jpb3MucGhwIn1dLCJzb2Z0d2FyZSI6eyJoZWFkaW5nIjoiU29mdHdhcmUiLCJpY29uTGlua3MiOlt7Imljb24iOiJodHRwczpcL1wvYXJjaGl2ZS5vcmdcL3NlcnZpY2VzXC9pbWdcL2ludGVybmV0YXJjYWRlIiwidGl0bGUiOiJJbnRlcm5ldCBBcmNhZGUiLCJ1cmwiOiJcL2RldGFpbHNcL2ludGVybmV0YXJjYWRlIn0seyJpY29uIjoiaHR0cHM6XC9cL2FyY2hpdmUub3JnXC9zZXJ2aWNlc1wvaW1nXC9jb25zb2xlbGl2aW5ncm9vbSIsInRpdGxlIjoiQ29uc29sZSBMaXZpbmcgUm9vbSIsInVybCI6IlwvZGV0YWlsc1wvY29uc29sZWxpdmluZ3Jvb20ifV0sImZlYXR1cmVkTGlua3MiOlt7InRpdGxlIjoiQWxsIFNvZnR3YXJlIiwidXJsIjoiXC9kZXRhaWxzXC9zb2Z0d2FyZSJ9LHsidGl0bGUiOiJUaGlzIEp1c3QgSW4iLCJ1cmwiOiJcL3NlYXJjaC5waHA/cXVlcnk9bWVkaWF0eXBlOnNvZnR3YXJlJnNvcnQ9LXB1YmxpY2RhdGUifSx7InRpdGxlIjoiT2xkIFNjaG9vbCBFbXVsYXRpb24iLCJ1cmwiOiJcL2RldGFpbHNcL3Rvc2VjIn0seyJ0aXRsZSI6Ik1TLURPUyBHYW1lcyIsInVybCI6IlwvZGV0YWlsc1wvc29mdHdhcmVsaWJyYXJ5X21zZG9zX2dhbWVzIn0seyJ0aXRsZSI6Ikhpc3RvcmljYWwgU29mdHdhcmUiLCJ1cmwiOiJcL2RldGFpbHNcL2hpc3RvcmljYWxzb2Z0d2FyZSJ9LHsidGl0bGUiOiJDbGFzc2ljIFBDIEdhbWVzIiwidXJsIjoiXC9kZXRhaWxzXC9jbGFzc2ljcGNnYW1lcyJ9LHsidGl0bGUiOiJTb2Z0d2FyZSBMaWJyYXJ5IiwidXJsIjoiXC9kZXRhaWxzXC9zb2Z0d2FyZWxpYnJhcnkifV0sImxpbmtzIjpbeyJ0aXRsZSI6IktvZGkgQXJjaGl2ZSBhbmQgU3VwcG9ydCBGaWxlIiwidXJsIjoiXC9kZXRhaWxzXC9rb2RpX2FyY2hpdmUifSx7InRpdGxlIjoiVmludGFnZSBTb2Z0d2FyZSIsInVybCI6IlwvZGV0YWlsc1wvdmludGFnZXNvZnR3YXJlIn0seyJ0aXRsZSI6IkFQSyIsInVybCI6IlwvZGV0YWlsc1wvYXBrYXJjaGl2ZSJ9LHsidGl0bGUiOiJNUy1ET1MiLCJ1cmwiOiJcL2RldGFpbHNcL3NvZnR3YXJlbGlicmFyeV9tc2RvcyJ9LHsidGl0bGUiOiJDRC1ST00gU29mdHdhcmUiLCJ1cmwiOiJcL2RldGFpbHNcL2NkLXJvbXMifSx7InRpdGxlIjoiQ0QtUk9NIFNvZnR3YXJlIExpYnJhcnkiLCJ1cmwiOiJcL2RldGFpbHNcL2Nkcm9tc29mdHdhcmUifSx7InRpdGxlIjoiU29mdHdhcmUgU2l0ZXMiLCJ1cmwiOiJcL2RldGFpbHNcL3NvZnR3YXJlc2l0ZXMifSx7InRpdGxlIjoiVHVjb3dzIFNvZnR3YXJlIExpYnJhcnkiLCJ1cmwiOiJcL2RldGFpbHNcL3R1Y293cyJ9LHsidGl0bGUiOiJTaGFyZXdhcmUgQ0QtUk9NcyIsInVybCI6IlwvZGV0YWlsc1wvY2RiYnNhcmNoaXZlIn0seyJ0aXRsZSI6IlNvZnR3YXJlIENhcHN1bGVzIENvbXBpbGF0aW9uIiwidXJsIjoiXC9kZXRhaWxzXC9zb2Z0d2FyZWNhcHN1bGVzIn0seyJ0aXRsZSI6IkNELVJPTSBJbWFnZXMiLCJ1cmwiOiJcL2RldGFpbHNcL2Nkcm9taW1hZ2VzIn0seyJ0aXRsZSI6IlpYIFNwZWN0cnVtIiwidXJsIjoiXC9kZXRhaWxzXC9zb2Z0d2FyZWxpYnJhcnlfenhfc3BlY3RydW0ifSx7InRpdGxlIjoiRE9PTSBMZXZlbCBDRCIsInVybCI6IlwvZGV0YWlsc1wvZG9vbS1jZHMifV19LCJ0ZXh0cyI6eyJoZWFkaW5nIjoiQm9va3MiLCJpY29uTGlua3MiOlt7InRpdGxlIjoiQm9va3MgdG8gQm9ycm93IiwiaWNvbiI6Imh0dHBzOlwvXC9hcmNoaXZlLm9yZ1wvc2VydmljZXNcL2ltZ1wvaW5saWJyYXJ5IiwidXJsIjoiXC9kZXRhaWxzXC9pbmxpYnJhcnkifSx7InRpdGxlIjoiT3BlbiBMaWJyYXJ5IiwiaWNvbiI6Imh0dHBzOlwvXC9hcmNoaXZlLm9yZ1wvaW1hZ2VzXC93aWRnZXRPTC5wbmciLCJ1cmwiOiJodHRwczpcL1wvb3BlbmxpYnJhcnkub3JnXC8ifV0sImZlYXR1cmVkTGlua3MiOlt7InRpdGxlIjoiQWxsIEJvb2tzIiwidXJsIjoiXC9kZXRhaWxzXC9ib29rcyJ9LHsidGl0bGUiOiJBbGwgVGV4dHMiLCJ1cmwiOiJcL2RldGFpbHNcL3RleHRzIn0seyJ0aXRsZSI6IlRoaXMgSnVzdCBJbiIsInVybCI6Ilwvc2VhcmNoLnBocD9xdWVyeT1tZWRpYXR5cGU6dGV4dHMmc29ydD0tcHVibGljZGF0ZSJ9LHsidGl0bGUiOiJTbWl0aHNvbmlhbiBMaWJyYXJpZXMiLCJ1cmwiOiJcL2RldGFpbHNcL3NtaXRoc29uaWFuIn0seyJ0aXRsZSI6IkZFRExJTksgKFVTKSIsInVybCI6IlwvZGV0YWlsc1wvZmVkbGluayJ9LHsidGl0bGUiOiJHZW5lYWxvZ3kiLCJ1cmwiOiJcL2RldGFpbHNcL2dlbmVhbG9neSJ9LHsidGl0bGUiOiJMaW5jb2xuIENvbGxlY3Rpb24iLCJ1cmwiOiJcL2RldGFpbHNcL2xpbmNvbG5jb2xsZWN0aW9uIn1dLCJsaW5rcyI6W3sidGl0bGUiOiJBbWVyaWNhbiBMaWJyYXJpZXMiLCJ1cmwiOiJcL2RldGFpbHNcL2FtZXJpY2FuYSJ9LHsidGl0bGUiOiJDYW5hZGlhbiBMaWJyYXJpZXMiLCJ1cmwiOiJcL2RldGFpbHNcL3Rvcm9udG8ifSx7InRpdGxlIjoiVW5pdmVyc2FsIExpYnJhcnkiLCJ1cmwiOiJcL2RldGFpbHNcL3VuaXZlcnNhbGxpYnJhcnkifSx7InRpdGxlIjoiUHJvamVjdCBHdXRlbmJlcmciLCJ1cmwiOiJcL2RldGFpbHNcL2d1dGVuYmVyZyJ9LHsidGl0bGUiOiJDaGlsZHJlbidzIExpYnJhcnkiLCJ1cmwiOiJcL2RldGFpbHNcL2lhY2wifSx7InRpdGxlIjoiQmlvZGl2ZXJzaXR5IEhlcml0YWdlIExpYnJhcnkiLCJ1cmwiOiJcL2RldGFpbHNcL2Jpb2RpdmVyc2l0eSJ9LHsidGl0bGUiOiJCb29rcyBieSBMYW5ndWFnZSIsInVybCI6IlwvZGV0YWlsc1wvYm9va3NieWxhbmd1YWdlIn0seyJ0aXRsZSI6IkJvb2tzIGJ5IExhbmd1YWdlIiwidXJsIjoiXC9kZXRhaWxzXC9ib29rc2J5bGFuZ3VhZ2UifSx7InRpdGxlIjoiQWRkaXRpb25hbCBDb2xsZWN0aW9ucyIsInVybCI6IlwvZGV0YWlsc1wvYWRkaXRpb25hbF9jb2xsZWN0aW9ucyJ9XX0sIndlYiI6eyJtb2JpbGVBcHBzTGlua3MiOlt7InVybCI6Imh0dHBzOlwvXC9hcHBzLmFwcGxlLmNvbVwvdXNcL2FwcFwvd2F5YmFjay1tYWNoaW5lXC9pZDEyMDE4ODgzMTMiLCJ0aXRsZSI6IldheWJhY2sgTWFjaGluZSAoaU9TKSIsImV4dGVybmFsIjp0cnVlfSx7InVybCI6Imh0dHBzOlwvXC9wbGF5Lmdvb2dsZS5jb21cL3N0b3JlXC9hcHBzXC9kZXRhaWxzP2lkPWNvbS5hcmNoaXZlLndheWJhY2ttYWNoaW5lJmhsPWVuX1VTIiwidGl0bGUiOiJXYXliYWNrIE1hY2hpbmUgKEFuZHJvaWQpIiwiZXh0ZXJuYWwiOnRydWV9XSwiYnJvd3NlckV4dGVuc2lvbnNMaW5rcyI6W3sidXJsIjoiaHR0cHM6XC9cL2Nocm9tZS5nb29nbGUuY29tXC93ZWJzdG9yZVwvZGV0YWlsXC93YXliYWNrLW1hY2hpbmVcL2Zwbm1nZGthYmttbmFkY2pwZWhtbGxsa25kcGttaWFrIiwidGl0bGUiOiJDaHJvbWUiLCJleHRlcm5hbCI6dHJ1ZX0seyJ1cmwiOiJodHRwczpcL1wvYWRkb25zLm1vemlsbGEub3JnXC9lbi1VU1wvZmlyZWZveFwvYWRkb25cL3dheWJhY2stbWFjaGluZV9uZXdcLyIsInRpdGxlIjoiRmlyZWZveCIsImV4dGVybmFsIjp0cnVlfSx7InVybCI6Imh0dHBzOlwvXC9hcHBzLmFwcGxlLmNvbVwvdXNcL2FwcFwvd2F5YmFjay1tYWNoaW5lXC9pZDE0NzI0MzI0MjI/bXQ9MTIiLCJ0aXRsZSI6IlNhZmFyaSIsImV4dGVybmFsIjp0cnVlfSx7InVybCI6Imh0dHBzOlwvXC9taWNyb3NvZnRlZGdlLm1pY3Jvc29mdC5jb21cL2FkZG9uc1wvZGV0YWlsXC93YXliYWNrLW1hY2hpbmVcL2tqbWlja2Vvb2dnaGFpbW1vbWFnYWdobm9nZWxwY3BuP2hsPWVuLVVTIiwidGl0bGUiOiJFZGdlIiwiZXh0ZXJuYWwiOnRydWV9XSwiYXJjaGl2ZUl0TGlua3MiOlt7InVybCI6Imh0dHBzOlwvXC93d3cuYXJjaGl2ZS1pdC5vcmdcL2V4cGxvcmUiLCJ0aXRsZSI6IkV4cGxvcmUgdGhlIENvbGxlY3Rpb25zIn0seyJ1cmwiOiJodHRwczpcL1wvd3d3LmFyY2hpdmUtaXQub3JnXC9ibG9nXC9sZWFybi1tb3JlXC8iLCJ0aXRsZSI6IkxlYXJuIE1vcmUifSx7InVybCI6Imh0dHBzOlwvXC93d3cuYXJjaGl2ZS1pdC5vcmdcL2NvbnRhY3QtdXMiLCJ0aXRsZSI6IkJ1aWxkIENvbGxlY3Rpb25zIn1dfSwidmlkZW8iOnsiaGVhZGluZyI6IlZpZGVvIiwiaWNvbkxpbmtzIjpbeyJpY29uIjoiaHR0cHM6XC9cL2FyY2hpdmUub3JnXC9zZXJ2aWNlc1wvaW1nXC90diIsInRpdGxlIjoiVFYgTmV3cyIsInVybCI6IlwvZGV0YWlsc1wvdHYifSx7Imljb24iOiJodHRwczpcL1wvYXJjaGl2ZS5vcmdcL3NlcnZpY2VzXC9pbWdcLzkxMSIsInRpdGxlIjoiVW5kZXJzdGFuZGluZyA5XC8xMSIsInVybCI6IlwvZGV0YWlsc1wvOTExIn1dLCJmZWF0dXJlZExpbmtzIjpbeyJ0aXRsZSI6IkFsbCBWaWRlbyIsInVybCI6IlwvZGV0YWlsc1wvbW92aWVzIn0seyJ0aXRsZSI6IlRoaXMgSnVzdCBJbiIsInVybCI6Ilwvc2VhcmNoLnBocD9xdWVyeT1tZWRpYXR5cGU6bW92aWVzJnNvcnQ9LXB1YmxpY2RhdGUifSx7InRpdGxlIjoiUHJlbGluZ2VyIEFyY2hpdmVzIiwidXJsIjoiXC9kZXRhaWxzXC9wcmVsaW5nZXIifSx7InRpdGxlIjoiRGVtb2NyYWN5IE5vdyEiLCJ1cmwiOiJcL2RldGFpbHNcL2RlbW9jcmFjeV9ub3dfdmlkIn0seyJ0aXRsZSI6Ik9jY3VweSBXYWxsIFN0cmVldCIsInVybCI6IlwvZGV0YWlsc1wvb2NjdXB5d2FsbHN0cmVldCJ9LHsidGl0bGUiOiJUViBOU0EgQ2xpcCBMaWJyYXJ5IiwidXJsIjoiXC9kZXRhaWxzXC9uc2EifV0sImxpbmtzIjpbeyJ0aXRsZSI6IkFuaW1hdGlvbiAmIENhcnRvb25zIiwidXJsIjoiXC9kZXRhaWxzXC9hbmltYXRpb25hbmRjYXJ0b29ucyJ9LHsidGl0bGUiOiJBcnRzICYgTXVzaWMiLCJ1cmwiOiJcL2RldGFpbHNcL2FydHNhbmRtdXNpY3ZpZGVvcyJ9LHsidGl0bGUiOiJDb21wdXRlcnMgJiBUZWNobm9sb2d5IiwidXJsIjoiXC9kZXRhaWxzXC9jb21wdXRlcnNhbmR0ZWNodmlkZW9zIn0seyJ0aXRsZSI6IkN1bHR1cmFsICYgQWNhZGVtaWMgRmlsbXMiLCJ1cmwiOiJcL2RldGFpbHNcL2N1bHR1cmFsYW5kYWNhZGVtaWNmaWxtcyJ9LHsidGl0bGUiOiJFcGhlbWVyYWwgRmlsbXMiLCJ1cmwiOiJcL2RldGFpbHNcL2VwaGVtZXJhIn0seyJ0aXRsZSI6Ik1vdmllcyIsInVybCI6IlwvZGV0YWlsc1wvbW92aWVzYW5kZmlsbXMifSx7InRpdGxlIjoiTmV3cyAmIFB1YmxpYyBBZmZhaXJzIiwidXJsIjoiXC9kZXRhaWxzXC9uZXdzYW5kcHVibGljYWZmYWlycyJ9LHsidGl0bGUiOiJTcGlyaXR1YWxpdHkgJiBSZWxpZ2lvbiIsInVybCI6IlwvZGV0YWlsc1wvc3Bpcml0dWFsaXR5YW5kcmVsaWdpb24ifSx7InRpdGxlIjoiU3BvcnRzIFZpZGVvcyIsInVybCI6IlwvZGV0YWlsc1wvc3BvcnRzIn0seyJ0aXRsZSI6IlRlbGV2aXNpb24iLCJ1cmwiOiJcL2RldGFpbHNcL3RlbGV2aXNpb24ifSx7InRpdGxlIjoiVmlkZW9nYW1lIFZpZGVvcyIsInVybCI6IlwvZGV0YWlsc1wvZ2FtZXZpZGVvcyJ9LHsidGl0bGUiOiJWbG9ncyIsInVybCI6IlwvZGV0YWlsc1wvdmxvZ3MifSx7InRpdGxlIjoiWW91dGggTWVkaWEiLCJ1cmwiOiJcL2RldGFpbHNcL3lvdXRoX21lZGlhIn1dfSwidXNlciI6W10sInNpZ25lZE91dCI6W3sidXJsIjoiXC9hY2NvdW50XC9zaWdudXAiLCJ0aXRsZSI6IlNpZ24gdXAgZm9yIGZyZWUiLCJhbmFseXRpY3NFdmVudCI6IkF2YXRhck1lbnUtU2lnbnVwIn0seyJ1cmwiOiJcL2FjY291bnRcL2xvZ2luIiwidGl0bGUiOiJMb2cgaW4iLCJhbmFseXRpY3NFdmVudCI6IkF2YXRhck1lbnUtTG9naW4ifV19">
+                                                            </ia-topnav>
+
+                  </div>
+            <input class="js-tvsearch" type="hidden" value="{&quot;ands&quot;:[],&quot;minday&quot;:&quot;06/04/2009&quot;,&quot;maxday&quot;:&quot;04/20/2022&quot;}">
+    
+        <!-- Begin page content -->
+        <main id="maincontent">
+                    <div class="container container-ia">
+
+                <div class="box row">
+        <div class="iaform col-md-2"></div>
+        <div class="iaform col-md-8 login-form-section">
+                <section class="login-header text-center js-third-party-auth-toggle-view">
+        <img src="https://archive.org/images/logo-circle-grey.svg">
+        <h1>Log In</h1>
+        <p>
+          Don't have an account?
+                    <a href="https://archive.org/account/signup?referer=https%3A%2F%2Farchive.org%2F">Sign up for free!</a>
+        </p>
+      </section>
+        <div class="error cookie-warning hidden">
+      <p>Please enable cookies and reload this page.</p>
+      <p>Your browser does not appear to support cookies or has them disabled for our site.</p>
+      <p>Internet Archive requires the use of <a href="https://en.wikipedia.org/wiki/HTTP_cookie">cookies</a>
+       for a more secure login system.</p>
+    </div>
+        <section class="third-party-sso">
+    <script type="module" src="/components/ia-third-party-auth/ia-third-party-auth.js?v=a998911f"></script>
+        <input class="mailing-lists-data" type="hidden" value="{&quot;ml_best_of&quot;:{&quot;key&quot;:&quot;ml_best_of&quot;,&quot;name&quot;:&quot;Best of the Archive&quot;,&quot;interest_id&quot;:&quot;e7594f8604&quot;,&quot;selected_by_default&quot;:true,&quot;public&quot;:true,&quot;short_desc&quot;:&quot;Useful resources, unique stories, and fun finds from our collections&quot;},&quot;ml_events&quot;:{&quot;key&quot;:&quot;ml_events&quot;,&quot;name&quot;:&quot;Event Notices&quot;,&quot;interest_id&quot;:&quot;98cc7bf635&quot;,&quot;selected_by_default&quot;:false,&quot;public&quot;:true,&quot;short_desc&quot;:&quot;Invitations to and news about our events&quot;}}">
+          <ia-third-party-auth referer="https://archive.org/" googleid="41383750805-slra1gn7ge0bcc8ihpqnkk7hf0fo7dem.apps.googleusercontent.com" csrftoken="ff5e88f90b81486d90d4a2b6b130669a" basehost="archive.org">
+        <div><div id="g_id_signin"><div class="S9gUrf-YoZ4jf" style="position: relative;"><div></div><iframe src="https://accounts.google.com/gsi/button?theme=outline&amp;text=signin_with&amp;size=large&amp;logo_alignment=left&amp;shape=rectangular&amp;width=250&amp;client_id=41383750805-slra1gn7ge0bcc8ihpqnkk7hf0fo7dem.apps.googleusercontent.com&amp;iframe_id=gsi_673530_344430&amp;as=yBrKFAxuW75%2BtoSploHyKQ" id="gsi_673530_344430" title="Sign in with Google Button" style="display: block; position: relative; top: 0px; left: 0px; height: 44px; width: 270px; border: 0px; margin: -2px -10px;"></iframe></div></div></div>
+      </ia-third-party-auth>
+      <h4 class="third-party-demarcator text-center js-third-party-auth-toggle-view"><div class="line"></div><span>Or</span><div class="line"></div></h4>
+    </section>
+    <section class="login-form-element js-third-party-auth-toggle-view">
+      <form method="post" name="login-form" class="iaform login-form" action="https://archive.org/account/login">
+        <input type="hidden" name="login" value="true">
+        <label>Email address
+          <input type="email" name="username" value="" autofocus="autofocus" class="form-element input-email" autocomplete="username" required="">
+        </label>
+        <div class="login-error username-error">
+                  </div>
+
+        <label>Password
+          <div class="eye-img">
+            <input type="password" name="password" class="form-element input-password" autocomplete="current-password" required="">
+            <img class="password_icon" src="https://archive.org/images/eye-crossed.svg" alt="View text">
+          </div>
+        </label>
+
+        <div class="password-message">
+          <span class="reset-password hidden">
+            <a href="https://archive.org/account/forgot-password">
+              Forgot password?
+            </a>
+          </span>
+          <span class="login-error password-error">Email address and/or Password incorrect. <a href="/account/forgot-password?email=hussain_miya%40hotmail.com">Forgot password?</a></span>
+        </div>
+
+        <label class="regular">
+          <input type="checkbox" name="remember" value="true" class="input-checkbox" checked=""> Keep me logged in
+        </label>
+
+        <input type="hidden" name="referer" class="login-referer" value="https://archive.org/">
+
+        <input type="submit" name="submit-to-login" class="btn btn-primary btn-submit input-submit js-submit-login" value="Log in">
+      </form>
+    </section>
+            </div>
+      </div>
+            </div><!--/.container-->
+              </main>
+    </div><!--/#wrap-->
+    
+    <!-- Timing ...
+     rendered on: www29.us.archive.org
+ seconds diff sec                                                         message   stack(file:line:function)
+=========================================================
+  0.0000   0.0000                                                   petabox start   var/cache/petabox/petabox/www/sf/account/login.php:1:require
+                                             |common/ia:66:require_once
+                                             |setup.php:380:log
+  0.0001   0.0001                                             begin session_start   var/cache/petabox/petabox/www/sf/account/login.php:3:session_start
+                                             |common/Cookies.inc:56:log
+  0.0020   0.0019                                              done session_start   var/cache/petabox/petabox/www/sf/account/login.php:3:session_start
+                                             |common/Cookies.inc:66:log
+  0.0022   0.0002                                             begin session_start   var/cache/petabox/petabox/www/sf/account/login.php:5:act_on_input
+                                             |common/LoginController.inc:179:logout
+                                             |Cookies.inc:40:session_start
+                                             |Cookies.inc:56:log
+  0.0022   0.0000   session_start session already started, not starting a new one   var/cache/petabox/petabox/www/sf/account/login.php:5:act_on_input
+                                             |common/LoginController.inc:179:logout
+                                             |Cookies.inc:40:session_start
+                                             |Cookies.inc:59:log
+  0.0023   0.0001                                             begin session_start   var/cache/petabox/petabox/www/sf/account/login.php:5:act_on_input
+                                             |common/LoginController.inc:182:session_start
+                                             |Cookies.inc:56:log
+  0.0023   0.0000   session_start session already started, not starting a new one   var/cache/petabox/petabox/www/sf/account/login.php:5:act_on_input
+                                             |common/LoginController.inc:182:session_start
+                                             |Cookies.inc:59:log
+  0.0071   0.0048                                             begin session_start   var/cache/petabox/petabox/www/sf/account/login.php:5:act_on_input
+                                             |common/LoginController.inc:190:head
+                                             |Nav.inc:172:__construct
+                                             |Nav.inc:263:session_start
+                                             |Cookies.inc:56:log
+  0.0072   0.0000   session_start session already started, not starting a new one   var/cache/petabox/petabox/www/sf/account/login.php:5:act_on_input
+                                             |common/LoginController.inc:190:head
+                                             |Nav.inc:172:__construct
+                                             |Nav.inc:263:session_start
+                                             |Cookies.inc:59:log
+  0.0169   0.0097                                                        bug dump   var/cache/petabox/petabox/www/sf/account/login.php:5:act_on_input
+                                             |common/LoginController.inc:204:footer
+                                             |setup.php:149:footer
+                                             |Nav.inc:1121:dump
+                                             |Bug.inc:102:log
+    -->
+    <script>
+if (typeof archive_analytics !== 'undefined') {
+  archive_analytics.send_pageview_on_load(archive_analytics);
+  archive_analytics.process_url_events(location);
+  var vs = archive_analytics.get_data_packets();
+  for (var i in vs) {
+    vs[i]['cache_bust']=Math.random();
+    vs[i]['server_ms']=16;
+    vs[i]['server_name']="www29.us.archive.org";
       }
-    <!----><!---->
-        :root {
-          --ia-theme-base-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        }
-      <!----></style><script charset="utf-8" src="/offshoot_assets/js/themeLight.d99b18c27be2e8637e2e.js"></script><script data-owner="SchemaOrgJsonLDService" type="application/ld+json">{"@context":"http://schema.org","@type":"WebSite","name":"Internet Archive","alternateName":"Archive.org","url":"archive.org","potentialAction":{"@type":"SearchAction","target":"https://archive.org/search.php?query={query}","query-input":"required name=query"}}</script><script charset="utf-8" src="/offshoot_assets/js/appRootController.17087be587f243f94624.js"></script><script charset="utf-8" src="/offshoot_assets/js/recaptchaManager.aaf81fab10eb67fb2373.js"></script><meta name="monetization" data-owner="pageMetadataService" content="$ilp.uphold.com/D7BwPKMQzBiD"><meta name="description" data-owner="pageMetadataService" content="Internet Archive is a non-profit digital library offering free universal access to books, movies &amp; music, as well as 624 billion archived web pages."><link rel="alternate" type="application/xml" href="http://archive.org/services/collection-rss.php" title="RSS" data-owner="pageMetadataService"></head><body><div data-owner="donationBannerHandler"><div id="donato"><div class="js-ia-donation-iframe-wrapper"><iframe src="https://archive.org/includes/donate.php?as_page=1&amp;referer=http%3A%2F%2Farchive.org%2F&amp;donation-identifier=MC42OTI4ODUwNzMwMTk3MjQ1" scrolling="no" frameborder="0" style="width:100%; height: 100%;" title="Banner for donating to the Internet Archive"></iframe></div><style>.js-ia-donation-iframe-wrapper { position: relative; height: 0px; transition: height 0.5s; } body.overflow-hidden { position: relative !important;height: auto !important; overflow: hidden !important; margin: 0 !important; } #donato .open-modal {position: fixed !important; top: 0;bottom: 0; left: 0; right: 0; z-index: 1000000 !important; } #donato .keep-above-all-dom { z-index: 10000000 !important; position: absolute; } </style></div><script type="text/javascript" src="https://archive.org/includes/donate.js"></script></div><app-root></app-root><noscript><div class="no-js-redirect-container" data-owner="nginx"><h2>Redirecting you to a lite version of archive.org...</h2></div><meta http-equiv="refresh" data-owner="nginx" content="0; url=/?noscript=true"></noscript><script src="/offshoot_assets/js/webpack-runtime.97025bc919c201ca694f.js"></script><script src="/offshoot_assets/js/index.986977b094d363bd8d57.js"></script></body></html>
+
+  if (document.querySelectorAll('.more_search').length) {
+    archive_analytics.send_scroll_fetch_base_event();
+  }
+}
+</script>
+          <img src="//analytics.archive.org/0.gif?kind=track_js&amp;track_js_case=control&amp;cache_bust=817894743" alt="">
+          <noscript>
+        <img src="//analytics.archive.org/0.gif?kind=track_js&track_js_case=disabled&cache_bust=10125205" />
+      </noscript>
+          <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          if (typeof archive_analytics !== 'undefined')
+            archive_analytics.create_tracking_image('in_page_executes');
+        });
+      </script>
+      
+  
+
+    </body></html>

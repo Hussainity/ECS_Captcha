@@ -1,0 +1,129 @@
+<html lang="en" class="no-js" style="height:100%"><head>
+  
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Login :: ID5 Console</title>
+  <link rel="stylesheet" href="/assets/application-4e1423a015b79c9044337535acdb6c33.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+  
+    <meta name="layout" content="main">
+	
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon-a48638535e8c473f897d477bc391c375.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32-3f64b22ce4ebc0ddd0cb4d5afdf332dc.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16-3d9023ac874bbba47f7489d43f1a95de.png">
+<link rel="manifest" href="/assets/site-988e8bb36f42d4ed60cbdc3ef9344ab4.webmanifest">
+<link rel="mask-icon" color="#1c307e" href="/assets/safari-pinned-tab-db06fcd245b691d699c2d42e31071078.svg">
+<link rel="shortcut icon" href="/assets/favicon-399892eda71cd8eacac53225156b97b6.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" content="/assets/browserconfig-ab7574bdaa4f3e4a2674d3907a98d120.xml">
+<meta name="theme-color" content="#ffffff">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-102097374-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-102097374-2', {
+    'custom_map': {
+      'dimension1': 'userType',
+      'dimension2': 'partnerId'
+    }
+  });
+
+  gtag('event', 'dimension_event', {
+  
+    'userType': 'anonymous',
+    'partnerId': 'anonymous'
+  
+  });
+</script>
+
+<style id="plotly.js-style-global"></style></head>
+
+<body style="height:100%">
+<script type="text/javascript" src="/assets/application-b6216237693823097edd4b938668e0e5.js"></script>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-menu" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/admin/index" class="navbar-brand">
+        <img src="/assets/id5_logo-dee69b47763640c5b1f4c60320456e00.png">
+      </a>
+      
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbar-menu">
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  
+    <div class="alert alert-warning alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+      Sorry, we were not able to find a user with that username and password.
+    </div>
+  
+  
+  <div id="content" role="main">
+    <div class="row">
+      <div class="col-sm-offset-4 col-sm-4">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">ID5 Authentication</h3>
+          </div>
+          <div class="panel-body">
+            <form action="/login/authenticate" method="POST" id="loginForm" autocomplete="off">
+              <div class="form-group">
+                <label for="username">Username (email)</label>
+                <input type="text" class="form-control" id="username" name="username">
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password">
+              </div>
+
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="remember_me" name="remember_me" checked="checked"> Remember me
+                </label>
+              </div>
+              <button type="submit" class="btn btn-primary">Log me in</button>
+            </form>
+            <a href="/admin/lostPassword" class="pull-right">I've lost my password</a>
+          </div>
+        </div>
+      </div>
+    </div>
+	</div>
+
+</div>
+
+<div id="spinner" class="spinner" style="display:none;">
+  
+</div>
+<p style="padding-bottom: 40px"></p>
+<script type="text/javascript">
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip({html:true})
+});
+
+</script>
+
+
+
+</body></html>

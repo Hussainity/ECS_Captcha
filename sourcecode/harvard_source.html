@@ -1,0 +1,349 @@
+<html lang="en-US"><head>
+    <title>HarvardKey - Harvard University Authentication Service</title>
+    <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    
+    <link rel="stylesheet" type="text/css" href="/cas/webjars/normalize.css/8.0.1/normalize.css"><link rel="stylesheet" type="text/css" href="/cas/webjars/bootstrap/4.6.0/css/bootstrap-grid.min.css"><link rel="stylesheet" type="text/css" href="/cas/webjars/material-components-web/10.0.0/dist/material-components-web.css"><link rel="stylesheet" type="text/css" href="/cas/webjars/mdi__font/5.8.55/css/materialdesignicons.css"><link rel="stylesheet" type="text/css" href="/cas/css/cas.css"><link rel="shortcut icon" href="/cas/favicon.ico"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"></head>
+
+<body class="login mdc-typography">
+<script type="text/javascript" src="/cas/webjars/es5-shim/4.5.9/es5-shim.js"></script>
+<script type="text/javascript" src="/cas/webjars/css-vars-ponyfill/2.3.1/dist/css-vars-ponyfill.min.js"></script>
+<script type="text/javascript" src="/cas/webjars/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="/cas/webjars/material-components-web/10.0.0/dist/material-components-web.js"></script>
+
+<script type="text/javascript" src="/cas/js/cas.js"></script>
+
+<script>
+    var isResourceLoaded = false;
+    if (typeof resourceLoadedSuccessfully === "function") {
+        resourceLoadedSuccessfully();
+        isResourceLoaded = true;
+    }
+    cssVars({});
+</script>
+
+<script>
+    /*<![CDATA[*/
+
+    var trackGeoLocation = false;
+
+    var googleAnalyticsTrackingId = null;
+
+    if (googleAnalyticsTrackingId != null && googleAnalyticsTrackingId != '') {
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', googleAnalyticsTrackingId, 'auto');
+        ga('send', 'pageview');
+    }
+
+    /*]]>*/
+</script>
+
+<div>
+
+    <header id="app-bar" class="mdc-top-app-bar mdc-top-app-bar--fixed mdc-elevation--z4">
+        <nav class="mdc-top-app-bar__row">
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                <span class="cas-brand mx-auto">
+                    <span class="sr-only text-left">Harvard University</span>
+                    <img class="cas-logo" alt="Harvard University logo with shield" title="Harvard University" src="/cas/images/harvard-logo.svg"></span>
+            </section>
+            <section class="mdc-top-app-bar__section">
+            </section>
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
+                <div class="mdc-menu-surface--anchor">
+                    <button id="menuButton" class="mdc-icon-button mdc-top-app-bar__navigation-icon" aria-haspopup="true" aria-controls="navMenu" value="SIGN IN"> <span class="mdi mdi-account"></span> <span class="sr-only">menu</span> </button>
+                    <div id="navMenu" class="mdc-menu mdc-menu-surface">
+                        <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical" tabindex="-1">
+                            <li> <a href="https://key.harvard.edu/manage-account/auto-choose" class="mdc-list-item" role="menuitem" tabindex="-1"> <span class="mdc-list-item__ripple"></span> <i class="mdi mdi-cog material-icons mdc-list-item__graphic" aria-hidden="true"></i> <span class="mdc-list-item__text">Account Settings</span> </a> </li>
+                            <li> <a href="/cas/logout" class="mdc-list-item" role="menuitem" tabindex="-1"> <span class="mdc-list-item__ripple"></span> <i class="mdi mdi-logout material-icons mdc-list-item__graphic" aria-hidden="true"></i> <span class="mdc-list-item__text">Logout</span> </a> </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </nav>
+
+    </header>
+
+
+    <script>var countMessages = 0;</script>
+    <div class="mdc-dialog cas-notification-dialog" id="cas-notification-dialog" role="alertdialog" aria-modal="true" aria-labelledby="notif-dialog-title" aria-describedby="notif-dialog-content">
+
+        <div class="mdc-dialog__container">
+            <div class="mdc-dialog__surface">
+                <h1 class="mdc-dialog__title mt-lg-2" id="notif-dialog-title">
+                    Notifications
+                </h1>
+                <div class="mdc-dialog__content" id="notif-dialog-content">
+                    </div>
+                <footer class="mdc-dialog__actions">
+                    <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept" data-mdc-dialog-button-default="">
+                        <span class="mdc-button__label">OK</span>
+                    </button>
+                </footer>
+            </div>
+        </div>
+        <div class="mdc-dialog__scrim"></div>
+    </div>
+
+    <script type="text/javascript">
+
+        (function (material) {
+            var header = {
+                init: function () {
+                    material.autoInit();
+                },
+                checkCaps: function (ev) {
+                    var s = String.fromCharCode(ev.which);
+                    if (s.toUpperCase() === s && s.toLowerCase() !== s && !ev.shiftKey) {
+                        ev.target.parentElement.classList.add('caps-on');
+                    } else {
+                        ev.target.parentElement.classList.remove('caps-on');
+                    }
+                },
+                attachNotificationDialog: function () {
+                    var element = document.getElementById('cas-notification-dialog');
+                    if (element != null) {
+                        return material.dialog.MDCDialog.attachTo(element);
+                    }
+                    return undefined;
+                },
+                attachNotificationToggle: function (dialog) {
+                    var btn = document.getElementById('cas-notifications-menu');
+                    if (btn != null) {
+                        btn.addEventListener('click', function () {
+                            dialog.open();
+                        });
+                    }
+                }
+            }
+            document.addEventListener('DOMContentLoaded', function () {
+                header.init();
+                if (countMessages == 0) {
+                    window.jQuery('#notifications-count').remove();
+                } else {
+                    window.jQuery('#notifications-count').text("(" + countMessages + ")")
+                }
+            });
+        })(mdc);
+    </script>
+</div>
+
+<div class="mdc-drawer-scrim"></div>
+
+<div class="mdc-drawer-app-content mdc-top-app-bar--fixed-adjust d-flex justify-content-center">
+    <main role="main" id="main-content" class="w-100">
+        <div class="alert alert-secondary" role="alert">
+            </div>
+        <div id="content" class="d-flex justify-content-center mt-4">
+
+    <div class="d-flex justify-content-center flex-md-row flex-column mdc-card mdc-card-content w-lg-25">
+        <section id="loginForm" class="login-section login-form">
+            <div class="d-flex flex-column justify-content-between m-auto">
+                <h1><span class="hk-wm-a">HARVARD</span><span class="hk-wm-b">KEY</span><br style="line-height:0; font-size:0;"><span style="line-height:0">Sign In</span></h1>
+            </div>
+            <div class="d-flex flex-column justify-content-between m-auto">
+        <div class="form-wrapper">
+            <form method="post" id="fm1" action="login">
+
+                <div id="loginErrorsPanel">
+                    <div>
+                        <div class="login-status login-status-warning">
+                            <div class="login-status-content">
+                                <div class="login-status-message">
+                                    <span>The information you entered does not match our records for accessing this service. You either entered an invalid email and/or password or you do not have privilege to access this service. Please try to enter your email and password again. </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <section class="cas-field my-3" id="usernameSection">
+                    <div class="d-flex">
+
+                        <label for="username" class="mdc-text-field mdc-text-field--outlined mdc-text-field--focused mdc-text-field--label-floating">
+                            <input class="mdc-text-field__input" id="username" size="25" type="text" autofocus="" autocomplete="username" name="username" value="hussain_miya@hotmail.com"><span class="mdc-notched-outline mdc-notched-outline--upgraded mdc-notched-outline--notched">
+                                <span class="mdc-notched-outline__leading"></span>
+                                <span class="mdc-notched-outline__notch" style="width: 86px;">
+                                  <span class="mdc-floating-label mdc-floating-label--float-above" style="">Email Address</span>
+                                </span>
+                                <span class="mdc-notched-outline__trailing"></span>
+                              </span>
+                        </label>
+
+                        <script type="text/javascript">
+                            /*<![CDATA[*/
+                            var username = "";
+                            var disabled = false;
+
+                            if (username != null && username !== '') {
+                                $('#username').val(username);
+                                if (disabled) {
+                                    $('#usernameSection').hide();
+                                }
+                            }
+                            /*]]>*/
+                        </script>
+                    </div>
+                </section>
+
+                <section class="cas-field my-3 mdc-input-group" id="passwordSection">
+                    <div class="mdc-input-group-field mdc-input-group-field-append">
+                        <div class="d-flex caps-check">
+
+                            <label for="password" class="mdc-text-field mdc-text-field--outlined">
+
+                                <input class="mdc-text-field__input pwd" type="password" id="password" size="25" autocomplete="current-password" name="password" value=""><span class="mdc-notched-outline mdc-notched-outline--upgraded">
+                                        <span class="mdc-notched-outline__leading"></span>
+                                        <span class="mdc-notched-outline__notch">
+                                          <span class="mdc-floating-label" style="">Password</span>
+                                        </span>
+                                        <span class="mdc-notched-outline__trailing"></span>
+                                    </span>
+                            </label>
+                            <button id="toggle-password" class="reveal-password material-icons mdc-text-field__icon mdc-text-field__icon--trailing mdi mdi-eye reveal-password-icon" type="button" aria-label="Show password as plain text"><span id="pbtxt" class="sr-only">Show password</span></button>
+                            
+                        </div>
+
+                        <div class="mdc-text-field-helper-line caps-warn">
+                            <p class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent mdc-text-field-helper-text--validation-msg text-danger">
+                                <span>CAPSLOCK key is turned on!</span>
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="cas-field my-3">
+                    </section>
+
+                <section class="cas-field">
+
+                    <div>
+        </div>
+
+                    <input type="hidden" name="execution" value="797d0057-b78f-49be-b04e-274f6e6bac74_ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmtfZFRUV2NmYUFrMGdGRDZGSDlHTDR3SEJQZ05hSVhBYzJEVjRpX2I0c0JlS0pWcGhmX3ppOFlQVjZLd3RrWGl5QmxNd2JVZ0lKNHFfRG9JUUgzdkViMGFXcmpMRGUtY09yN21tYU05M0NkZ3prd0FwS0VyTm1fWU5ER2p1QV9yaTBTYURtNEtUdVVKeVg0aDhvVDd2WDlDdnU2RkRHdVpkRUM3MWNCZ3RwZWJSX2VhWE8zZlcwY0s5UTZuSmR0QTdZMU9ZV2JHVzlFZjhYcTBUSWEwS3U2MFM1QXNZM0IyR09oSlVQcHFoOXFQRjM4X25yak8wOUE5dS03aHZGY0UzRGVtdlY5OHNJc3dsNkhMVVphTS0xQ0lOQkNxTUszNGZXbHh2TEo4S216OGFoTmRNU2xTYTh0UVNteHU2VWdTZFI5UHdvQkd4RGFaQjJucndFVEpZYXZ0bW1HamtjbFRmMnQ5ZDRvX2J3eFRSMnRQbXFoRkNfZ0RSdEZqOEtDSDkteXlsZ0hKN0RkQTNhUDV1T01BOVRMeml2TXdUYjN6akxxSDFRWUpYVHdkVWN5WVI5UlhpVjFXeE05WHloVEF6Y1ZnN1ZEZXMtSy1Bd0dwX0FiVDNWQ1cxZENHaWVOanpnVDFHcjJ0T0hpUGZhNVZkNkswUWxlUzNHUFRmVWZORElVVEw5SlNZSU1KZkVOejY4UUJZTjB2N0Y1d3RMYjVhMnRNQ2xaZmZZaHN2dmdfa2p3NTQ0U1o3aWxfT3VxYmtCZHFBcVhmeENQTlp3bkkwT2VrV0N1NkREblo1dFNNTnY1RXNIa0hfNDA3MExTX1dBMmdyTXRfZFhCU0NvRzhWRzl1b2xOSldQNzBVXzFCM0xCcXdsd1pJM05EeXFReDF2LUpLanByekpwQVZ3eXVpX2MtVm81Q1BtMl94cmwyUnBWbERnZFBxVFpLTUhXRkdmZVhmTmF3TkNpZ0RiMVpnM3AtcEJKNnJ5MEI1OGVPNHp6dXZvWmdQc1l5Y3BaWS1YdE5wal9MZURSWWkwNjRjNHY4dXVEQmlJeTNKZnBMcm40YW51aDF0THd2VDFIRjhPcU80MlF6TlZWRk1WdHp0X0sxWFdTSDR4WGtxTkF5QlJLNzJBQzEyR3QzNUxUSlhMRHpTbHI1ZndyanI3Y3NDZUhEa3lTaEc3Y3VzUjkzbzhJZ2hXMDhOcGlnZmhsRWhVODlZamlRVW9STFR2LUJlT0ZCcGpBTDJLUDNxZ0ZIbDM5LXV2enk3U1BIaEZ6a1dhaTljVTZPWF9qXzhGOWJWamFMX09hUG4xTWViaklza3lJLWtoRkwzR2FVeE54bExQUnh3WHZSVVViNkplOXR3a2pIOUpwb2RHMGJTUFhNNWNhUTgzMk10WE1CdWNmMXFhUzZiZG1zWWktMjBlVmhxU0pYbzBFLWgtZjRMN3I3RGx0Mm9pQk9UcE1oTEZIbWx3UmVFdDJaY0E4M2F3NEQ3ZkNfTlNGTWxIbnU0dHkxVnlYZ2RsOEtMUHRqRWdaalN3S2hlU3FUZVcxNlhmbXpCZ1hNd3Z1RUIwZm9TbzZyTDRtSHF3X2FoTnBXRU9SanRnUTZaMHd1N3oxQWg1OE1vTnpQRUFCRWVrTV8tQXVOZnJhMGhlMFl1czAyWENnZHpQeFdmRDBOcUg1RzduZlBkZ3FsT1dOUk84NVYxRXBJR0RKLWJzM25DLWpkMUNkNG5DX2w1Qktwd2pIOEMxZ3UzWkEwMEZuQmk1OGliaHJBNEdaM19WTWR3WjJ2ZWdpTlp2S2tHaENLY0FKYUlxbExuRS1QaFN0c0pOWF9nS2dweHFiTDVGU3ViclUxNXd6VVNhMjY2T014dUVkMVd6UWlfSVBiRFZVQW9tc0xUOUFjNjFQRUg1X3pHRFlMbjczdTNTbWxJOHVyNmdIZWxndERxX2JmOUZ3eHZ2b0x4LTVMX3hia2pma3JaRllkZWFnUi1lbEhSYkpXT3NEanF1cU5pYjJqbTRNRThPLTdMSEFKM0E2R1UyNExTSFBUYnBpMGl2T0hWaWlhUFhWUlJNMkttR3VmSmVIbFVCczVpTGl0Ni1RRlp2cmZjb1FXcENKR0VqcTdxNlQ2LVY4Ykp3SnFxaXJZdEV1akV6RjRSLU04VmVmT3JGZmZMa3FicG9oM0FUYThHV1pKRTVxYndYNjJMX3dmMHRzakVxWHJxTW03aWVpcTBHcXNhQmF0RGtWY2dmUV9kQzZuMzdRbEJ0SFlCMkJuWlNjYlhVd2Jkb2hLR1VVQ3FoSUdBOGhqTmd1LTVhY1ZmRGdweWI0LVotMUMwQ01abW1PS1JUWmtaZGEySk00RFNHVzRadWNoYi1iMXYtQlFFMm1EVzZoaDY5TGZQRGVXTkxDSkthZ1FkY0tuRW92dUptTjFDeUl2QThLR2wtdzMxV1FHY1Z5NEpOQ29nQy1lQ18wdVBjaFFnZGVXQUczalVnN0FpZDFTTno2REtWQXJwQXFNR2NPb2NqdUo3YjZPLXNnTDNkS2VOLVYzRjdlYXpzNzFIdFRGWFR1TXNKMGY4by12Q0VjamlrdTVORjJpTDkyTk4zUHFoT19HTlVUMDlvV3lUNjBWbGN6X05sWGE4ODBEZUdJd3lua0xjU01qMXE0V1hEQjdlZzhKaGVORk4yQ3FvalJjLU5lZnhTYnoxMU9rZHg3M0UxcFhXSHJjMW54YmNOTUtvRklNT2xxd2F2a2htbEFVZmxqZHhKeWxqVTd0Q05Hcm1IbVpzdk90M2stelhvbG9pT2ZTUjRySmhobnVvSUx5d19ncUVBdVhKX1ExYWpFcmk2Y25BWG1QSk80UC02ZUVLckdIYUoyamRwZERRWm5OMkpjUE8tM2cyZTdMWHhTTHVtS05jNFA3YXZHRDgyaXJDWHNHbGVEbWRJT0dDd0RlY1dSSkNtZV9tYWlaVldheHZ6cDBTdkc3bzh4ckpQTnV2LXB0VW9jbzFqWVR4V1JNeHhoNWtXYmxGUWRYYWFrRmRfX3FrV0JtWFcydGQwQm5TZnNpQ3Fwck43R3pqTjg2dmxkSXNtTk9FUXgtbFNmSnlFWGxHczAtNWNjdkEtb29veUVsTkwzbm1VOVViSXJ2TGRIcDd0STVzTFFCbkxrNmJ3MWdyNG4xZXl3ekQ2dngyby1wQXVRUDd1WXlVdVFoWUdHc3c0Y3hXQThWaExmLTZnZ2lxNWtGWjlLWDdnN2FnQnhNRTc4aWozTHBBR240X09OVlZ3LWxSZGhFamVlS1VHcmZpY012djhleVZzYTNtdVBLbGZyVHhuM2RXbUhGRHg4a0NwdmpoVk5EVzFKRWY3a1FrazJpVFRKUkRrbFlQQnRydm95elFHMUp2T3FhaWp2TTVOWURoT3JBdGRjUHprQzZDZHFSc0xTWFh6M2U3SDZzb3J3Z1ptVFhFVTRUbUxuZW9RVmZaMmdHTlVaODEzaVJlN0hmLWpFd2Q0MmlpRmpCaDh4Y3BxZmNCbmRPSjljVEFrb2ppVFhDYkVpV3ZOVENzRXlKdk1CY3BIcUpRSGZlYjVtaWEtLVJjSVNNQnAtc0xra3RpcktNLTJUN1VGb0dpRzV3MzBkaDZzX0ptTzNJUWpPWU9yTHFrRDk1dGNaaHhwSGNWYUd0UXlpZmNqOXg5TjQtU2VpNEREZ3FKRUZqdFhwNDQ5T2RLRTVfSjRITEQ4OUwxT21RQnVjQUZQVGNRUlpjUHhpVUllbzlvZkJPbVBwNEhQRjQxTWFNQzR1aTA1N0FxYkxKR0hBV2w5WUEtU0NvT29XMTh6a2NuT3kwR3NtbW9MOWtrR3FRakxLdGNEcHhMRHVVTUl1c183emhOM2RBTmdub1VqM0ZyLW9DaWRGa1pNX3BhMTBXN0VfamgtWk9nRV9Ib0NkaUVvQllJaXhwa0ZGT3RfX1BjWVRqajFRTkR6eGgxVDB2Uy1DeWdnYlpUTjdrcm9NVzdNWEZCWUZrR0Vycnp3QUk4QU53SXh1LU1HeEI1VXQwejhVYjJNMkVWazJGVmoyajJpYlkxUzZhaTB4ZW9XOFVRLVJSVGJGb1lNa21oU2Npakg0SmtJYjBScnZkM2F0TnZNY21adFZZZjlQZWxaLUUwUWpSREdIWTJfTEJrdXdGTXVkdFNHVDU4NnVvaTB3SkZJQ3ZuX0oweFBoS3puLUxxQkdXbEVKeTdTTDU4VURsUXZoYnRkbWRneC1KUG90Y1ExUnBjTUxrQmh1TGFJSE5TTmRkdF9zMW9zTUVIOU51R0t3OWFVRXMzVGo2WWx0MFg5QVJkSG5nNnRWRDVCNnU2T1dneEdjQm5MdTV3bEpQZDdXZTFIUGEtRnRCa3pvcS00VTBiZThjcXBRRTAxRkJWcEN3TC1EYTlzZTZTcF9IeFFud2ZaTXRZd0VJc1dBdUNYMWhlNkNNcHk0cXN6emVhMUhwWFN1UUc5akVibmh3SWhPYmI0ZTl2a1RPWl9ZNnE1cENSZE5qSm9hVFVoanR5UElsMzNRY2U1WVpmcm1UcFI3dkJLbEE5TnZTOXRhN1lNb0tGZU0yamVDdUxzN2tTOFV3bl8tQ3dqaTM1TTN5dTAyZ3BWbHVFVXVnSXpGVHlYdGhFMEk0ODV6YVJCZ2dNeDhoVmJyQngwSE5pNWptM2FpWkRpWXFjTjdDRU9hRUtjS09yVmFhcklNbkJuZVh0UGZBRGJwaFR6ZmpCbEY4akwtV2FLay11aVU0SU90ZkRWa21yTVJPbG1HWGl1NkpNSmdnd3RzWV9ISlptdzNoQVJfRXZnbXd0OG1sTjAyQnVPbFdoT0dMXzZMZEd4UmdEcmVkLV9qTGFwUnVnMXhRczRlUnQyZmVCVHhSOE5Ta3Z1dlpMTkhmek9vSGZ2NVdhVS10ZmZTMHg4R2xpT3hiNWNYOFVSY3NuMVhya2NsWTlWS0h1NVk3Rzk5azJHMmVWejBlLU43UXRUQzNZYlJsTHNhLXFnWmQxbldIM2hPd293cXV3eWE5Y3R3TDlSbHQ0U3VlbDNQcEhtM2FlWS13elgyZXV6cHpuR3VJV0RCUFlkdnhlaDV2NnFXbF9hV1AxLTZybjhUMGlKWEdJdEtfMTJHZ21ROFY3THhZNDA1SVpzQTF0T0hHNHNPaml0Q0dJWmNqYk9tcFc2QlBVZlhzTkFDZWlUdjdkNjZIamJ0N3FmNkNPUXBTMHJkUUZZQy1ETUIzSFh6MFJ4Qkd5SzhfVEpIb0s0R19oNmdOenZDdGtla0lENkk5Ty1XVGNRbEpqUm5sTUtTUjZ2djBWNEtSV1lQN1FzYlhBdE9oNE9TUUJSOThRM0U0TTQ1aUZrSGtyRnpRMUZFV1MyQVBfLXpNLUdjSzRRX29YSklMSGdBdHpHSER1aTMyMjdLVVhBMTItVFFscmxuZWcyRVA4d0I1T2FDOXF1alVNUGNGRWdfbkRKUXJrOEpuTUhZcVF2Q3FZdFBCM3AxWU96ektkZkg1aVFpeHFWVU1xSUJUOHhub1ZJNXJXXzk5TWdSWEcwMmpPOGs0WWUyZWtMaXhJOG52OGdqRGpUVzdTTTNZZ0owLVNmU3I5S1VkWmlGVnJfWG5xaE5kNWoxaUlQQTR2NjRzRkxISUtRbGFvaWpOa20zUlRpdUwzMm1GQ1NSWkdfZXFDallhTThRdXRwRjZ5Uks1NFo1THR0SUF4RkdYNzRpVVBSOFhCQUdjSWJfZld0bFltMzdKdDV4blBWLS1UaXd6QWVfNTRqbzdhTURkWUhGdjdzLTR5RVJJRXd0QXkyaUZsa3haZWJDVk0yZU5YWHAtb0lDcVdkQWhubVFqWE92cXVMNzRMZ29HMlR6SGZNOEEyeHM5UTQyaXRISE05RGJ0V21WY3ZXSFBfQ1JqS0pfOFp4emppcW9JY0pXTHRXbEhFUVlzSUtzQnNTaU9uSERteWRPZWg3VHM2NGViUzBXVGdqUDVmTy1HYkRJekZ5dWs0RFBXelZ0dmlrSmlsYTc1NHJZenhnY3hvY1FfTXVjbnRhOC1EOHlrWEsyUzFhRS16UDlrR1NuZFFENG1GUGlfU2RicVB0ZWc4dGRNd0FSTl9pTzNJR09zTlV4Q0EtbWRWV3Y3U3FtTVEyUHNVdDVzOGpHeS5BZWNLcjFOQVlxeHF3SlVCMG9NSXZvY0V4OHpsb3pGczBzalpFMEtLWUJRNHZUZDZBSExiaTdTRDExTjNUVGVoWmgzVXpyUV9qclpxODNQaUwtSHVKZw=="><input type="hidden" name="_eventId" value="submit"><input type="hidden" name="geolocation"><p>
+                            </p>
+                </section>
+
+                <div>
+
+        <button class="mdc-button mdc-button--raised w-100" name="submit" accesskey="l" type="submit" value="SIGN IN">
+            <span class="mdc-button__label">SIGN IN</span>
+        </button>
+
+        </div>
+
+            </form>
+
+            <hr class="my-4"><div id="pmlinks" class="my-2">
+    <br><div>
+        <br><span class="fa fa-question-circle"></span>
+        <a class="btn btn-link" id="forgotPasswordExternalLink" href="https://key.harvard.edu/account-recovery/forgot-password">Forgot your password?</a>
+    </div>
+</div>
+
+            <script type="text/javascript">
+                /*<![CDATA[*/
+                var i = "One moment please..."
+                var j = "SIGN IN"
+                    /*]]>*/
+                    $(window).on('pageshow', function () {
+                        $(':submit').prop('disabled', false);
+                        $(':submit').attr('value', j);
+                    });
+
+                window.setTimeout(() => {
+                    try {
+                        document
+                            .querySelectorAll('.mdc-text-field__input:-webkit-autofill')
+                            .forEach(el => {
+                                if (el.id == "password") {
+                                    const textField = el.parentNode;
+                                    const label = textField.querySelector('.mdc-floating-label');
+                                    if (label) {
+                                        label.classList.add('mdc-floating-label--float-above');
+                                    }
+                                    const notchedSpan1 = textField.querySelector('.mdc-notched-outline');
+                                    if (notchedSpan1) {
+                                        notchedSpan1.classList.add('mdc-notched-outline--notched');
+                                    }
+                                    const notchedSpan2 = textField.querySelector('.mdc-notched-outline__notch');
+                                    if (notchedSpan2) {
+                                        notchedSpan2.setAttribute("style", "width: 61.25px;");
+                                    }
+                                }
+                            });
+                    } catch (e) { }
+                }, 200);
+
+                $(document).ready(function () {
+
+                    if (!isResourceLoaded) {
+                        preserveAnchorTagOnFormTemp();
+                    }
+
+                    $("#fm1").submit(function () {
+                        $(":submit").attr("disabled", true);
+                        $(":submit").attr("value", i);
+                        return true;
+                    });
+                });
+
+                function preserveAnchorTagOnFormTemp() {
+                    $('#fm1').submit(function () {
+                        var location = self.document.location;
+                        var hash = decodeURIComponent(location.hash);
+
+                        if (hash != undefined && hash != '' && hash.indexOf('#') === -1) {
+                            hash = '#' + hash;
+                        }
+
+                        var action = $('#fm1').attr('action');
+                        if (action == undefined) {
+                            action = location.href;
+                        } else {
+                            var qidx = location.href.indexOf('?');
+                            if (qidx != -1) {
+                                var queryParams = location.href.substring(qidx);
+                                action += queryParams;
+                            }
+                        }
+                        action += hash;
+                        $('#fm1').attr('action', action);
+
+                    });
+                }
+            </script>
+
+        </div>
+    </div>
+        </section>
+        </div>
+</div>
+    </main>
+</div>
+
+<footer class="py-4 d-flex justify-content-center cas-footer flex-column text-center">
+    <div>
+        <span>Copyright © <script>document.write( new Date().getFullYear() );</script>2022 The President and Fellows of Harvard College</span>  | <a href="http://accessibility.harvard.edu/" target="_blank">Accessibility</a> | <a href="https://accessibility.huit.harvard.edu/digital-accessibility-policy" target="_blank">Digital Accessibility</a> | <a href="https://huit.harvard.edu/harvard-key/privacy" target="_blank">Privacy</a>  | <a href="https://huit.harvard.edu/harvard-key" target="_blank">Help</a>
+    </div>
+    <div class="flex-break"></div>
+    <div>
+        The HarvardKey system, and the systems, data, and other resources that require HarvardKey authentication for access, are only for
+        legitimate Harvard University users. Use may be monitored, and improper use of the HarvardKey system or those resources may result in
+        disciplinary action and civil and criminal charges.
+    </div>
+</footer>
+
+
+</body></html>

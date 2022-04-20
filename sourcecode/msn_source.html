@@ -1,0 +1,550 @@
+<html dir="ltr" lang="EN-US"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><base href="https://login.live.com"><script type="text/javascript">var PROOF = {};PROOF.Type = {SQSA: 6, CSS: 5, DeviceId: 4, Email: 1, AltEmail: 2, SMS: 3, HIP: 8, Birthday: 9, TOTPAuthenticator: 10, RecoveryCode: 11, StrongTicket: 13, TOTPAuthenticatorV2: 14, UniversalSecondFactor: 15, Voice: -3};</script><noscript><meta http-equiv="Refresh" content="0; URL=https://login.live.com/jsDisabled.srf?mkt=EN-US&lc=1033&uaid=4b7d1c09d5234fd594cedf1a52bbf8a7"/>Microsoft account requires JavaScript to sign in. This web browser either does not support JavaScript, or scripts are being blocked.<br /><br />To find out whether your browser supports JavaScript, or to allow scripts, see the browser's online help.</noscript><title>Sign in to your Microsoft account</title><meta name="robots" content="none"><meta name="PageID" content="i5030"><meta name="SiteID" content="1184"><meta name="ReqLC" content="1033"><meta name="LocLC" content="1033"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=yes"><script type="text/javascript">!function(e,r){for(var t in r)e[t]=r[t]}(this,function(e){function r(n){if(t[n])return t[n].exports;var o=t[n]={exports:{},id:n,loaded:!1};return e[n].call(o.exports,o,o.exports,r),o.loaded=!0,o.exports}var t={};return r.m=e,r.c=t,r.p="",r(0)}([function(e,r){!function(){function e(){return u.$Config||u.ServerData||{}}function r(e,r){var t=u.$Debug;t&&t.appendLog&&(r&&(e+=" '"+(r.src||r.href||"")+"'",e+=", id:"+(r.id||""),e+=", async:"+(r.async||""),e+=", defer:"+(r.defer||"")),t.appendLog(e))}function t(){var e=u.$B;if(void 0===c)if(e)c=e.IE;else{var r=u.navigator.userAgent;c=r.indexOf("MSIE ")!==-1||r.indexOf("Trident/")!==-1}return c}function n(e){var r=e.indexOf("?"),t=r>-1?r:e.length;return t>g&&e.substr(t-g,g).toLowerCase()===f}function o(){var r=e(),t=r.loader||{};return t.slReportFailure||r.slReportFailure||!1}function a(){var r=e(),t=r.loader||{};return t.redirectToErrorPageOnLoadFailure||!1}function i(){var r=e(),t=r.loader||{};return t.logByThrowing||!1}function s(e){var r=!0,t=e.src||e.href||"";if(t){if(n(t))try{e.sheet&&e.sheet.cssRules&&!e.sheet.cssRules.length&&(r=!1)}catch(o){}}else r=!1;return r}function d(){function t(e){var r=l.getElementsByTagName("head")[0];r.appendChild(e)}function o(e,r,t,o){var s=null;return s=n(e)?a(e):"script"===o.toLowerCase()?i(e):c(e,o),r&&(s.id=r),"function"==typeof s.setAttribute&&(s.setAttribute("crossorigin","anonymous"),t&&"string"==typeof t&&s.setAttribute("integrity",t)),s}function a(e){var r=l.createElement("link");return r.rel="stylesheet",r.type="text/css",r.href=e,r}function i(e){var r=l.createElement("script");return r.type="text/javascript",r.src=e,r.defer=!1,r.async=!1,r}function c(e,r){var t=l.createElement(r);return t.src=e,t}function u(e){if(!(m&&m.length>1))return e;for(var r=0;r<m.length;r++)if(0===e.indexOf(m[r]))return m[r+1<m.length?r+1:0]+e.substring(m[r].length);return e}function f(e,t,n,o){return r("[$Loader]: "+(L.failMessage||"Failed"),o),R[e].retry<p?(R[e].retry++,h(e,t,n),void d._ReportFailure(R[e].retry,R[e].srcPath)):void(n&&n())}function g(e,t,n,o){if(s(o)){r("[$Loader]: "+(L.successMessage||"Loaded"),o),h(e+1,t,n);var a=R[e].onSuccess;"function"==typeof a&&a(R[e].srcPath)}else f(e,t,n,o)}function h(e,n,a){if(e<R.length){var i=R[e];if(!i||!i.srcPath)return void h(e+1,n,a);i.retry>0&&(i.srcPath=u(i.srcPath),i.origId||(i.origId=i.id),i.id=i.origId+"_Retry_"+i.retry);var s=o(i.srcPath,i.id,i.integrity,i.tagName);s.onload=function(){g(e,n,a,s)},s.onerror=function(){f(e,n,a,s)},s.onreadystatechange=function(){"loaded"===s.readyState?setTimeout(function(){g(e,n,a,s)},500):"complete"===s.readyState&&g(e,n,a,s)},t(s),r("[$Loader]: Loading '"+(i.srcPath||"")+"', id:"+(i.id||""))}else n&&n()}var v=e(),p=v.slMaxRetry||2,y=v.loader||{},m=y.cdnRoots||[],L=this,R=[];L.retryOnError=!0,L.successMessage="Loaded",L.failMessage="Error",L.Add=function(e,r,t,n,o,a){e&&R.push({srcPath:e,id:r,retry:n||0,integrity:t,tagName:o||"script",onSuccess:a})},L.AddForReload=function(e,r){var t=e.src||e.href||"";L.Add(t,"AddForReload",e.integrity,1,e.tagName,r)},L.AddIf=function(e,r,t){e&&L.Add(r,t)},L.Load=function(e,r){h(0,e,r)}}var c,u=window,l=u.document,f=".css",g=f.length;d.On=function(e,r,t){if(!e)throw"The target element must be provided and cannot be null.";r?d.OnError(e,t):d.OnSuccess(e,t)},d.OnSuccess=function(e,t){var n=e.src||e.href||"",i=o(),c=a();if(!e)throw"The target element must be provided and cannot be null.";if(s(e)){r("[$Loader]: Loaded",e);var u=new d;u.failMessage="Reload Failed",u.successMessage="Reload Success",u.Load(null,function(){if(i)throw"Unexpected state. ResourceLoader.Load() failed despite initial load success. ['"+n+"']";c&&(document.location.href="/error.aspx?err=504")})}else d.OnError(e,t)},d.OnError=function(e,t){var n=e.src||e.href||"",i=o(),s=a();if(!e)throw"The target element must be provided and cannot be null.";r("[$Loader]: Failed",e);var c=new d;c.failMessage="Reload Failed",c.successMessage="Reload Success",c.AddForReload(e,t),c.Load(null,function(){if(i)throw"Failed to load external resource ['"+n+"']";s&&(document.location.href="/error.aspx?err=504")}),d._ReportFailure(0,n)},d._ReportFailure=function(e,r){if(i()&&!t())throw"[Retry "+e+"] Failed to load external resource ['"+r+"'], reloading from fallback CDN endpoint"},u.$Loader=d}()}]));</script><script type="text/javascript">!function(r,t){for(var e in t)r[e]=t[e]}(this,function(r){function t(o){if(e[o])return e[o].exports;var n=e[o]={exports:{},id:o,loaded:!1};return r[o].call(n.exports,n,n.exports,t),n.loaded=!0,n.exports}var e={};return t.m=r,t.c=e,t.p="",t(0)}([function(r,t){!function(){function r(r,t){function e(i){var a=r[i];return i<o-1?void(n.r[a]?e(i+1):n.when(a,function(){e(i+1)})):void t(a)}var o=r.length;e(0)}function t(r,t,i){function a(){var r=!!u.method,n=r?u.method:i[0],a=u.extraArgs||[],c=o.$WebWatson;try{var f=e(i,!r);if(a&&a.length>0)for(var s=a.length,v=0;v<s;v++)f.push(a[v]);n.apply(t,f)}catch(h){return void(c&&c.submitFromException&&c.submitFromException(h))}}var u=n.r&&n.r[r];return t=t?t:this,u&&(u.skipTimeout?a():o.setTimeout(a,0)),u}function e(r,t){return Array.prototype.slice.call(r,t?1:0)}var o=window;o.$Do||(o.$Do={q:[],r:[],removeItems:[],lock:0,o:[]});var n=o.$Do;n.when=function(e,o){function i(r){t(r,a,u)||n.q.push({id:r,c:a,a:u})}var a=0,u=[],c=1,f="function"==typeof o;f||(a=o,c=2);for(var s=c;s<arguments.length;s++)u.push(arguments[s]);e instanceof Array?r(e,i):i(e)},n.register=function(r,e,o){if(!n.r[r]){n.o.push(r);var i={};if(e&&(i.method=e),o&&(i.skipTimeout=o),arguments&&arguments.length>3){i.extraArgs=[];for(var a=3;a<arguments.length;a++)i.extraArgs.push(arguments[a])}n.r[r]=i,n.lock++;try{for(var u=0;u<n.q.length;u++){var c=n.q[u];c.id==r&&t(r,c.c,c.a)&&n.removeItems.push(c)}}catch(f){throw f}finally{if(n.lock--,0===n.lock){for(var s=0;s<n.removeItems.length;s++)for(var v=n.removeItems[s],h=0;h<n.q.length;h++)if(n.q[h]===v){n.q.splice(h,1);break}n.removeItems=[]}}}},n.unregister=function(r){n.r[r]&&delete n.r[r]}}()}]));</script><script type="text/javascript">!function(n,e){for(var r in e)n[r]=e[r]}(this,function(n){function e(o){if(r[o])return r[o].exports;var t=r[o]={exports:{},id:o,loaded:!1};return n[o].call(t.exports,t,t.exports,e),t.loaded=!0,t.exports}var r={};return e.m=n,e.c=r,e.p="",e(0)}([function(n,e){!function(){function n(){return r.$Config||r.ServerData||{}}function e(){var e=(n(),new t),r=this,i=[],f=[];r.Add=function(n,r,o,t){e.Add(n,r,o,t)},r.Provides=function(n){if(n)if(n instanceof Array)for(var e=0;e<n.length;e++)i.push(n[e]);else i.push(n)},r.Requires=function(n){if(n)if(n instanceof Array)for(var e=0;e<n.length;e++)f.push(n[e]);else f.push(n)},r.Load=function(n,r){var t=function(){n&&n();for(var e=0;e<i.length;e++)o.register(i[e],0,!0)},u=function(){e.Load(t,r)};f.length>0?o.when(f,u):u()}}var r=window,o=(r.document,r.$Do),t=r.$Loader,i=".css";i.length;e.WhenLoaded=function(n,e){o.when(n,e)},r.$DepLoader=e}()}]));</script><link rel="shortcut icon" href="https://logincdn.msauth.net/16.000.29393.1/images/favicon.ico"><link rel="stylesheet" title="Converged_v2" type="text/css" onload="$Loader.OnSuccess(this)" onerror="$Loader.OnError(this)" href="https://logincdn.msauth.net/16.000/Converged_v21033_aaRUc92kCx1I0HSCbabz7g2.css"><style type="text/css"></style><style type="text/css">body{display:none;}</style><script type="text/javascript">if (top != self){try{top.location.replace(self.location.href);}catch (e){}}else{document.write(unescape('%3C%73') + 'tyle type="text/css">body{display:block !important;}</style>');}</script><style type="text/css">body{display:block !important;}</style><noscript><style type="text/css">body{display:block !important;}</style></noscript><script type="text/javascript">!function(e,r){for(var t in r)e[t]=r[t]}(this,function(e){function r(n){if(t[n])return t[n].exports;var i=t[n]={exports:{},id:n,loaded:!1};return e[n].call(i.exports,i,i.exports,r),i.loaded=!0,i.exports}var t={};return r.m=e,r.c=t,r.p="",r(0)}([function(e,r){var t=window,n=t.navigator;t.g_iSRSFailed=0,t.g_sSRSSuccess="",r.SRSRetry=function(e,r,i,s,a){var o=1,c=unescape("%3Cscript type='text/javascript'");a&&(c+=" crossorigin='anonymous' integrity='"+a+"'"),c+=" src='";var u=unescape("'%3E%3C/script%3E"),S=r;if(n&&n.userAgent&&s&&s!==r){var d=n.userAgent.toLowerCase(),p=d.indexOf("edge")>=0;if(!p){var f=d.match(/chrome\/([0-9]+)\./),g=f&&2===f.length&&!isNaN(f[1])&&parseInt(f[1])>54;g&&(S=s)}}t.g_sSRSSuccess.indexOf(e)===-1&&("undefined"==typeof t[e]?(t.g_iSRSFailed=1,i<=o&&document.write(c+S+u)):t.g_sSRSSuccess+=e+"|"+i+",")}}]));var g_dtFirstByte=new Date();var g_objPageMode = null;</script><link rel="image_src" href="https://logincdn.msauth.net/16.000.29393.1/images/Windows_Live_v_thumb.jpg"><script type="text/javascript">var ServerData = {Bj:false,CI:false,CL:false,Bm:true,CM:true,aB:'',urlPostMsa:'https://login.live.com/ppsecure/post.srf?wa=wsignin1.0&rpsnv=13&ct=1650418831&rver=7.0.6730.0&wp=LBI&wreply=https%3a%2f%2fwww.msn.com%2fen-us%2fhomepage%2fSecure%2fPassport%3fru%3dhttps%253a%252f%252fwww.msn.com%252f%253fpfr%253d1&lc=1033&id=1184&mkt=en-us&pcexp=True&contextid=5258CA49B79D56CD&bk=1650418837&uaid=4b7d1c09d5234fd594cedf1a52bbf8a7&pid=0',aC:'',Bp:false,CQ:false,Bs:true,CR:false,aI:'https://login.microsoft.com/consumers/fido/get?mkt=EN-US&lc=1033&uiflavor=web',aJ:'https://login.live.com/gls.srf?urlID=WinLiveTermsOfUse&mkt=EN-US&uaid=4b7d1c09d5234fd594cedf1a52bbf8a7',aL:'',By:false,CY:true,aP:{"appInsightsConfig":{"instrumentationKey":"69adc3c768bd4dc08c19416121249fcc-66f1668a-797b-4249-95e3-6c6651768c28-7293","webAnalyticsConfiguration":{"autoCapture":{"jsError":1,"click":0}}},"appId":"-","defaultEventName":"IDUX_MSAClientTelemetryEvent_WebWatson","autoPost":true,"autoPostDelay":1000,"flush":60000,"maxEvents":1,"minEvents":1,"pltDelay":500,"telemetryEnabled":true,"useOneDSEventApi":true,"serviceID":2},urlReportPageLoad:'',b2:'https://login.live.com/GetSessionState.srf?wa=wsignin1.0&rpsnv=13&ct=1650418831&rver=7.0.6730.0&wp=LBI&wreply=https%3a%2f%2fwww.msn.com%2fen-us%2fhomepage%2fSecure%2fPassport%3fru%3dhttps%253a%252f%252fwww.msn.com%252f%253fpfr%253d1&id=1184&pcexp=True&mkt=EN-US&lc=1033&uaid=4b7d1c09d5234fd594cedf1a52bbf8a7',urlLogin:'https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=13&ct=1650418831&rver=7.0.6730.0&wp=LBI&wreply=https%3a%2f%2fwww.msn.com%2fen-us%2fhomepage%2fSecure%2fPassport%3fru%3dhttps%253a%252f%252fwww.msn.com%252f%253fpfr%253d1&id=1184&pcexp=True&contextid=5258CA49B79D56CD&bk=1650418837&mkt=EN-US&lc=1033&uaid=4b7d1c09d5234fd594cedf1a52bbf8a7',Ca:2,Cb:true,Cc:true,hpgid:33,sRequestCountry:'',aW:false,DC:"Use the primary phone number you\'ve associated with your Microsoft account. <a href=\"http://explore.live.com/windows-live-sign-in-single-use-code-faq\" id=\"idPaneHelpOTCInfoLink9\" target=\"_blank\">Learn more</a>",Cf:false,Cg:false,fApplicationInsightsEnabled:false,DI:'',Cj:false,DJ:'',DK:'',DL:'',aa:'login.live.com',urlFed:'',iApplicationInsightsEnabledPercentage:0,DN:'https://go.microsoft.com/fwlink/?linkid=2013738',ac:'',urlPostAad:'',DP:'',DQ:'https://go.microsoft.com/fwlink/?LinkID=254486',ah:'',Ct:false,urlApplicationInsightsEndpoint:'',ai:'',sPOST_NewUser:'',aj:'https://login.live.com/gls.srf?urlID=MSNPrivacyStatement&mkt=EN-US&uaid=4b7d1c09d5234fd594cedf1a52bbf8a7',bI:'',bK:'PPFT',al:'',bN:'',bO:'',iServerExecutionTime:5,aq:'PROD',urlPost:'https://login.live.com/ppsecure/post.srf?wa=wsignin1.0&rpsnv=13&ct=1650418831&rver=7.0.6730.0&wp=LBI&wreply=https%3a%2f%2fwww.msn.com%2fen-us%2fhomepage%2fSecure%2fPassport%3fru%3dhttps%253a%252f%252fwww.msn.com%252f%253fpfr%253d1&lc=1033&id=1184&mkt=en-us&pcexp=True&contextid=5258CA49B79D56CD&bk=1650418837&uaid=4b7d1c09d5234fd594cedf1a52bbf8a7&pid=0',c0:'',bR:'https://account.live.com/query.aspx?uaid=4b7d1c09d5234fd594cedf1a52bbf8a7&mkt=EN-US&lc=1033&id=1184',c1:'Passpor',at:true,au:true,av:false,ax:true,Dc:"A single-use code lets you sign in without entering your password. This helps protect your account when you\'re using someone else\'s PC. <a href=\"http://explore.live.com/windows-live-sign-in-single-use-code-faq\" id=\"idPaneHelpOTCInfoLink9\" target=\"_blank\">Learn more</a>",ay:true,Dd:"Your session has timed out. To request a single use code, please <a href=\"javascript:NewOTCRequest()\">refresh the page</a>.",c8:"#~#partnerdomain#~# does\'t use this service. Please sign in with a Microsoft account or create a new account. <a href=\"#~#WLPaneHelpInviteBlockedURL_LS#~#\" id=\"idPaneHelpInviteBlockedLink9\">Learn More</a>",Df:"Sign in",c9:'',sApplicationInsightsInstrumentationKey:'',A:10000,fWebNgcFS:false,B:2,C:'',Dj:'https://img.s-msn.com/tenant/amp/entityid/AAbAkfO.img?id=1184&mkt=EN-US',D:false,Dk:'',sFedQS:'wa=wsignin1.0&wtrealm=uri:WindowsLiveID&wctx=wa%3Dwsignin1.0%26rpsnv%3D13%26ct%3D1650418831%26rver%3D7.0.6730.0%26wp%3DLBI%26wreply%3Dhttps%253a%252f%252fwww.msn.com%252fen-us%252fhomepage%252fSecure%252fPassport%253fru%253dhttps%25253a%25252f%25252fwww.msn.com%25252f%25253fpfr%25253d1%26lc%3D1033%26id%3D1184%26mkt%3Den-us%26pcexp%3DTrue%26contextid%3D5258CA49B79D56CD%26bk%3D1650418837',Dl:'https://img.s-msn.com/tenant/amp/entityid/BB6p1NN.img?id=1184&mkt=EN-US',Dm:'',cA:false,H:'',Do:'',I:'',J:'https://signup.live.com/signup?wa=wsignin1.0&rpsnv=13&ct=1650418831&rver=7.0.6730.0&wp=LBI&wreply=https%3a%2f%2fwww.msn.com%2fen-us%2fhomepage%2fSecure%2fPassport%3fru%3dhttps%253a%252f%252fwww.msn.com%252f%253fpfr%253d1&id=1184&pcexp=True&contextid=5258CA49B79D56CD&bk=1650418837&uiflavor=web&lic=1&mkt=EN-US&lc=1033&uaid=4b7d1c09d5234fd594cedf1a52bbf8a7',K:{"ri":"SJ1PPF6FC01DE10","ver":"16.0.29393.1"},L:false,A2:0,Ds:'',cF:false,M:-1,A3:0,A6:0,Q:1033,A7:1,str:[],cJ:0,R:'https://account.live.com/ResetPassword.aspx?wreply=https://login.live.com/login.srf%3fwa%3dwsignin1.0%26rpsnv%3d13%26ct%3d1650418831%26rver%3d7.0.6730.0%26wp%3dLBI%26wreply%3dhttps%253a%252f%252fwww.msn.com%252fen-us%252fhomepage%252fSecure%252fPassport%253fru%253dhttps%25253a%25252f%25252fwww.msn.com%25252f%25253fpfr%25253d1%26lc%3d1033%26id%3d1184%26mkt%3den-us%26pcexp%3dTrue%26contextid%3d5258CA49B79D56CD%26bk%3d1650418837&id=1184&uiflavor=web&uaid=4b7d1c09d5234fd594cedf1a52bbf8a7&mkt=EN-US&lc=1033&bk=1650418837',A9:'',S:false,bm:'i5030',bn:'',cN:1,bo:'',V:'https://account.live.com/username/recover?wreply=https://login.live.com/login.srf%3flc%3d1033%26mkt%3dEN-US%26wa%3dwsignin1.0%26rpsnv%3d13%26ct%3d1650418831%26rver%3d7.0.6730.0%26wp%3dLBI%26wreply%3dhttps%253a%252f%252fwww.msn.com%252fen-us%252fhomepage%252fSecure%252fPassport%253fru%253dhttps%25253a%25252f%25252fwww.msn.com%25252f%25253fpfr%25253d1%26lc%3d1033%26id%3d1184%26mkt%3den-us%26pcexp%3dTrue%26contextid%3d5258CA49B79D56CD%26bk%3d1650418837%26uaid%3d4b7d1c09d5234fd594cedf1a52bbf8a7&id=1184&mkt=EN-US&lc=1033&uaid=4b7d1c09d5234fd594cedf1a52bbf8a7&uiflavor=web',W:'',cQ:{},cR:{},Y:true,cS:'',AA:1,bu:'https://account.live.com/ChangePassword?uaid=4b7d1c09d5234fd594cedf1a52bbf8a7',urlSwitch:'https://login.live.com/logout.srf?wa=wsignin1.0&rpsnv=13&ct=1650418831&rver=7.0.6730.0&wp=LBI&wreply=https%3a%2f%2fwww.msn.com%2fen-us%2fhomepage%2fSecure%2fPassport%3fru%3dhttps%253a%252f%252fwww.msn.com%252f%253fpfr%253d1&lc=1033&id=1184&mkt=en-us&pcexp=True&contextid=5258CA49B79D56CD&uaid=4b7d1c09d5234fd594cedf1a52bbf8a7&ru=https://www.msn.com/en-us/homepage/Secure/Passport%3fru%3dhttps%253a%252f%252fwww.msn.com%252f%253fpfr%253d1&bk=1650418837&lm=I',bv:'https://login.live.com/GetCredentialType.srf?opid=2FA80E749DC3CBDD&id=1184&wa=wsignin1.0&rpsnv=13&ct=1650418831&rver=7.0.6730.0&wp=LBI&wreply=https%3a%2f%2fwww.msn.com%2fen-us%2fhomepage%2fSecure%2fPassport%3fru%3dhttps%253a%252f%252fwww.msn.com%252f%253fpfr%253d1&id=1184&pcexp=True&mkt=EN-US&lc=1033&uaid=4b7d1c09d5234fd594cedf1a52bbf8a7',cU:'',AB:null,bw:'https://account.live.com/ResetPassword.aspx?wreply=https://login.live.com/login.srf%3fwa%3dwsignin1.0%26rpsnv%3d13%26ct%3d1650418831%26rver%3d7.0.6730.0%26wp%3dLBI%26wreply%3dhttps%253a%252f%252fwww.msn.com%252fen-us%252fhomepage%252fSecure%252fPassport%253fru%253dhttps%25253a%25252f%25252fwww.msn.com%25252f%25253fpfr%25253d1%26lc%3d1033%26id%3d1184%26mkt%3den-us%26pcexp%3dTrue%26contextid%3d5258CA49B79D56CD%26bk%3d1650418837&id=1184&uiflavor=web&lostauthenticator=1&uaid=4b7d1c09d5234fd594cedf1a52bbf8a7&mkt=EN-US&lc=1033&bk=1650418837',urlFedConvertRename:'https://account.live.com/security/LoginStage.aspx?lmif=1000&ru=https://login.live.com/login.srf%3Fwa%3Dwsignin1.0%26rpsnv%3D13%26ct%3D1650418831%26rver%3D7.0.6730.0%26wp%3DLBI%26wreply%3Dhttps%253a%252f%252fwww.msn.com%252fen-us%252fhomepage%252fSecure%252fPassport%253fru%253dhttps%25253a%25252f%25252fwww.msn.com%25252f%25253fpfr%25253d1%26id%3D1184%26pcexp%3DTrue%26mkt%3DEN-US%26lc%3D1033%26uaid%3D4b7d1c09d5234fd594cedf1a52bbf8a7&wa=wsignin1.0&rpsnv=13&ct=1650418831&rver=7.0.6730.0&wp=LBI&wreply=https%3a%2f%2fwww.msn.com%2fen-us%2fhomepage%2fSecure%2fPassport%3fru%3dhttps%253a%252f%252fwww.msn.com%252f%253fpfr%253d1&pcexp=True&mkt=EN-US&lc=1033&cbid=0&id=1184&uaid=4b7d1c09d5234fd594cedf1a52bbf8a7',cV:'',AD:'wa=wsignin1.0&rpsnv=13&ct=1650418831&rver=7.0.6730.0&wp=LBI&wreply=https%3a%2f%2fwww.msn.com%2fen-us%2fhomepage%2fSecure%2fPassport%3fru%3dhttps%253a%252f%252fwww.msn.com%252f%253fpfr%253d1&lc=1033&id=1184&mkt=en-us&pcexp=True&contextid=5258CA49B79D56CD&bk=1650418837',bx:'https://login.live.com/Me.htm?v=3&uaid=4b7d1c09d5234fd594cedf1a52bbf8a7',AE:'',bz:'',a:'https://logincdn.msauth.net/shared/1.0/',AG:false,b:{},AH:true,AI:true,d:'',AJ:0,e:true,f:1,g:'',AM:'AF~Afghanistan~93!!!AL~Albania~355!!!DZ~Algeria~213!!!AD~Andorra~376!!!AO~Angola~244!!!AQ~Antarctica~672!!!AG~Antigua and Barbuda~1!!!AR~Argentina~54!!!AM~Armenia~374!!!AW~Aruba~297!!!AC~Ascension Island~247!!!AU~Australia~61!!!AT~Austria~43!!!AZ~Azerbaijan~994!!!BS~Bahamas~1!!!BH~Bahrain~973!!!BD~Bangladesh~880!!!BB~Barbados~1!!!BY~Belarus~375!!!BE~Belgium~32!!!BZ~Belize~501!!!BJ~Benin~229!!!BM~Bermuda~1!!!BT~Bhutan~975!!!BO~Bolivia~591!!!BQ~Bonaire~599!!!BA~Bosnia and Herzegovina~387!!!BW~Botswana~267!!!BV~Bouvet Island~47!!!BR~Brazil~55!!!IO~British Indian Ocean Territory~44!!!VG~British Virgin Islands~1!!!BN~Brunei~673!!!BG~Bulgaria~359!!!BF~Burkina Faso~226!!!BI~Burundi~257!!!CV~Cabo Verde~238!!!KH~Cambodia~855!!!CM~Cameroon~237!!!CA~Canada~1!!!KY~Cayman Islands~1!!!CF~Central African Republic~236!!!TD~Chad~235!!!CL~Chile~56!!!CN~China~86!!!CX~Christmas Island~61!!!CC~Cocos (Keeling) Islands~61!!!CO~Colombia~57!!!KM~Comoros~269!!!CG~Congo~242!!!CD~Congo (DRC)~243!!!CK~Cook Islands~682!!!CR~Costa Rica~506!!!CI~Côte d\'Ivoire~225!!!HR~Croatia~385!!!CU~Cuba~53!!!CW~Curaçao~599!!!CY~Cyprus~357!!!CZ~Czechia~420!!!DK~Denmark~45!!!DJ~Djibouti~253!!!DM~Dominica~1!!!DO~Dominican Republic~1!!!EC~Ecuador~593!!!EG~Egypt~20!!!SV~El Salvador~503!!!GQ~Equatorial Guinea~240!!!ER~Eritrea~291!!!EE~Estonia~372!!!ET~Ethiopia~251!!!FK~Falkland Islands~500!!!FO~Faroe Islands~298!!!FJ~Fiji~679!!!FI~Finland~358!!!FR~France~33!!!GF~French Guiana~594!!!PF~French Polynesia~689!!!GA~Gabon~241!!!GM~Gambia~220!!!GE~Georgia~995!!!DE~Germany~49!!!GH~Ghana~233!!!GI~Gibraltar~350!!!GR~Greece~30!!!GL~Greenland~299!!!GD~Grenada~1!!!GP~Guadeloupe~590!!!GU~Guam~1!!!GT~Guatemala~502!!!GG~Guernsey~44!!!GN~Guinea~224!!!GW~Guinea-Bissau~245!!!GY~Guyana~592!!!HT~Haiti~509!!!HN~Honduras~504!!!HK~Hong Kong SAR~852!!!HU~Hungary~36!!!IS~Iceland~354!!!IN~India~91!!!ID~Indonesia~62!!!IR~Iran~98!!!IQ~Iraq~964!!!IE~Ireland~353!!!IM~Isle of Man~44!!!IL~Israel~972!!!IT~Italy~39!!!JM~Jamaica~1!!!XJ~Jan Mayen~47!!!JP~Japan~81!!!JE~Jersey~44!!!JO~Jordan~962!!!KZ~Kazakhstan~7!!!KE~Kenya~254!!!KI~Kiribati~686!!!KR~Korea~82!!!XK~Kosovo~383!!!KW~Kuwait~965!!!KG~Kyrgyzstan~996!!!LA~Laos~856!!!LV~Latvia~371!!!LB~Lebanon~961!!!LS~Lesotho~266!!!LR~Liberia~231!!!LY~Libya~218!!!LI~Liechtenstein~423!!!LT~Lithuania~370!!!LU~Luxembourg~352!!!MO~Macao SAR~853!!!MK~North Macedonia~389!!!MG~Madagascar~261!!!MW~Malawi~265!!!MY~Malaysia~60!!!MV~Maldives~960!!!ML~Mali~223!!!MT~Malta~356!!!MH~Marshall Islands~692!!!MQ~Martinique~596!!!MR~Mauritania~222!!!MU~Mauritius~230!!!YT~Mayotte~262!!!MX~Mexico~52!!!FM~Micronesia~691!!!MD~Moldova~373!!!MC~Monaco~377!!!MN~Mongolia~976!!!ME~Montenegro~382!!!MS~Montserrat~1!!!MA~Morocco~212!!!MZ~Mozambique~258!!!MM~Myanmar~95!!!NA~Namibia~264!!!NR~Nauru~674!!!NP~Nepal~977!!!NL~Netherlands~31!!!AN~Netherlands Antilles (Former)~599!!!NC~New Caledonia~687!!!NZ~New Zealand~64!!!NI~Nicaragua~505!!!NE~Niger~227!!!NG~Nigeria~234!!!NU~Niue~683!!!MP~Northern Mariana Islands~1!!!NO~Norway~47!!!OM~Oman~968!!!PK~Pakistan~92!!!PW~Palau~680!!!PS~Palestinian Authority~970!!!PA~Panama~507!!!PG~Papua New Guinea~675!!!PY~Paraguay~595!!!PE~Peru~51!!!PH~Philippines~63!!!PL~Poland~48!!!PT~Portugal~351!!!QA~Qatar~974!!!RE~Réunion~262!!!RO~Romania~40!!!RU~Russia~7!!!RW~Rwanda~250!!!XS~Saba~599!!!KN~Saint Kitts and Nevis~1!!!LC~Saint Lucia~1!!!PM~Saint Pierre and Miquelon~508!!!VC~Saint Vincent and the Grenadines~1!!!WS~Samoa~685!!!SM~San Marino~378!!!ST~São Tomé and Príncipe~239!!!SA~Saudi Arabia~966!!!SN~Senegal~221!!!RS~Serbia~381!!!SC~Seychelles~248!!!SL~Sierra Leone~232!!!SG~Singapore~65!!!XE~Sint Eustatius~599!!!SK~Slovakia~421!!!SI~Slovenia~386!!!SB~Solomon Islands~677!!!SO~Somalia~252!!!ZA~South Africa~27!!!SS~South Sudan~211!!!ES~Spain~34!!!LK~Sri Lanka~94!!!SH~St Helena, Ascension, and Tristan da Cunha~290!!!SD~Sudan~249!!!SR~Suriname~597!!!SJ~Svalbard~47!!!SZ~Swaziland~268!!!SE~Sweden~46!!!CH~Switzerland~41!!!SY~Syria~963!!!TW~Taiwan~886!!!TJ~Tajikistan~992!!!TZ~Tanzania~255!!!TH~Thailand~66!!!TL~Timor-Leste~670!!!TG~Togo~228!!!TK~Tokelau~690!!!TO~Tonga~676!!!TT~Trinidad and Tobago~1!!!TA~Tristan da Cunha~290!!!TN~Tunisia~216!!!TR~Turkey~90!!!TM~Turkmenistan~993!!!TC~Turks and Caicos Islands~1!!!TV~Tuvalu~688!!!UM~U.S. Outlying Islands~1!!!VI~U.S. Virgin Islands~1!!!UG~Uganda~256!!!UA~Ukraine~380!!!AE~United Arab Emirates~971!!!UK~United Kingdom~44!!!US~United States~1!!!UY~Uruguay~598!!!UZ~Uzbekistan~998!!!VU~Vanuatu~678!!!VA~Vatican City~379!!!VE~Venezuela~58!!!VN~Vietnam~84!!!WF~Wallis and Futuna~681!!!YE~Yemen~967!!!ZM~Zambia~260!!!ZW~Zimbabwe~263',AO:'',i:'1184',B0:true,k:'4b7d1c09d5234fd594cedf1a52bbf8a7',ce:false,l:0,AR:[],AT:true,sCBUpTxt1:'',B5:3,sCBUpTxt2:'',sHostBuildNumber:'16.0.29393.1',AW:true,B7:5,ck:0,B8:0,AZ:true,v:'https://github.com/login/oauth/authorize?response_type=code&client_id=e37ffdec11c0245cb2e0&scope=read:user++user:email&redirect_uri=https://login.live.com/HandleGithubResponse.srf&allow_signup=false&state=2FA80E749DC3CBDD',w:'https://login.live.com/cookiesDisabled.srf?uaid=4b7d1c09d5234fd594cedf1a52bbf8a7&mkt=EN-US&lc=1033',correlationId:'4b7d1c09d5234fd594cedf1a52bbf8a7',cr:{},cs:{'Logo':'','LogoAltText':'','LogoText':'','ShowWLHeader':true},oPost:{},Aa:0,Ab:60,cu:'',BA:false,cv:'',cw:'',Ad:'',Af:'',cz:'',BF:false,Aj:true,Ak:3,Al:null,sErrTxt:'',html:[],iPawnIcon:1,sFTTag:'<input type="hidden" name="PPFT" id="i0327" value="DSZt1w!OoHdCBQoILfpGJ1*yChhnET9GpmS4kkoDjExQMC6whZczyw*awxYVCZmH8r*kwXdQjRFo71y6p1ayYAJpu2XXETJ80o5wo35!MZDPFnpZ!tNz9FPFvsPsWr*pZni*v6t2sMGcNsYfliam75oQe7ywC!RY84652iYJJ5FQFtuh9u5SPBLpi7hUrOBKrEgGYHzird38Wpe*XGQUC*8oUxiO22pyvt4VtDX4FdYIO1ECLenkVLqGiHmNkVD7DJk*!HTzb9l1EYQr3vsIqug$"/>',C0:true,BR:true,At:true,loader:{cdnRoots:['https://logincdn.msauth.net/','https://lgincdnvzeuno.azureedge.net/','https://lgincdnmsftuswe2.azureedge.net/']},BT:false,Au:false,Ay:false,BX:true,BZ:true,fHasBackgroundColor:false,urlStaySignIn:'https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=13&ct=1650418831&rver=7.0.6730.0&wp=LBI&wreply=https%3a%2f%2fwww.msn.com%2fen-us%2fhomepage%2fSecure%2fPassport%3fru%3dhttps%253a%252f%252fwww.msn.com%252f%253fpfr%253d1&id=1184&pcexp=True&contextid=5258CA49B79D56CD&mkt=EN-US&lc=1033&bk=1650418837&uaid=4b7d1c09d5234fd594cedf1a52bbf8a7',CA:2,Bb:false,a5:true,CC:true,CD:true,Be:false,Bg:true,CF:false};</script><script type="text/javascript">window.UXResourceDependencies = [];</script><script type="text/javascript">(function () {var l = new window.$DepLoader();l.Add("https://logincdn.msauth.net/16.000/content/js/ConvergedLoginPaginatedStrings.en_ZcKCE_rl3le8iivsb7QDHg2.js","ConvergedLoginPaginatedStrings","sha384-QgY/IbRTgqrEqsiDCbLk0jk/MNLSuPOrngbi5gcjVaJsyjyeIuLKEAbLrfmyOhjX");l.Provides("UX_JS_Strings");var res = ("UX_Res_" + window.UXResourceDependencies.length);l.Provides(res);window.UXResourceDependencies.push(res);l.Load();}());</script><script type="text/javascript" src="https://logincdn.msauth.net/16.000/content/js/ConvergedLoginPaginatedStrings.en_ZcKCE_rl3le8iivsb7QDHg2.js" id="ConvergedLoginPaginatedStrings" crossorigin="anonymous" integrity="sha384-QgY/IbRTgqrEqsiDCbLk0jk/MNLSuPOrngbi5gcjVaJsyjyeIuLKEAbLrfmyOhjX"></script><script type="text/javascript">(function () {var l = new window.$DepLoader();l.Add("https://logincdn.msauth.net/shared/1.0/content/js/ConvergedLogin_PCore_kYp6IRoiJJT7Bwnkp1QBFw2.js","ConvergedLogin_PCore","sha384-Bhl3gZrCoiWJevmQiFCOlV5by/6nzuXb/zmvBBqH5jawpKxZe6vutpV3LBomMKfV");l.Requires("UX_JS_Strings");l.Provides("UX_JS_Core");var res = ("UX_Res_" + window.UXResourceDependencies.length);l.Provides(res);window.UXResourceDependencies.push(res);l.Load();}());</script><script type="text/javascript">window.WhenAllLoaded = function (callback) { window.$DepLoader.WhenLoaded(window.UXResourceDependencies, callback); };</script><script type="text/javascript" src="https://logincdn.msauth.net/shared/1.0/content/js/ConvergedLogin_PCore_kYp6IRoiJJT7Bwnkp1QBFw2.js" id="ConvergedLogin_PCore" crossorigin="anonymous" integrity="sha384-Bhl3gZrCoiWJevmQiFCOlV5by/6nzuXb/zmvBBqH5jawpKxZe6vutpV3LBomMKfV"></script><script charset="utf-8" src="https://logincdn.msauth.net/shared/1.0/content/js/oneDs_6ca86789a5ca36d5de0c.js"></script><style type="text/css">.inner,.promoted-fed-cred-box,.sign-in-box,.new-session-popup-v2sso,.debug-details-banner,.vertical-split-content{min-width:0;}</style><style type="text/css">.inner,.promoted-fed-cred-box,.sign-in-box,.new-session-popup-v2sso,.debug-details-banner,.vertical-split-content{min-width:0;}</style><style type="text/css">.inner,.promoted-fed-cred-box,.sign-in-box,.new-session-popup-v2sso,.debug-details-banner,.vertical-split-content{min-width:0;}</style><script charset="utf-8" src="https://logincdn.msauth.net/shared/1.0/content/js/asyncchunk/convergedlogin_ppassword_714bb5bd206f1877f9f1.js"></script></head><body class="cb" data-bind="defineGlobals: ServerData, bodyCssClass"><div><!--  -->
+
+<!--  -->
+
+<div data-bind="if: activeDialog"></div>
+
+<form name="f1" id="i0281" novalidate="novalidate" spellcheck="false" method="post" target="_top" autocomplete="off" data-bind="autoSubmit: forceSubmit, attr: { action: postUrl }, ariaHidden: !!activeDialog()" action="https://login.live.com/ppsecure/post.srf?wa=wsignin1.0&amp;rpsnv=13&amp;ct=1650418831&amp;rver=7.0.6730.0&amp;wp=LBI&amp;wreply=https%3a%2f%2fwww.msn.com%2fen-us%2fhomepage%2fSecure%2fPassport%3fru%3dhttps%253a%252f%252fwww.msn.com%252f%253fpfr%253d1&amp;lc=1033&amp;id=1184&amp;mkt=en-us&amp;pcexp=True&amp;contextid=5258CA49B79D56CD&amp;bk=1650418837&amp;uaid=4b7d1c09d5234fd594cedf1a52bbf8a7&amp;pid=0">
+
+    <!-- ko withProperties: { '$loginPage': $data } -->
+    <div class="login-paginated-page" data-bind="component: { name: 'master-page',
+        publicMethods: masterPageMethods,
+        params: {
+            serverData: svr,
+            showButtons: svr.e,
+            showFooterLinks: true,
+            useWizardBehavior: svr.B1,
+            handleWizardButtons: false,
+            password: password,
+            hideFromAria: ariaHidden },
+        event: {
+            footerAgreementClick: footer_agreementClick } }"><!--  -->
+
+<!-- ko ifnot: useLayoutTemplates --><!-- /ko -->
+
+<!-- ko if: useLayoutTemplates -->
+    <!-- ko withProperties: { '$page': $parent } -->
+        <!-- ko if: isLightboxTemplate() -->
+        <div id="lightboxTemplateContainer" data-bind="component: { name: 'lightbox-template', params: { serverData: svr, showHeader: $page.showHeader(), headerLogo: $page.headerLogo() } }"><!--  -->
+
+<div id="lightboxBackgroundContainer" data-bind="component: { name: 'background-image-control',
+    publicMethods: $page.backgroundControlMethods,
+    event: { load: $page.backgroundImageControl_onLoad } }"><div class="background-image-holder" role="presentation" data-bind="css: { app: isAppBranding }, style: { background: backgroundStyle }">
+    <!-- ko if: smallImageUrl --><!-- /ko -->
+
+    <!-- ko if: backgroundImageUrl -->
+    <div data-bind="backgroundImage: backgroundImageUrl(), externalCss: { 'background-image': true }" class="background-image ext-background-image" style="background-image: url(&quot;https://logincdn.msauth.net/shared/1.0/content/images/backgrounds/2_bc3d32a696895f78c19df6c717586a5d.svg&quot;);"></div>
+        <!-- ko if: useImageMask --><!-- /ko -->
+    <!-- /ko -->
+</div></div>
+
+<!-- ko if: svr.ck --><!-- /ko -->
+
+<!-- ko withProperties: { '$masterPageContext': $parentContext } -->
+<div class="outer" data-bind="css: { 'app': $page.backgroundLogoUrl }">
+    <!-- ko if: showHeader --><!-- /ko -->
+
+    <div class="template-section main-section">
+        <div data-bind="css: { 'has-header': showHeader }, externalCss: { 'middle': true }" class="middle ext-middle">
+            <div class="full-height" data-bind="component: { name: 'content-control', params: { serverData: svr, isVerticalSplitTemplate: $page.isVerticalSplitTemplate() } }"><!--  -->
+
+<!-- ko withProperties: { '$content': $data } -->
+<div class="flex-column">
+    <!-- ko if: $page.paginationControlHelper.showBackgroundLogoHolder --><!-- /ko -->
+
+    <!-- ko if: $page.paginationControlHelper.showPageLevelTitleControl --><!-- /ko -->
+
+    <div class="win-scroll">
+        <div id="lightbox" data-bind="
+            animationEnd: $page.paginationControlHelper.animationEnd,
+            externalCss: { 'sign-in-box': true },
+            css: {
+                'inner':  $content.isVerticalSplitTemplate,
+                'vertical-split-content': $content.isVerticalSplitTemplate,
+                'app': $page.backgroundLogoUrl,
+                'wide': $page.paginationControlHelper.useWiderWidth,
+                'fade-in-lightbox': $page.fadeInLightBox,
+                'has-popup': $page.showFedCredAndNewSession &amp;&amp; ($page.showFedCredButtons() || $page.newSession()),
+                'transparent-lightbox': $page.backgroundControlMethods() &amp;&amp; $page.backgroundControlMethods().useTransparentLightBox,
+                'lightbox-bottom-margin-debug': $page.showDebugDetails }" class="sign-in-box ext-sign-in-box fade-in-lightbox">
+
+            <!-- ko template: { nodes: $masterPageContext.$componentTemplateNodes, data: $page } -->
+
+        <!-- ko if: svr.Bp --><!-- /ko -->
+
+        <div class="lightbox-cover" data-bind="css: { 'disable-lightbox': svr.Cb &amp;&amp; showLightboxProgress() }"></div>
+
+        <!-- ko if: showLightboxProgress --><!-- /ko -->
+
+        <!-- ko if: loadBannerLogo -->
+        <div data-bind="component: { name: 'logo-control',
+            params: {
+                isChinaDc: svr.fIsChinaDc,
+                bannerLogoUrl: bannerLogoUrl() } }"><!--  -->
+
+<!-- ko if: bannerLogoUrl --><!-- /ko -->
+
+<!-- ko if: !bannerLogoUrl && !isChinaDc -->
+    <!-- ko component: 'accessible-image-control' --><!-- ko if: (isHighContrastBlackTheme || hasDarkBackground || svr.fHasBackgroundColor) && !isHighContrastWhiteTheme --><!-- /ko -->
+<!-- ko if: (isHighContrastWhiteTheme || (!hasDarkBackground && !svr.fHasBackgroundColor)) && !isHighContrastBlackTheme -->
+<!-- ko template: { nodes: [darkImageNode], data: $parent } --><img class="logo" role="img" pngsrc="https://logincdn.msauth.net/shared/1.0/content/images/microsoft_logo_ed9c9eb0dce17d752bedea6b5acda6d9.png" svgsrc="https://logincdn.msauth.net/shared/1.0/content/images/microsoft_logo_ee5c8d9fb6248c938fd0dc19370e90bd.svg" data-bind="imgSrc, attr: { alt: str['MOBILE_STR_Footer_Microsoft'] }" src="https://logincdn.msauth.net/shared/1.0/content/images/microsoft_logo_ee5c8d9fb6248c938fd0dc19370e90bd.svg" alt="Microsoft"><!-- /ko -->
+<!-- /ko --><!-- /ko -->
+<!-- /ko --></div>
+        <!-- /ko -->
+
+        <!-- ko if: svr.c9 && paginationControlHelper.showLwaDisclaimer() --><!-- /ko -->
+
+        <!-- ko if: asyncInitReady -->
+        <div role="main" data-bind="component: { name: 'pagination-control',
+            publicMethods: paginationControlMethods,
+            params: {
+                enableCssAnimation: svr.ax,
+                disableAnimationIfAnimationEndUnsupported: svr.Cf,
+                initialViewId: initialViewId,
+                currentViewId: currentViewId,
+                initialSharedData: initialSharedData,
+                initialError: $loginPage.getServerError() },
+            event: {
+                cancel: paginationControl_onCancel,
+                load: paginationControlHelper.onLoad,
+                unload: paginationControlHelper.onUnload,
+                loadView: view_onLoadView,
+                showView: view_onShow,
+                setLightBoxFadeIn: view_onSetLightBoxFadeIn,
+                animationStateChange: paginationControl_onAnimationStateChange } }"><!--  -->
+
+<div data-bind="css: { 'zero-opacity': hidePaginatedView() }" class="">
+    <!-- ko if: showIdentityBanner() && (sharedData.displayName || svr.I) -->
+    <div data-bind="css: {
+        'animate': animate() &amp;&amp; animate.animateBanner(),
+        'slide-out-next': animate.isSlideOutNext(),
+        'slide-in-next': animate.isSlideInNext(),
+        'slide-out-back': animate.isSlideOutBack(),
+        'slide-in-back': animate.isSlideInBack() }" class="animate slide-in-next">
+
+        <div data-bind="component: { name: 'identity-banner-control',
+            params: {
+                userTileUrl: svr.bz,
+                displayName: sharedData.displayName || svr.I,
+                isBackButtonVisible: isBackButtonVisible(),
+                focusOnBackButton: isBackButtonFocused(),
+                backButtonDescribedBy: backButtonDescribedBy() },
+            event: {
+                backButtonClick: identityBanner_onBackButtonClick } }"><!--  -->
+
+<div class="identityBanner">
+    <!-- ko if: isBackButtonVisible -->
+    <button type="button" class="backButton" data-bind="
+        attr: { 'id': backButtonId || 'idBtn_Back' },
+        ariaLabel: str['CT_HRD_STR_Splitter_Back'],
+        ariaDescribedBy: backButtonDescribedBy,
+        click: backButton_onClick,
+        hasFocus: focusOnBackButton" id="idBtn_Back" aria-label="Back">
+        <!-- ko ifnot: svr.CR -->
+            <!-- ko component: 'accessible-image-control' --><!-- ko if: (isHighContrastBlackTheme || hasDarkBackground || svr.fHasBackgroundColor) && !isHighContrastWhiteTheme --><!-- /ko -->
+<!-- ko if: (isHighContrastWhiteTheme || (!hasDarkBackground && !svr.fHasBackgroundColor)) && !isHighContrastBlackTheme -->
+<!-- ko template: { nodes: [darkImageNode], data: $parent } --><img role="presentation" pngsrc="https://logincdn.msauth.net/shared/1.0/content/images/arrow_left_7cc096da6aa2dba3f81fcc1c8262157c.png" svgsrc="https://logincdn.msauth.net/shared/1.0/content/images/arrow_left_a9cc2824ef3517b6c4160dcf8ff7d410.svg" data-bind="imgSrc" src="https://logincdn.msauth.net/shared/1.0/content/images/arrow_left_a9cc2824ef3517b6c4160dcf8ff7d410.svg"><!-- /ko -->
+<!-- /ko --><!-- /ko -->
+        <!-- /ko -->
+
+        <!-- ko if: svr.CR --><!-- /ko -->
+    </button>
+    <!-- /ko -->
+
+    <div id="displayName" class="identity" data-bind="text: unsafe_displayName, attr: { 'title': unsafe_displayName }" title="hussain_miya@hotmail.com">hussain_miya@hotmail.com</div>
+</div></div>
+    </div>
+    <!-- /ko -->
+
+    <div class="pagination-view animate has-identity-banner slide-in-next" data-bind="css: {
+        'has-identity-banner': showIdentityBanner() &amp;&amp; (sharedData.displayName || svr.I),
+        'zero-opacity': hidePaginatedView.hideSubView(),
+        'animate': animate(),
+        'slide-out-next': animate.isSlideOutNext(),
+        'slide-in-next': animate.isSlideInNext(),
+        'slide-out-back': animate.isSlideOutBack(),
+        'slide-in-back': animate.isSlideInBack() }">
+
+        <!-- ko foreach: views -->
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() -->
+                <!-- ko template: { nodes: [$data], data: $parent } --><div data-viewid="2" data-showidentitybanner="true" data-dynamicbranding="true" data-bind="pageViewComponent: { name: 'login-paginated-password-view',
+                params: {
+                    serverData: svr,
+                    serverError: initialError,
+                    isInitialView: isInitialState,
+                    username: sharedData.username,
+                    displayName: sharedData.displayName,
+                    hipRequiredForUsername: sharedData.hipRequiredForUsername,
+                    passwordBrowserPrefill: sharedData.passwordBrowserPrefill,
+                    availableCreds: sharedData.availableCreds,
+                    evictedCreds: sharedData.evictedCreds,
+                    useEvictedCredentials: sharedData.useEvictedCredentials,
+                    showCredViewBrandingDesc: sharedData.showCredViewBrandingDesc,
+                    flowToken: sharedData.flowToken,
+                    defaultKmsiValue: svr.Ak === 1,
+                    userTenantBranding: sharedData.userTenantBranding,
+                    sessions: sharedData.sessions,
+                    callMetadata: sharedData.callMetadata },
+                event: {
+                    updateFlowToken: $loginPage.view_onUpdateFlowToken,
+                    submitReady: $loginPage.view_onSubmitReady,
+                    redirect: $loginPage.view_onRedirect,
+                    resetPassword: $loginPage.passwordView_onResetPassword,
+                    setBackButtonState: view_onSetIdentityBackButtonState,
+                    setPendingRequest: $loginPage.view_onSetPendingRequest } }"><!--  -->
+
+<!--  -->
+
+<div aria-hidden="true">
+    <input type="hidden" name="i13" data-bind="value: isKmsiChecked() ? 1 : 0" value="0">
+    <input type="hidden" name="login" data-bind="value: unsafe_username" value="hussain_miya@hotmail.com">
+    <!-- The loginfmt input type is different as some password managers require it to be of type text.
+        Since screen readers might not hide this input, a parent div with aria-hidden true has been added. -->
+    <input type="text" name="loginfmt" data-bind="moveOffScreen, value: unsafe_displayName" class="moveOffScreen" tabindex="-1" aria-hidden="true">
+    <input type="hidden" name="type" data-bind="value: svr.B1 ? 20 : 11" value="11">
+    <input type="hidden" name="LoginOptions" data-bind="value: isKmsiChecked() ? 1 : 3" value="3">
+    <input type="hidden" name="lrt" data-bind="value: callMetadata.IsLongRunningTransaction" value="">
+    <input type="hidden" name="lrtPartition" data-bind="value: callMetadata.LongRunningTransactionPartition" value="">
+    <input type="hidden" name="hisRegion" data-bind="value: callMetadata.HisRegion" value="">
+    <input type="hidden" name="hisScaleUnit" data-bind="value: callMetadata.HisScaleUnit" value="">
+</div>
+
+<div id="loginHeader" class="row title ext-title" data-bind="externalCss: { 'title': true }">
+    <div role="heading" aria-level="1" data-bind="text: str['CT_PWD_STR_EnterPassword_Title']">Enter password</div>
+</div>
+
+<!-- ko if: showCredViewBrandingDesc --><!-- /ko -->
+
+<!-- ko if: unsafe_pageDescription --><!-- /ko -->
+
+<div class="row">
+    <div class="form-group col-md-24">
+        <div role="alert" aria-live="assertive">
+            <!-- ko if: passwordTextbox.error --><!-- /ko -->
+        </div>
+
+        <div class="placeholderContainer" data-bind="component: { name: 'placeholder-textbox-field',
+            publicMethods: passwordTextbox.placeholderTextboxMethods,
+            params: {
+                serverData: svr,
+                hintText: str['CT_PWD_STR_PwdTB_Label'] },
+            event: {
+                updateFocus: passwordTextbox.textbox_onUpdateFocus } }"><!-- ko withProperties: { '$placeholderText': placeholderText } -->
+    <!-- ko template: { nodes: $componentTemplateNodes, data: $parent } -->
+
+            <input name="passwd" type="password" id="i0118" autocomplete="off" class="form-control input ext-input text-box ext-text-box" aria-required="true" data-bind="
+                textInput: passwordTextbox.value,
+                ariaDescribedBy: [
+                    'loginHeader passwordError',
+                    showCredViewBrandingDesc ? 'credViewBrandingDesc' : '',
+                    unsafe_pageDescription ? 'passwordDesc' : ''].join(' '),
+                hasFocusEx: passwordTextbox.focused() &amp;&amp; !showPassword(),
+                placeholder: $placeholderText,
+                ariaLabel: unsafe_passwordAriaLabel,
+                moveOffScreen: showPassword,
+                externalCss: {
+                    'input': true,
+                    'text-box': true,
+                    'has-error': passwordTextbox.error }" aria-describedby="loginHeader passwordError  " placeholder="Password" aria-label="Enter the password for hussain_miya@hotmail.com" tabindex="0">
+
+            <!-- ko if: svr.cF && showPassword() --><!-- /ko -->
+        <!-- /ko -->
+<!-- /ko -->
+<!-- ko ifnot: usePlaceholderAttribute --><!-- /ko --></div>
+
+        <!-- ko if: svr.cF --><!-- /ko -->
+    </div>
+</div>
+
+<!-- ko if: shouldHipInit --><!-- /ko -->
+
+<div data-bind="css: { 'position-buttons': !tenantBranding.BoilerPlateText }" class="position-buttons">
+    <div>
+        <!-- ko if: svr.C6 --><!-- /ko -->
+        <!-- ko if: svr.Bj !== false && !svr.C6 && !tenantBranding.KeepMeSignedInDisabled --><!-- /ko -->
+
+        <div class="row">
+            <div class="col-md-24">
+                <div class="text-13">
+                    <!-- ko if: svr.aO && svr.aE --><!-- /ko -->
+                    <!-- ko ifnot: hideForgotMyPassword -->
+                    <div class="form-group">
+                        <a id="idA_PWD_ForgotPassword" role="link" href="https://account.live.com/ResetPassword.aspx?wreply=https://login.live.com/login.srf%3fwa%3dwsignin1.0%26rpsnv%3d13%26ct%3d1650418831%26rver%3d7.0.6730.0%26wp%3dLBI%26wreply%3dhttps%253a%252f%252fwww.msn.com%252fen-us%252fhomepage%252fSecure%252fPassport%253fru%253dhttps%25253a%25252f%25252fwww.msn.com%25252f%25253fpfr%25253d1%26lc%3d1033%26id%3d1184%26mkt%3den-us%26pcexp%3dTrue%26contextid%3d5258CA49B79D56CD%26bk%3d1650418837&amp;id=1184&amp;uiflavor=web&amp;uaid=4b7d1c09d5234fd594cedf1a52bbf8a7&amp;mkt=EN-US&amp;lc=1033&amp;bk=1650418837" data-bind="
+                            text: unsafe_forgotPasswordText,
+                            href: accessRecoveryLink || svr.R,
+                            attr: { target: accessRecoveryLink &amp;&amp; '_blank' },
+                            click: accessRecoveryLink ? null : resetPassword_onClick">Forgot password?</a>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko if: allowPhoneDisambiguation --><!-- /ko -->
+                    <!-- ko ifnot: useEvictedCredentials -->
+                        <!-- ko component: { name: "cred-switch-link-control",
+                            params: {
+                                serverData: svr,
+                                username: username,
+                                availableCreds: availableCreds,
+                                flowToken: flowToken,
+                                currentCred: { credType: 1 } },
+                            event: {
+                                switchView: credSwitchLink_onSwitchView,
+                                redirect: onRedirect,
+                                setPendingRequest: credSwitchLink_onSetPendingRequest,
+                                updateFlowToken: credSwitchLink_onUpdateFlowToken } } --><!--  -->
+
+<div class="form-group">
+    <!-- ko if: showSwitchToCredPickerLink -->
+    <a id="idA_PWD_SwitchToCredPicker" href="#" data-bind="
+        text: isUserKnown ? str['CT_PWD_STR_SwitchToCredPicker_Link'] : str['CT_PWD_STR_SwitchToCredPicker_Link_NoUser'],
+        click: switchToCredPicker_onClick">Other ways to sign in</a>
+    <!-- /ko -->
+
+    <!-- ko if: credentialCount === 1 && !(showForgotUsername || selectedCredShownOnlyOnPicker) --><!-- /ko -->
+
+    <!-- ko if: credentialCount === 0 && showForgotUsername --><!-- /ko -->
+</div>
+
+<!-- ko if: credLinkError --><!-- /ko --><!-- /ko -->
+
+                        <!-- ko if: evictedCreds.length > 0 --><!-- /ko -->
+                    <!-- /ko -->
+                    <!-- ko if: showChangeUserLink --><!-- /ko -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="win-button-pin-bottom" data-bind="css : { 'boilerplate-button-bottom': tenantBranding.BoilerPlateText }">
+        <div class="row" data-bind="css: { 'move-buttons': tenantBranding.BoilerPlateText }">
+            <div data-bind="component: { name: 'footer-buttons-field',
+                params: {
+                    serverData: svr,
+                    primaryButtonText: str['CT_PWD_STR_SignIn_Button'],
+                    isPrimaryButtonEnabled: !isRequestPending(),
+                    isPrimaryButtonVisible: svr.e,
+                    isSecondaryButtonEnabled: true,
+                    isSecondaryButtonVisible: false },
+                event: {
+                    primaryButtonClick: primaryButton_onClick } }"><div class="col-xs-24 no-padding-left-right button-container" data-bind="
+    visible: isPrimaryButtonVisible() || isSecondaryButtonVisible(),
+    css: { 'no-margin-bottom': removeBottomMargin }">
+
+    <!-- ko if: isSecondaryButtonVisible --><!-- /ko -->
+
+    <div data-bind="css: { 'inline-block': isPrimaryButtonVisible }" class="inline-block">
+        <!-- type="submit" is needed in-addition to 'type' in primaryButtonAttributes observable to support IE8 -->
+        <input type="submit" id="idSIButton9" class="win-button button_primary button ext-button primary ext-primary" data-report-event="Signin_Submit" data-report-trigger="click" data-report-value="Submit" data-bind="
+                attr: primaryButtonAttributes,
+                externalCss: {
+                    'button': true,
+                    'primary': true },
+                value: primaryButtonText() || str['CT_PWD_STR_SignIn_Button_Next'],
+                hasFocus: focusOnPrimaryButton,
+                click: primaryButton_onClick,
+                enable: isPrimaryButtonEnabled,
+                visible: isPrimaryButtonVisible,
+                preventTabbing: primaryButtonPreventTabbing" value="Sign in" data-report-attached="1">
+    </div>
+</div></div>
+        </div>
+    </div>
+</div>
+
+<!-- ko if: tenantBranding.BoilerPlateText --><!-- /ko -->
+</div><!-- /ko -->
+            <!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        
+            <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+</div></div>
+        <!-- /ko -->
+
+        <input type="hidden" name="ps" data-bind="value: postedLoginStateViewId" value="">
+        <input type="hidden" name="psRNGCDefaultType" data-bind="value: postedLoginStateViewRNGCDefaultType" value="">
+        <input type="hidden" name="psRNGCEntropy" data-bind="value: postedLoginStateViewRNGCEntropy" value="">
+        <input type="hidden" name="psRNGCSLK" data-bind="value: postedLoginStateViewRNGCSLK" value="">
+        <input type="hidden" name="canary" data-bind="value: svr.canary" value="">
+        <input type="hidden" name="ctx" data-bind="value: ctx" value="">
+        <input type="hidden" name="hpgrequestid" data-bind="value: svr.sessionId" value="">
+        <input type="hidden" id="i0327" data-bind="attr: { name: svr.bK }, value: flowToken" name="PPFT" value="DSZt1w!OoHdCBQoILfpGJ1*yChhnET9GpmS4kkoDjExQMC6whZczyw*awxYVCZmH8r*kwXdQjRFo71y6p1ayYAJpu2XXETJ80o5wo35!MZDPFnpZ!tNz9FPFvsPsWr*pZni*v6t2sMGcNsYfliam75oQe7ywC!RY84652iYJJ5FQFtuh9u5SPBLpi7hUrOBKrEgGYHzird38Wpe*XGQUC*8oUxiO22pyvt4VtDX4FdYIO1ECLenkVLqGiHmNkVD7DJk*!HTzb9l1EYQr3vsIqug$">
+        <input type="hidden" name="PPSX" data-bind="value: svr.c1" value="Passpor">
+        <input type="hidden" name="NewUser" value="1">
+        <input type="hidden" name="FoundMSAs" data-bind="value: svr.AL" value="">
+        <input type="hidden" name="fspost" data-bind="value: svr.fPOST_ForceSignin ? 1 : 0" value="0">
+        <input type="hidden" name="i21" data-bind="value: wasLearnMoreShown() ? 1 : 0" value="0">
+        <input type="hidden" name="CookieDisclosure" data-bind="value: svr.Bp ? 1 : 0" value="0">
+        <input type="hidden" name="IsFidoSupported" data-bind="value: isFidoSupported() ? 1 : 0" value="1">
+        <input type="hidden" name="isSignupPost" data-bind="value: isSignupPost() ? 1 : 0" value="0">
+        <div data-bind="component: { name: 'instrumentation-control',
+            publicMethods: instrumentationMethods,
+            params: { serverData: svr } }">
+<input type="hidden" name="i19" data-bind="value: timeOnPage" value=""></div>
+    <!-- /ko -->
+        </div>
+
+        <!-- ko if: $page.showFedCredAndNewSession -->
+        <!-- ko if: $page.showFedCredButtons --><!-- /ko -->
+
+        <!-- ko if: $page.newSession --><!-- /ko -->
+        <!-- /ko -->
+
+        <!-- ko if: $page.showDebugDetails --><!-- /ko -->
+    </div>
+</div>
+<!-- /ko --></div>
+        </div>
+    </div>
+
+    <!-- ko if: $page.paginationControlHelper.showFooterControl -->
+    <div id="footer" role="contentinfo" data-bind="
+        externalCss: {
+            'footer': true,
+            'has-background': !$page.useDefaultBackground(),
+            'background-always-visible': $page.backgroundLogoUrl }" class="footer ext-footer">
+
+        <div data-bind="component: { name: 'footer-control',
+            publicMethods: $page.footerMethods,
+            params: {
+                serverData: svr,
+                useDefaultBackground: $page.useDefaultBackground(),
+                hasDarkBackground: $page.backgroundLogoUrl(),
+                showLinks: true,
+                showFooter: $page.showFooter(),
+                hideTOU: $page.hideTOU(),
+                termsText: $page.termsText(),
+                termsLink: $page.termsLink(),
+                hidePrivacy: $page.hidePrivacy(),
+                privacyText: $page.privacyText(),
+                privacyLink: $page.privacyLink() },
+            event: {
+                agreementClick: $page.footer_agreementClick,
+                showDebugDetails: $page.toggleDebugDetails_onClick } }"><!-- ko if: !hideFooter && (showLinks || impressumLink || showIcpLicense) -->
+<div id="footerLinks" class="footerNode text-secondary">
+
+    <!-- ko if: showFooter -->
+        <!-- ko if: !hideTOU -->
+        <a id="ftrTerms" data-bind="
+            text: termsText,
+            href: termsLink,
+            click: termsLink_onClick,
+            externalCss: {
+                'footer-content': true,
+                'footer-item': true,
+                'has-background': !useDefaultBackground,
+                'background-always-visible': hasDarkBackground }" href="https://login.live.com/gls.srf?urlID=WinLiveTermsOfUse&amp;mkt=EN-US&amp;uaid=4b7d1c09d5234fd594cedf1a52bbf8a7" class="footer-content ext-footer-content footer-item ext-footer-item">Terms of use</a>
+        <!-- /ko -->
+
+        <!-- ko if: !hidePrivacy -->
+        <a id="ftrPrivacy" data-bind="
+            text: privacyText,
+            href: privacyLink,
+            click: privacyLink_onClick,
+            externalCss: {
+                'footer-content': true,
+                'footer-item': true,
+                'has-background': !useDefaultBackground,
+                'background-always-visible': hasDarkBackground }" href="https://login.live.com/gls.srf?urlID=MSNPrivacyStatement&amp;mkt=EN-US&amp;uaid=4b7d1c09d5234fd594cedf1a52bbf8a7" class="footer-content ext-footer-content footer-item ext-footer-item">Privacy &amp; cookies</a>
+        <!-- /ko -->
+
+        <!-- ko if: impressumLink --><!-- /ko -->
+
+        <!-- ko if: showIcpLicense --><!-- /ko -->
+    <!-- /ko -->
+
+    <!-- Set attr binding before hasFocusEx to prevent Narrator from losing focus -->
+    <a id="moreOptions" href="#" role="button" data-bind="
+        click: moreInfo_onClick,
+        ariaLabel: str['CT_STR_More_Options_Ellipsis_AriaLabel'],
+        attr: { 'aria-expanded': showDebugDetails().toString() },
+        hasFocusEx: focusMoreInfo(),
+        externalCss: {
+            'footer-content': true,
+            'footer-item': true,
+            'debug-item': true,
+            'has-background': !useDefaultBackground,
+            'background-always-visible': hasDarkBackground }" aria-label="Click here for troubleshooting information" aria-expanded="false" class="footer-content ext-footer-content footer-item ext-footer-item debug-item ext-debug-item">...</a>
+</div>
+<!-- /ko -->
+
+<!-- ko if: svr.C1 && showLinks --><!-- /ko --></div>
+    </div>
+    <!-- /ko -->
+</div>
+<!-- /ko --></div>
+        <!-- /ko -->
+
+        <!-- ko if: isVerticalSplitTemplate() && isTemplateLoaded() --><!-- /ko -->
+    <!-- /ko -->
+<!-- /ko --></div>
+    <!-- /ko -->
+</form>
+
+<form data-bind="postRedirectForm: postRedirect" method="POST" aria-hidden="true" target="_top"></form>
+
+<!-- ko if: svr.ah --><!-- /ko --></div></body></html>

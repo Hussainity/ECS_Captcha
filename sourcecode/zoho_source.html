@@ -1,0 +1,950 @@
+<html><head><meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	
+		<link href="https://css.zohostatic.com/iam/M_4942835/v2/components/css/signin.css" type="text/css" rel="stylesheet">
+        <link href="https://css.zohostatic.com/iam/M_4942835/v2/components/css/flagStyle.css" type="text/css" rel="stylesheet" defer="">
+        <script src="https://js.zohostatic.com/iam/M_4942835/v2/components/tp_pkg/jquery-3_5_1.min.js" type="text/javascript"></script>
+        <script src="https://js.zohostatic.com/iam/M_4942835/v2/components/tp_pkg/select2.full.min.js" type="text/javascript"></script>
+        <script src="https://js.zohocdn.com/ichat/js/Mar_23_2022_4_wmsliteapi.js" type="text/javascript" defer=""></script>
+        <!-- Commmon webauthn methods moved to webauthn.js and called in mfa.js and signin.js -->
+	    <script src="https://js.zohostatic.com/iam/M_4942835/v2/components/js/webauthn.js" type="text/javascript" defer=""></script>
+        <script src="https://js.zohostatic.com/iam/M_4942835/v2/components/js/signin.js" type="text/javascript"></script>
+        <script src="https://js.zohostatic.com/iam/M_4942835/v2/components/tp_pkg/xregexp-all.js" type="text/javascript"></script>
+        <script src="https://js.zohostatic.com/iam/M_4942835/v2/components/tp_pkg/u2f-api.js" defer=""></script>
+        <script src="https://js.zohostatic.com/iam/M_4942835/v2/components/js/wmsliteimpl.js" type="text/javascript" defer=""></script>
+		
+		<meta name="robots" content="noindex, nofollow">
+        <script type="text/javascript">
+        	var serviceUrl,serviceName=undefined;
+			var csrfParam= "iamcsrcoo";
+			var csrfCookieName = "iamcsr";
+			var resetPassUrl = 'https://accounts.zoho.com/password';
+			var queryString = window.location.search.substring(1);
+			var signup_url =  getSignupUrl();
+			var signinParams= getSigninParms();
+			var isMobile = parseInt('0');
+			var loginID = "";
+			var isCaptchaNeeded ="false";
+			var UrlScheme = "ZOA";
+			var iamurl="https://accounts.zoho.com";
+			var displayname = "Zoho Home";
+			var reqCountry="US";
+			var cookieDomain=".zoho.com";
+			var iam_reload_cookie_name="_z_identity";
+			var isDarkMode = parseInt("0");
+			var isMobileonly = 0;
+			var uriPrefix = '';
+			var isClientPortal = parseInt("0");
+			var contextpath = "";
+			var istlsEnabled = parseInt('1');
+			var enableServiceBasedBanner = parseInt('1');
+			var CC = '';
+			var isHideFedOptions = parseInt('1');			
+			var accounts_support_contact_email_id = 'support@zohoaccounts.com';
+			I18N.load({
+					"IAM.ZOHO.ACCOUNTS" : 'Zoho Accounts',
+					"IAM.ERROR.ENTER_PASS" : 'Please enter your password',
+					"IAM.SIGNIN.ERROR.CAPTCHA.REQUIRED" : 'Please enter the CAPTCHA.',
+					"IAM.NEW.SIGNIN.INVALID.OTP.MESSAGE.EMPTY" : 'Please enter the OTP',
+					"IAM.SIGNIN" : 'Sign in', 
+					"IAM.VERIFY" : 'Verify',
+					"IAM.GOOGLE.AUTHENTICATOR" : 'OTP Authenticator',
+					"IAM.NEW.SIGNIN.SMS.MODE" : 'SMS Verification',
+					"IAM.NEW.SIGNIN.TOTP" : 'Enter time-based OTP',
+					"IAM.NEW.SIGNIN.TOTP.HEADER" : 'A time-based one-time password has been generated in OneAuth.',		
+					"IAM.NEW.SIGNIN.VERIFY.PUSH" : 'Verify push notification',
+					"IAM.NEW.SIGNIN.TOUCHID.TITLE" : 'Verify Touch ID',
+					"IAM.NEW.SIGNIN.QR.CODE" : 'Scan QR code',
+					"IAM.NEW.SIGNIN.FACEID.TITLE" : 'Verify Face ID',
+					"IAM.NEW.SIGNIN.ENTER.EMAIL.OR.MOBILE" : 'Please enter your email address or mobile number',
+					"IAM.NEW.SIGNIN.OTP.SENT.DEVICE" : 'OTP sent to your mobile device',
+					"IAM.NEW.SIGNIN.OTP.SENT" : 'OTP sent to {0}',
+					"IAM.NEW.SIGNIN.TOUCHID.HEADER" : 'Use Touch ID in OneAuth to sign in to your account',
+					"IAM.NEW.SIGNIN.FACEID.HEADER" : 'Use Face ID in OneAuth to sign in to your account',
+					"IAM.PUSH.RESEND.NOTIFICATION" : 'Resend push notification',
+					"IAM.RESEND.PUSH.MSG" : 'Push notification sent to your device',
+					"IAM.NEXT" : 'Next',
+					"IAM.NEW.SIGNIN.ENTER.VALID.BACKUP.CODE" : 'Incorrect backup code. Please try again.',
+					"IAM.NEW.SIGNIN.INVALID.OTP.MESSAGE.NEW" : 'Please enter the OTP sent to your mobile number',
+					"IAM.NEW.SIGNIN.FEDERATED.USER.ERROR" : 'Please use federated sign-in',
+					"IAM.TFA.USE.BACKUP.CODE" : 'Use backup verification code',
+					"IAM.NEW.SIGNIN.CANT.ACCESS" : 'Can&#39;t access your mobile device?',
+					"IAM.NEW.SIGNIN.USING.OTP" : 'Sign in using OTP',
+					"IAM.SIGNIN.KEEP.ME" : 'Remember me',
+					"IAM.BACKUP.VERIFICATION_CODE" : 'Backup Verification Code',
+					"IAM.NEW.SIGNIN.BACKUP.HEADER" : 'Backup verification codes are 12-digit codes that are given to you when you set up multi-factor authentication.',
+					"IAM.NEW.SIGNIN.CONTACT.SUPPORT" : 'Contact Support ',
+					"IAM.NEW.SIGNIN.FEDERATED.LOGIN.TITLE" : 'Sign in using',
+					"IAM.NEW.SIGNIN.KEEP.ACCOUNT.SECURE" : 'Keep your account secure',
+					"IAM.NEW.SIGNIN.ONEAUTH.INFO.HEADER" : 'Zoho OneAuth is our new in-house multi-factor authentication app. Shield your Zoho account with <a style="color:#309FF4;text-decoration:none;" href="{0}" target="_blank" >OneAuth</a> now.',
+					"IAM.HOME.WELCOMEPAGE.SIGNUP.NOW" : 'Don&#39;t have a Zoho account? <a href="javascript:{0}">Sign Up Now</a>',
+					"IAM.ERROR.USER.ACTION" : 'An error occured. Please try again later.',
+					"IAM.NEW.SIGNIN.MFA.SMS.HEADER" : 'Enter the OTP sent to {0}',
+					"IAM.NEW.SIGNIN.YUBIKEY.TITLE" : 'Verify your YubiKey',
+					"IAM.NEW.SIGNIN.YUBIKEY.HEADER.NEW" : 'Please insert a configured YubiKey into your computer. Tap the golden disc on YubiKey when it starts blinking.',
+					"IAM.ERROR.USER.ACTION" : 'An error occured. Please try again later.',
+					"IAM.TFA.TRUST.BROWSER.QUESTION" : 'Trust this browser?',
+					"IAM.NEW.SIGNIN.TRUST.HEADER.TOTP" : 'We won&#39;t ask you to verify your account with <b>OTP Authenticator</b> on this browser for the next <b>{0}</b> days.',
+					"IAM.NEW.SIGNIN.TRUST.HEADER.OTP" : 'We won&#39;t ask you to verify your account with an <b>OTP</b> on this browser for the next <b>{0}</b> days.',
+					"IAM.NEW.SIGNIN.TRUST.HEADER.TOUCHID" : 'We won&#39;t ask you to verify your account with <b>Touch ID</b> on this browser for the next <b>{0}</b> days.',
+					"IAM.NEW.SIGNIN.TRUST.HEADER.FACEID" : 'We won&#39;t ask you to verify your account with <b>Face ID</b> on this browser for the next <b>{0}</b> days.',
+					"IAM.NEW.SIGNIN.TRUST.HEADER.YUBIKEY" : 'We won&#39;t ask you to verify your account with <b>YubiKey</b> on this browser for the next <b>{0}</b> days.',
+					"IAM.NEW.SIGNIN.TRUST.HEADER.SCANQR" : 'We won&#39;t ask you to verify your account with <b>Scan QR</b> on this browser for the next <b>{0}</b> days.',
+					"IAM.NEW.SIGNIN.TRUST.HEADER.PUSH" : 'We won&#39;t ask you to verify your account with a <b>push notification</b> on this browser for the next <b>{0}</b> days.',
+					"IAM.TRUST" : 'Trust',
+					"IAM.NOTNOW" : 'Not now',
+					"IAM.NEW.SIGNIN.RETRY.YUBIKEY": 'Retry YubiKey verification',
+					"IAM.RECOVERY.MOBILE.LABEL" : 'Get a verification code on my phone',
+					"IAM.MOBILE.OTP.SENT" : 'A one-time password was sent to your mobile number. Verify the code below.',
+					"IAM.NEW.SIGNIN.PROBLEM.SIGNIN" : 'Problem signing in?',
+					"IAM.NEW.SIGNIN.CONTACT.SUPPORT.DESC" : 'Please send us an email at <a href="mailto:{0}" style="color:#696969;text-decoration:none;">{0}</a> describing your issue so we can assist you.',
+					"IAM.TOTP.TIME.BASED.OTP" : 'OTP Authenticator',
+					"IAM.NEW.SIGNIN.PASSWORD.TITLE" : 'Sign in with password',
+					"IAM.NEW.SIGNIN.PASSWORD.HEADER" : 'Use your Zoho account password to sign in',
+					"IAM.NEW.SIGNIN.SAML.TITLE" : 'Sign in with {0}',
+					"IAM.NEW.SIGNIN.SAML.HEADER" : 'You will be redirected to {0}',
+					"IAM.NEW.SIGNIN.CHOOSE.OTHER.WAY" : 'Sign in another way',
+					"IAM.NEW.SIGNIN.OTP.TITLE" : 'Sign in via mobile number',
+					"IAM.NEW.SIGNIN.VERIFY.VIA.YUBIKEY" : 'Verify via YubiKey',
+					"IAM.NEW.SIGNIN.VERIFY.VIA.YUBIKEY.DESC" : 'Please insert a configured YubiKey into your computer. Tap the golden disc on YubiKey when it starts blinking.',
+					"IAM.NEW.SIGNIN.VERIFY.VIA.AUTHENTICATOR" : 'Authenticator app',
+					"IAM.NEW.SIGNIN.VERIFY.VIA.OTP" : 'SMS Verification',
+					"IAM.NEW.SIGNIN.VERIFY.VIA.ONEAUTH.DESC" : 'Verify your sign in via <b>{0}</b> using the OneAuth app installed on your device <b>{1}</b>',
+					"IAM.NEW.SIGNIN.VERIFY.VIA.ONEAUTH" : 'OneAuth',
+					"IAM.NEW.SIGNIN.OTP.HEADER" : 'A one-time password will be sent to <b>{0}</b>',
+					"IAM.NEW.SIGNIN.VERIFY.VIA.AUTHENTICATOR.DESC" : 'Enter the time-based OTP from your authenticator app here.',
+					"IAM.NEW.SIGNIN.TRY.ANOTHERWAY":'Sign in another way',
+					"IAM.NEW.SIGNIN.QR.HEADER":'Scan the QR code using OneAuth to sign in to your account',
+					"IAM.NEW.SIGNIN.MFA.PUSH.HEADER":'Accept the push notification in OneAuth to sign in',
+					"IAM.NEW.SIGNIN.WAITING.APPROVAL":'Waiting for approval',
+					"IAM.PHONE.ENTER.VALID.MOBILE_NUMBER":'Please enter a valid mobile number',
+					"IAM.MFA.YUBIKEY.ERROR.INVALID.REQUEST":'An error occurred. Please try again later.',
+					"IAM.NEW.SIGNIN.YUBIKEY.ERROR.DEVICEINELIGIBLE":'YubiKey verification failed. Please try again.',
+					"IAM.NEW.SIGNIN.YUBIKEY.ERROR.UNSUPPORTED":'This browser does not support YubiKey authentication. Please try again with a different browser. <a href="https://help.zoho.com/portal/en/kb/articles/troubleshoot-mfa-issues">Learn more</a>',
+					"IAM.NEW.SIGNIN.YUBIKEY.ERROR.BADREQUEST":'Please try again with your registered URL.',
+					"IAM.SIGNIN.ERROR.USEREMAIL.NOT.EXIST":'Please verify your email address and try again.',
+					"IAM.NEW.SIGNIN.MFA.TOTP.HEADER":'Enter the OTP generated on your authenticator app',
+					"IAM.NEW.SIGNIN.MFA.PASSWORD.HEADER":'Password Verification',
+					"IAM.NEW.SIGNIN.MFA.PASSWORD.DESC":'Verify sign-in via your Zoho account password',
+					"IAM.NEW.SIGNIN.SERVICE.NAME.TITLE":'to access <span>{0}</span>',
+					"IAM.SIGNIN.ERROR.CAPTCHA.INVALID":'Incorrect CAPTCHA. Please try again.',
+					"IAM.SIGNIN.ERROR.INVALID.VERIFICATION.CODE":'Incorrect OTP. Please try again.',
+					"IAM.RESETPASS.PASSWORD.MIN.ONLY":'{0} characters',
+					"IAM.RESET.PASSWORD.POLICY.MINSPECIALCHAR.ONLY":'{0} symbol(s)',
+					"IAM.RESET.PASSWORD.POLICY.MINNUMERICCHAR.ONLY":'{0} number(s)',
+					"IAM.RESET.PASSWORD.POLICY.CASE.BOTH":'both upper and lower case letters',
+					"IAM.RESETPASS.PASSWORD.MIN.NO.WITH":'{0} characters',
+					"IAM.PASSWORD.POLICY.HEADING":'Include at least',
+					"IAM.RESETPASS.PASSWORD.MIN":'{0} characters with',
+					"IAM.RESETPASS.PASSWORD.MIN":'{0} characters with',
+					"IAM.INCLUDE":'Include',
+					"IAM.NEW.SIGNIN.PASSWORD.EXPIRED.ORG.DESC":'Your organization policy requires you to change your password every {0} days.',
+					"IAM.NEW.SIGNIN.PASSWORD.EXPIRED.ORG.DESC.NOW":'Your organization policy requires you to change your password now.',
+					"IAM.ERROR.ENTER.NEW.PASS":'Please enter new password',
+					"IAM.ERROR.PASS.LEN":'Password cannot be less than {0} characters',
+					"IAM.ERROR.PASSWORD.MAXLEN":'Password cannot be more than {0} characters',
+					"IAM.PASSWORD.POLICY.LOGINNAME":'Password cannot be same as your username',
+					"IAM.ERROR.WRONG.CONFIRMPASS":'Wrong password confirmation',
+					"IAM.NEW.SIGNIN.PASS.EXPIRY.SUCCESS.DESC":'Sign-in with your new password to access Zoho services.',
+					"IAM.NEW.SIGNIN.PASS.EXPIRY.SUCCESS.TITLE":'Password updated',
+					"IAM.NEW.SIGNIN.PASS.EXPIRY.SUCCESS.BUTTON":'Signin now',
+					"IAM.NEW.SIGNIN.TITLE.RANDOM":'Refresh CAPTCHA',
+					"IAM.PLEASE.CONNECT.INTERNET":'No network found. Please connect to Internet',
+					"IAM.NEW.SIGNIN.RESEND.OTP":'Resend OTP',
+					"IAM.TFA.RESEND.OTP.COUNTDOWN":'Resend in <span>60</span>s',
+					"IAM.NEW.SIGNIN.PASS.PHRASE.TITLE":'Sign in via passphrase',
+					"IAM.NEW.SIGNIN.PASS.PHRASE.DESC":'Enter the passphrase you&#39;ve generated in your OneAuth app.',
+					"IAM.NEW.SIGNIN.MFA.PASSPHRASE.HEADER":'Sign in using passphrase',
+					"IAM.NEW.SIGNIN.MFA.PASSPHRASE.DESC":'Use passphrase to sign in to your OneAuth app',
+					"IAM.NEW.SIGNIN.PASSPHRASE.RECOVER.HEADER":'Enter the passphrase you created to sign in to your OneAuth app.',
+					"IAM.NEW.SIGNIN.BACKUP.RECOVER.HEADER":'Enter the backup verification code you generated from your Zoho account.',
+					"IAM.NEW.SIGNIN.PASSPHRASE.RECOVER.TITLE":'Passphrase',
+					"IAM.NEW.SIGNIN.MORE.FEDRATED.ACCOUNTS.TITLE":'Sign in using linked accounts',
+					"IAM.NEW.SIGNIN.MORE.FEDRATED.ACCOUNTS.DESC":'Use your linked accounts to access your Zoho account',
+					"IAM.NEW.SIGNIN.IDENTITY.PROVIDER.TITLE":'Sign in using your <span style="text-transform: capitalize;">{0}</span> account.',
+					"IAM.NEW.SIGNIN.TRY.ANOTHERWAY.HEADER":'Alternate verification',
+					"IAM.NEW.SIGNIN.ENTER.VALID.PASSPHRASE.CODE":'Please enter the passphrase',
+					"IAM.NEW.SIGNIN.RIGHT.PANEL.VERIFY.SCANQR":'Scan the QR code displayed on signin page using your OneAuth app',
+					"IAM.NEW.SIGNIN.RIGHT.PANEL.ALLOW.SCANQR":'Open your OneAuth and tap <b>View SCAN</b>',
+					"IAM.NEW.SIGNIN.RIGHT.PANEL.VERIFY.TOTP":'Open your OneAuth and tap <b>Sign in another way</b>',
+					"IAM.NEW.SIGNIN.RIGHT.PANEL.ALLOW.TOTP":'Enter the OTP on sign-in page',
+					"IAM.NEW.SIGNIN.JWT.TITLE":'Sign in with JWT',
+					"IAM.SIGNIN.REMOVE.DOMAIN":'Remove domain',
+					"IAM.NEW.SIGNIN.INVALID.EMAIL.MESSAGE.NEW":'Please enter the OTP sent to your email address',
+					"IAM.NEW.SIGNIN.EMAIL.TITLE":'Sign in via email address',
+					"IAM.NEW.SIGNIN.RESEND.PUSH":'Resend Push',
+					"IAM.NEW.SIGNIN.RESEND.PUSH.COUNTDOWN":'Resend Push <span></span>s',
+					"IAM.NEW.SIGNIN.PUSH.RND.DESC":'Accept the push notification you received from OneAuth and tap the number you see here to approve your sign-in.',
+					"IAM.NO.RESULT.FOUND":'No result found',
+					"IAM.SEARCHING":'Search...',
+					"IAM.WEBAUTHN.ERROR.NotAllowedError":'Either you didn&#39;t allow this operation, or it got timed out. Please try again.',
+					"IAM.WEBAUTHN.ERROR.InvalidStateError":'This YubiKey is already registered with this account.',
+					"IAM.WEBAUTHN.ERROR.BrowserNotSupported" : 'This browser doesn&#39;t support the Webauthn/FIDO2 protocol. Please try again with a supported browser.',
+					"IAM.WEBAUTHN.ERROR.AUTHENTICATION.ErrorOccurred":'An error occurred while authenticating YubiKey. Please contact {0}.',
+					"IAM.SIGNIN.ERROR.YUBIKEY.VALIDATION.FAILED":'YubiKey validation failed. Please try again.',
+					"IAM.WEBAUTHN.ERROR.AbortError":'Either you didn&#39;t allow this operation, or it got timed out. Please try again.',
+					"IAM.WEBAUTHN.ERROR.AUTHENTICATION.InvalidStateError":'This YubiKey is not registered with this account. Please try again with a registered YubiKey.',
+					"IAM.PASS_POLICY.HEADING" : 'Password must contain:',
+					"IAM.PASS_POLICY.MIN_MAX" : 'Between {0} and {1} characters',
+					"IAM.PASS_POLICY.SPL" : 'At least {0} special characters',
+					"IAM.PASS_POLICY.SPL_SING" : 'At least 1 special character',
+					"IAM.PASS_POLICY.NUM" : 'At least {0} numbers',
+					"IAM.PASS_POLICY.NUM_SING" : 'At least 1 number',
+					"IAM.PASS_POLICY.CASE" : 'Both upper and lower case letters'
+				});
+			$(document).ready(function() {
+				
+				fediconsChecking();
+				return false;
+			});
+			window.onload = function() {
+				$("#nextbtn").removeAttr("disabled"); 
+				onSigninReady();
+			}
+			function getSignupUrl(){
+					return 'https\x3A\x2F\x2Fwww.zoho.com\x2Fsignup.html';
+			}
+			function getSigninParms(){
+				var params = "cli_time=" + new Date().getTime();
+					params += "&servicename=" + euc('ZohoHome');
+					serviceName=euc('ZohoHome');
+					params += "&serviceurl="+euc('https\x3A\x2F\x2Fhome.zoho.com\x2Fhome');
+					serviceUrl = 'https\x3A\x2F\x2Fhome.zoho.com\x2Fhome';
+					params += "&signupurl="+euc('https\x3A\x2F\x2Fwww.zoho.com\x2Fsignup.html');//no i18N
+
+				return params;
+			}
+			function getRecoveryURL(){
+			 	var tmpResetPassUrl = resetPassUrl;
+					tmpResetPassUrl += "?servicename=" + euc('ZohoHome');
+					tmpResetPassUrl += "&serviceurl="+euc('https\x3A\x2F\x2Fhome.zoho.com\x2Fhome');
+					tmpResetPassUrl += "&signupurl=" + euc('https\x3A\x2F\x2Fwww.zoho.com\x2Fsignup.html');//no i18N
+				return tmpResetPassUrl;
+			}
+		</script>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+        <title>Zoho Accounts</title>
+	<link href="https://js.zohocdn.com/ichat/js/b99fbf88_wmsbridge.js" rel="preload" as="script"></head>
+	<body>
+			<div class="bg_one"></div>
+    		<div class="Alert"> <span class="tick_icon"></span> <span class="alert_message"></span> </div>
+    		<div class="Errormsg"> <span class="error_icon"></span> <span class="error_message"></span> </div>
+			<div class="tls_announce_banner">
+				  <span class="icon-warning warningicon"></span>
+			      <span class="tls_banner_con">Your browser is outdated and not secure. Update the browser to the latest version to continue using Zoho. <a href="https://www.zoho.com/general/blog/end-of-support-for-older-tls-versions-in-zoho.html" style="color:#4FAFF7;text-decoration:none;">Learn more.</a></span>
+			      <div class="close_top" onclick="this.parentElement.style.display='none';">
+	                <span class="close_line1"></span>
+	                <span class="close_line2"></span>
+            	  </div> 
+			</div>
+    		<div class="signin_container">
+    			<div class="loader" style="display: none;"></div> 
+    			<div class="blur_elem blur" style="display: none;"></div>
+    			<div class="signin_box" id="signin_flow">
+							<div class="zoho_logo ZohoHome"></div>
+	    				<div id="signin_div">
+	    					<form name="login" id="login" onsubmit="javascript:return submitsignin(this);" method="post" novalidate="">
+	    						<div class="signin_head">
+			    					<span id="headtitle">Sign in</span>
+			    					<span id="trytitle"></span>
+									<div class="service_name">to access <span>Zoho Home</span></div>
+									<div class="fielderror"></div>
+								</div>
+								<div class="fieldcontainer">
+									<div class="searchparent" id="login_id_container">
+									<div class="textbox_div" id="getusername">
+									<span>
+										<label for="country_code_select" class="select_country_code" style="display: none;">+1</label>
+										<select id="country_code_select" onchange="changeCountryCode();" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true" style="display: none;">
+	                          					<option data-num="AF" value="+93" id="AF">Afghanistan (93)</option>
+	                          					<option data-num="AL" value="+355" id="AL">Albania (355)</option>
+	                          					<option data-num="DZ" value="+213" id="DZ">Algeria (213)</option>
+	                          					<option data-num="AS" value="+1" id="AS">American Samoa (1)</option>
+	                          					<option data-num="AD" value="+376" id="AD">Andorra (376)</option>
+	                          					<option data-num="AO" value="+244" id="AO">Angola (244)</option>
+	                          					<option data-num="AI" value="+1" id="AI">Anguilla (1)</option>
+	                          					<option data-num="AG" value="+1" id="AG">Antigua and Barbuda (1)</option>
+	                          					<option data-num="AR" value="+54" id="AR">Argentina (54)</option>
+	                          					<option data-num="AM" value="+374" id="AM">Armenia (374)</option>
+	                          					<option data-num="AW" value="+297" id="AW">Aruba (297)</option>
+	                          					<option data-num="AC" value="+247" id="AC">Ascension (247)</option>
+	                          					<option data-num="AU" value="+61" id="AU">Australia (61)</option>
+	                          					<option data-num="AX" value="+672" id="AX">Australian External Territories (672)</option>
+	                          					<option data-num="AT" value="+43" id="AT">Austria (43)</option>
+	                          					<option data-num="AZ" value="+994" id="AZ">Azerbaijan (994)</option>
+	                          					<option data-num="BS" value="+1" id="BS">Bahamas (1)</option>
+	                          					<option data-num="BH" value="+973" id="BH">Bahrain (973)</option>
+	                          					<option data-num="BD" value="+880" id="BD">Bangladesh (880)</option>
+	                          					<option data-num="BB" value="+1" id="BB">Barbados (1)</option>
+	                          					<option data-num="BY" value="+375" id="BY">Belarus (375)</option>
+	                          					<option data-num="BE" value="+32" id="BE">Belgium (32)</option>
+	                          					<option data-num="BZ" value="+501" id="BZ">Belize (501)</option>
+	                          					<option data-num="BJ" value="+229" id="BJ">Benin (229)</option>
+	                          					<option data-num="BM" value="+1" id="BM">Bermuda (1)</option>
+	                          					<option data-num="BT" value="+975" id="BT">Bhutan (975)</option>
+	                          					<option data-num="BO" value="+591" id="BO">Bolivia (591)</option>
+	                          					<option data-num="BA" value="+387" id="BA">Bosnia and Herzegovina (387)</option>
+	                          					<option data-num="BW" value="+267" id="BW">Botswana (267)</option>
+	                          					<option data-num="BR" value="+55" id="BR">Brazil (55)</option>
+	                          					<option data-num="VG" value="+1" id="VG">British Virgin Islands (1)</option>
+	                          					<option data-num="BN" value="+673" id="BN">Brunei Darussalam (673)</option>
+	                          					<option data-num="BG" value="+359" id="BG">Bulgaria (359)</option>
+	                          					<option data-num="BF" value="+226" id="BF">Burkina Faso (226)</option>
+	                          					<option data-num="BI" value="+257" id="BI">Burundi (257)</option>
+	                          					<option data-num="KH" value="+855" id="KH">Cambodia (855)</option>
+	                          					<option data-num="CM" value="+237" id="CM">Cameroon (237)</option>
+	                          					<option data-num="CA" value="+1" id="CA">Canada (1)</option>
+	                          					<option data-num="CV" value="+238" id="CV">Cape Verde (238)</option>
+	                          					<option data-num="KY" value="+1" id="KY">Cayman Islands (1)</option>
+	                          					<option data-num="CF" value="+236" id="CF">Central African Republic (236)</option>
+	                          					<option data-num="TD" value="+235" id="TD">Chad (235)</option>
+	                          					<option data-num="CL" value="+56" id="CL">Chile (56)</option>
+	                          					<option data-num="CN" value="+86" id="CN">China (86)</option>
+	                          					<option data-num="CX" value="+61" id="CX">Christmas Island (61)</option>
+	                          					<option data-num="CO" value="+57" id="CO">Colombia (57)</option>
+	                          					<option data-num="KM" value="+269" id="KM">Comoros (269)</option>
+	                          					<option data-num="CG" value="+242" id="CG">Congo (242)</option>
+	                          					<option data-num="CK" value="+682" id="CK">Cook Islands (682)</option>
+	                          					<option data-num="CR" value="+506" id="CR">Costa Rica (506)</option>
+	                          					<option data-num="CI" value="+225" id="CI">Cote d'Ivoire (225)</option>
+	                          					<option data-num="HR" value="+385" id="HR">Croatia (385)</option>
+	                          					<option data-num="CU" value="+53" id="CU">Cuba (53)</option>
+	                          					<option data-num="CW" value="+599" id="CW">Curacao (599)</option>
+	                          					<option data-num="CY" value="+357" id="CY">Cyprus (357)</option>
+	                          					<option data-num="CZ" value="+420" id="CZ">Czech Republic (420)</option>
+	                          					<option data-num="CD" value="+243" id="CD">Democratic Republic of the Congo (243)</option>
+	                          					<option data-num="DK" value="+45" id="DK">Denmark (45)</option>
+	                          					<option data-num="DG" value="+246" id="DG">Diego Garcia (246)</option>
+	                          					<option data-num="DJ" value="+253" id="DJ">Djibouti (253)</option>
+	                          					<option data-num="DM" value="+1" id="DM">Dominica (1)</option>
+	                          					<option data-num="DO" value="+1" id="DO">Dominican Republic (1)</option>
+	                          					<option data-num="TL" value="+670" id="TL">East Timor (670)</option>
+	                          					<option data-num="EC" value="+593" id="EC">Ecuador (593)</option>
+	                          					<option data-num="EG" value="+20" id="EG">Egypt (20)</option>
+	                          					<option data-num="SV" value="+503" id="SV">El Salvador (503)</option>
+	                          					<option data-num="GQ" value="+240" id="GQ">Equatorial Guinea (240)</option>
+	                          					<option data-num="ER" value="+291" id="ER">Eritrea (291)</option>
+	                          					<option data-num="EE" value="+372" id="EE">Estonia (372)</option>
+	                          					<option data-num="ET" value="+251" id="ET">Ethiopia (251)</option>
+	                          					<option data-num="FK" value="+500" id="FK">Falkland Islands (500)</option>
+	                          					<option data-num="FO" value="+298" id="FO">Faroe Islands (298)</option>
+	                          					<option data-num="FJ" value="+679" id="FJ">Fiji (679)</option>
+	                          					<option data-num="FI" value="+358" id="FI">Finland (358)</option>
+	                          					<option data-num="FR" value="+33" id="FR">France (33)</option>
+	                          					<option data-num="GF" value="+594" id="GF">French Guiana (594)</option>
+	                          					<option data-num="PF" value="+689" id="PF">French Polynesia (689)</option>
+	                          					<option data-num="GA" value="+241" id="GA">Gabon (241)</option>
+	                          					<option data-num="GM" value="+220" id="GM">Gambia (220)</option>
+	                          					<option data-num="GE" value="+995" id="GE">Georgia (995)</option>
+	                          					<option data-num="DE" value="+49" id="DE">Germany (49)</option>
+	                          					<option data-num="GH" value="+233" id="GH">Ghana (233)</option>
+	                          					<option data-num="GI" value="+350" id="GI">Gibraltar (350)</option>
+	                          					<option data-num="GR" value="+30" id="GR">Greece (30)</option>
+	                          					<option data-num="GL" value="+299" id="GL">Greenland (299)</option>
+	                          					<option data-num="GD" value="+1" id="GD">Grenada (1)</option>
+	                          					<option data-num="GP" value="+590" id="GP">Guadeloupe (590)</option>
+	                          					<option data-num="GU" value="+1" id="GU">Guam (1)</option>
+	                          					<option data-num="GT" value="+502" id="GT">Guatemala (502)</option>
+	                          					<option data-num="GN" value="+224" id="GN">Guinea (224)</option>
+	                          					<option data-num="GW" value="+245" id="GW">Guinea-Bissau (245)</option>
+	                          					<option data-num="GY" value="+592" id="GY">Guyana (592)</option>
+	                          					<option data-num="HT" value="+509" id="HT">Haiti (509)</option>
+	                          					<option data-num="HN" value="+504" id="HN">Honduras (504)</option>
+	                          					<option data-num="HK" value="+852" id="HK">Hong Kong (852)</option>
+	                          					<option data-num="HU" value="+36" id="HU">Hungary (36)</option>
+	                          					<option data-num="IS" value="+354" id="IS">Iceland (354)</option>
+	                          					<option data-num="IN" value="+91" id="IN">India (91)</option>
+	                          					<option data-num="ID" value="+62" id="ID">Indonesia (62)</option>
+	                          					<option data-num="IR" value="+98" id="IR">Iran (98)</option>
+	                          					<option data-num="IQ" value="+964" id="IQ">Iraq (964)</option>
+	                          					<option data-num="IE" value="+353" id="IE">Ireland (353)</option>
+	                          					<option data-num="IL" value="+972" id="IL">Israel (972)</option>
+	                          					<option data-num="IT" value="+39" id="IT">Italy (39)</option>
+	                          					<option data-num="JM" value="+1" id="JM">Jamaica (1)</option>
+	                          					<option data-num="JP" value="+81" id="JP">Japan (81)</option>
+	                          					<option data-num="JE" value="+44" id="JE">Jersey (44)</option>
+	                          					<option data-num="JO" value="+962" id="JO">Jordan (962)</option>
+	                          					<option data-num="KZ" value="+7" id="KZ">Kazakhstan (7)</option>
+	                          					<option data-num="KE" value="+254" id="KE">Kenya (254)</option>
+	                          					<option data-num="KI" value="+686" id="KI">Kiribati (686)</option>
+	                          					<option data-num="XK" value="+383" id="XK">Kosovo (383)</option>
+	                          					<option data-num="KW" value="+965" id="KW">Kuwait (965)</option>
+	                          					<option data-num="KG" value="+996" id="KG">Kyrgyzstan (996)</option>
+	                          					<option data-num="LA" value="+856" id="LA">Laos (856)</option>
+	                          					<option data-num="LV" value="+371" id="LV">Latvia (371)</option>
+	                          					<option data-num="LB" value="+961" id="LB">Lebanon (961)</option>
+	                          					<option data-num="LS" value="+266" id="LS">Lesotho (266)</option>
+	                          					<option data-num="LR" value="+231" id="LR">Liberia (231)</option>
+	                          					<option data-num="LY" value="+218" id="LY">Libya (218)</option>
+	                          					<option data-num="LI" value="+423" id="LI">Liechtenstein (423)</option>
+	                          					<option data-num="LT" value="+370" id="LT">Lithuania (370)</option>
+	                          					<option data-num="LU" value="+352" id="LU">Luxembourg (352)</option>
+	                          					<option data-num="MO" value="+853" id="MO">Macao (853)</option>
+	                          					<option data-num="MK" value="+389" id="MK">Macedonia (389)</option>
+	                          					<option data-num="MG" value="+261" id="MG">Madagascar (261)</option>
+	                          					<option data-num="MW" value="+265" id="MW">Malawi (265)</option>
+	                          					<option data-num="MY" value="+60" id="MY">Malaysia (60)</option>
+	                          					<option data-num="MV" value="+960" id="MV">Maldives (960)</option>
+	                          					<option data-num="ML" value="+223" id="ML">Mali (223)</option>
+	                          					<option data-num="MT" value="+356" id="MT">Malta (356)</option>
+	                          					<option data-num="MH" value="+692" id="MH">Marshall Islands (692)</option>
+	                          					<option data-num="MQ" value="+596" id="MQ">Martinique (596)</option>
+	                          					<option data-num="MR" value="+222" id="MR">Mauritania (222)</option>
+	                          					<option data-num="MU" value="+230" id="MU">Mauritius (230)</option>
+	                          					<option data-num="MX" value="+52" id="MX">Mexico (52)</option>
+	                          					<option data-num="FM" value="+691" id="FM">Micronesia (691)</option>
+	                          					<option data-num="MD" value="+373" id="MD">Moldova (373)</option>
+	                          					<option data-num="MC" value="+377" id="MC">Monaco (377)</option>
+	                          					<option data-num="MN" value="+976" id="MN">Mongolia (976)</option>
+	                          					<option data-num="ME" value="+382" id="ME">Montenegro (382)</option>
+	                          					<option data-num="MS" value="+1" id="MS">Montserrat (1)</option>
+	                          					<option data-num="MA" value="+212" id="MA">Morocco (212)</option>
+	                          					<option data-num="MZ" value="+258" id="MZ">Mozambique (258)</option>
+	                          					<option data-num="MM" value="+95" id="MM">Myanmar (95)</option>
+	                          					<option data-num="NA" value="+264" id="NA">Namibia (264)</option>
+	                          					<option data-num="NR" value="+674" id="NR">Nauru (674)</option>
+	                          					<option data-num="NP" value="+977" id="NP">Nepal (977)</option>
+	                          					<option data-num="NL" value="+31" id="NL">Netherlands (31)</option>
+	                          					<option data-num="AN" value="+599" id="AN">Netherlands Antilles (599)</option>
+	                          					<option data-num="NC" value="+687" id="NC">New Caledonia (687)</option>
+	                          					<option data-num="NZ" value="+64" id="NZ">New Zealand (64)</option>
+	                          					<option data-num="NI" value="+505" id="NI">Nicaragua (505)</option>
+	                          					<option data-num="NE" value="+227" id="NE">Niger (227)</option>
+	                          					<option data-num="NG" value="+234" id="NG">Nigeria (234)</option>
+	                          					<option data-num="NU" value="+683" id="NU">Niue (683)</option>
+	                          					<option data-num="KP" value="+850" id="KP">North Korea (850)</option>
+	                          					<option data-num="MP" value="+1" id="MP">Northern Mariana Islands (1)</option>
+	                          					<option data-num="NO" value="+47" id="NO">Norway (47)</option>
+	                          					<option data-num="OM" value="+968" id="OM">Oman (968)</option>
+	                          					<option data-num="PK" value="+92" id="PK">Pakistan (92)</option>
+	                          					<option data-num="PW" value="+680" id="PW">Palau (680)</option>
+	                          					<option data-num="PS" value="+970" id="PS">Palestine (970)</option>
+	                          					<option data-num="PA" value="+507" id="PA">Panama (507)</option>
+	                          					<option data-num="PG" value="+675" id="PG">Papua New Guinea (675)</option>
+	                          					<option data-num="PY" value="+595" id="PY">Paraguay (595)</option>
+	                          					<option data-num="PE" value="+51" id="PE">Peru (51)</option>
+	                          					<option data-num="PH" value="+63" id="PH">Philippines (63)</option>
+	                          					<option data-num="PL" value="+48" id="PL">Poland (48)</option>
+	                          					<option data-num="PT" value="+351" id="PT">Portugal (351)</option>
+	                          					<option data-num="PR" value="+1" id="PR">Puerto Rico (1)</option>
+	                          					<option data-num="QA" value="+974" id="QA">Qatar (974)</option>
+	                          					<option data-num="RE" value="+262" id="RE">Reunion (262)</option>
+	                          					<option data-num="RO" value="+40" id="RO">Romania (40)</option>
+	                          					<option data-num="RU" value="+7" id="RU">Russia (7)</option>
+	                          					<option data-num="RW" value="+250" id="RW">Rwanda (250)</option>
+	                          					<option data-num="SH" value="+290" id="SH">Saint Helena (290)</option>
+	                          					<option data-num="KN" value="+1" id="KN">Saint Kitts and Nevis (1)</option>
+	                          					<option data-num="LC" value="+1" id="LC">Saint Lucia (1)</option>
+	                          					<option data-num="PM" value="+508" id="PM">Saint Pierre and Miquelon (508)</option>
+	                          					<option data-num="VC" value="+1" id="VC">Saint Vincent and Grenadines (1)</option>
+	                          					<option data-num="WS" value="+685" id="WS">Samoa (685)</option>
+	                          					<option data-num="SM" value="+378" id="SM">San Marino (378)</option>
+	                          					<option data-num="ST" value="+239" id="ST">Sao Tome and Principe (239)</option>
+	                          					<option data-num="SA" value="+966" id="SA">Saudi Arabia (966)</option>
+	                          					<option data-num="SN" value="+221" id="SN">Senegal (221)</option>
+	                          					<option data-num="RS" value="+381" id="RS">Serbia (381)</option>
+	                          					<option data-num="SC" value="+248" id="SC">Seychelles (248)</option>
+	                          					<option data-num="SL" value="+232" id="SL">Sierra Leone (232)</option>
+	                          					<option data-num="SG" value="+65" id="SG">Singapore (65)</option>
+	                          					<option data-num="SK" value="+421" id="SK">Slovakia (421)</option>
+	                          					<option data-num="SI" value="+386" id="SI">Slovenia (386)</option>
+	                          					<option data-num="SB" value="+677" id="SB">Solomon Islands (677)</option>
+	                          					<option data-num="SO" value="+252" id="SO">Somalia (252)</option>
+	                          					<option data-num="ZA" value="+27" id="ZA">South Africa (27)</option>
+	                          					<option data-num="KR" value="+82" id="KR">South Korea (82)</option>
+	                          					<option data-num="SS" value="+211" id="SS">South Sudan (211)</option>
+	                          					<option data-num="ES" value="+34" id="ES">Spain (34)</option>
+	                          					<option data-num="LK" value="+94" id="LK">Sri Lanka (94)</option>
+	                          					<option data-num="SD" value="+249" id="SD">Sudan (249)</option>
+	                          					<option data-num="SR" value="+597" id="SR">Suriname (597)</option>
+	                          					<option data-num="SZ" value="+268" id="SZ">Swaziland (268)</option>
+	                          					<option data-num="SE" value="+46" id="SE">Sweden (46)</option>
+	                          					<option data-num="CH" value="+41" id="CH">Switzerland (41)</option>
+	                          					<option data-num="SY" value="+963" id="SY">Syria (963)</option>
+	                          					<option data-num="TW" value="+886" id="TW">Taiwan (886)</option>
+	                          					<option data-num="TJ" value="+992" id="TJ">Tajikistan (992)</option>
+	                          					<option data-num="TZ" value="+255" id="TZ">Tanzania (255)</option>
+	                          					<option data-num="TH" value="+66" id="TH">Thailand (66)</option>
+	                          					<option data-num="TG" value="+228" id="TG">Togo (228)</option>
+	                          					<option data-num="TK" value="+690" id="TK">Tokelau (690)</option>
+	                          					<option data-num="TO" value="+676" id="TO">Tonga (676)</option>
+	                          					<option data-num="TT" value="+1" id="TT">Trinidad and Tobago (1)</option>
+	                          					<option data-num="TN" value="+216" id="TN">Tunisia (216)</option>
+	                          					<option data-num="TR" value="+90" id="TR">Turkey (90)</option>
+	                          					<option data-num="TM" value="+993" id="TM">Turkmenistan (993)</option>
+	                          					<option data-num="TC" value="+1" id="TC">Turks and Caicos Islands (1)</option>
+	                          					<option data-num="TV" value="+688" id="TV">Tuvalu (688)</option>
+	                          					<option data-num="UG" value="+256" id="UG">Uganda (256)</option>
+	                          					<option data-num="UA" value="+380" id="UA">Ukraine (380)</option>
+	                          					<option data-num="AE" value="+971" id="AE">United Arab Emirates (971)</option>
+	                          					<option data-num="GB" value="+44" id="GB">United Kingdom (44)</option>
+	                          					<option data-num="US" value="+1" id="US">United States (1)</option>
+	                          					<option data-num="UY" value="+598" id="UY">Uruguay (598)</option>
+	                          					<option data-num="VI" value="+1" id="VI">US Virgin Islands (1)</option>
+	                          					<option data-num="UZ" value="+998" id="UZ">Uzbekistan (998)</option>
+	                          					<option data-num="VU" value="+678" id="VU">Vanuatu (678)</option>
+	                          					<option data-num="VA" value="+379" id="VA">Vatican City (379)</option>
+	                          					<option data-num="VE" value="+58" id="VE">Venezuela (58)</option>
+	                          					<option data-num="VN" value="+84" id="VN">Vietnam (84)</option>
+	                          					<option data-num="WF" value="+681" id="WF">Wallis and Futuna (681)</option>
+	                          					<option data-num="YE" value="+967" id="YE">Yemen (967)</option>
+	                          					<option data-num="ZM" value="+260" id="ZM">Zambia (260)</option>
+	                          					<option data-num="ZW" value="+263" id="ZW">Zimbabwe (263)</option>
+										</select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 50px; display: none;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-labelledby="select2-country_code_select-container"><span class="select2-selection__rendered" id="select2-country_code_select-container" title="United States (1)">+1</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+										<input id="login_id" placeholder="Email address or mobile number" value="" type="email" name="LOGIN_ID" class="textbox" required="" onkeypress="clearCommonError('login_id')" onkeyup="checking()" onkeydown="checking()" autocapitalize="off" autocomplete="on" autocorrect="off" tabindex="1">
+										<span class="doaminat hide" onclick="enableDomain()">@</span>
+										<div class="textbox hide" id="portaldomain">
+										<select class="domainselect" id="domaincontainer" onchange="handleDomainChange()"></select>
+										</div>
+										<div class="fielderror" style="display: none;"></div>		
+									</span>				
+									</div>
+									</div>
+									<div class="getpassword zeroheight" id="password_container">
+										<div class="hellouser">
+											<div class="username"></div>
+											<span class="Notyou bluetext" onclick="resetForm()">Change</span>
+										</div>
+										<div class="textbox_div">
+											<input id="password" placeholder="Enter password" name="PASSWORD" type="password" class="textbox" required="" onkeypress="clearCommonError('password')" autocapitalize="off" autocomplete="password" autocorrect="off" maxlength="250"> 
+											<span class="icon-hide show_hide_password" onclick="showHidePassword();"></span>
+											<div class="fielderror"></div>
+											<div class="textbox_actions" id="enableotpoption">
+												<span class="bluetext_action" id="signinwithotp" onclick="showAndGenerateOtp()">Sign in using OTP</span>
+													<span class="bluetext_action bluetext_action_right" id="blueforgotpassword" onclick="goToForgotPassword();">Forgot Password?</span>
+											</div>
+											<div class="textbox_actions" id="enableforgot">
+													<span class="bluetext_action bluetext_action_right" id="blueforgotpassword" onclick="goToForgotPassword();">Forgot Password?</span>
+											</div>
+											<div class="textbox_actions_saml" id="enablesaml">
+												<span class="bluetext_action signinwithsaml" onclick="enableSamlAuth();">Sign in using SAML</span>
+													<span class="bluetext_action bluetext_action_right" id="blueforgotpassword" onclick="goToForgotPassword();">Forgot Password?</span>
+											</div>
+											<div class="textbox_actions_saml" id="enablejwt">
+												<a href="" class="bluetext_action signinwithjwt">Sign in using JWT</a>
+													<span class="bluetext_action bluetext_action_right" id="blueforgotpassword" onclick="goToForgotPassword();">Forgot Password?</span>
+											</div>	
+										</div> 
+									</div>
+							<div class="textbox_div" id="mfa_device_container">
+								<div class="devices">
+									<select class="secondary_devices" onchange="changeSecDevice(this);"></select>
+									<div class="deviceparent">
+										<span class="deviceinfo icon-device"></span>
+										<span class="devicetext"></span>
+									</div>
+								</div>
+								<div class="rnd_container">
+									<div id="rnd_num"></div>
+									<div class="bluetext_action rnd_resend resendotp" onclick="javascript:return submitsignin($('#login'));">Resend Push</div>
+								</div>
+							</div>
+								<div id="otp_container">
+									<div class="hellouser">
+										<div class="username"></div>
+										<span class="Notyou bluetext" onclick="resetForm()">Change</span>
+									</div>
+									<div class="textbox_div">
+											<input id="otp" placeholder="Enter OTP" type="text" name="OTP" class="textbox" required="" onkeypress="clearCommonError('otp')" autocapitalize="off" autocomplete="off" autocorrect="off">
+										<div class="fielderror"></div>
+										<div class="textbox_actions otp_actions">
+											<span class="bluetext_action" id="signinwithpass" onclick="showPassword()">Sign in using password</span>
+											<span class="bluetext_action signinwithsaml" onclick="enableSamlAuth();">Sign in using SAML</span>
+											<a href="" class="bluetext_action signinwithjwt">Sign in using JWT</a>
+											<span class="bluetext_action showmoresigininoption" onclick="showmoresigininoption()">Sign in another way</span>
+											<span class="bluetext_action bluetext_action_right resendotp" onclick="generateOTP(true)">Resend OTP</span>
+										</div>
+									</div>
+								</div>
+							<div class="textbox_div" id="mfa_otp_container">
+									<input id="mfa_otp" placeholder="Enter OTP" type="text" name="MFAOTP" class="textbox" required="" onkeypress="clearCommonError('mfa_otp')" autocapitalize="off" autocomplete="off" autocorrect="off">
+								<div class="fielderror"></div>
+								<div class="textbox_actions">
+									<span class="bluetext_action bluetext_action_right resendotp" onclick="generateOTP(true)">Resend OTP</span>
+								</div>
+							</div>
+							<div class="textbox_div" id="mfa_totp_container">
+									<input id="mfa_totp" placeholder="Enter TOTP" type="text" name="TOTP" class="textbox" required="" onkeypress="clearCommonError('mfa_totp')" autocapitalize="off" autocomplete="off" autocorrect="off"> 
+								<div class="fielderror"></div>
+							</div>
+							
+							<div class="qrcodecontainer" id="mfa_scanqr_container">
+								<span class="qr_before"></span>
+							    <img id="qrimg" src="">
+							    <span class="qr_after"></span>
+							</div>
+							<div class="textbox_div" id="captcha_container" style="display: block;">
+								<input id="captcha" placeholder="Enter CAPTCHA" type="text" name="captcha" class="textbox" required="" onkeypress="clearCommonError('captcha')" autocapitalize="off" autocomplete="off" autocorrect="off" maxlength="8" tabindex="2">
+								<div id="captcha_img" name="captcha" class="textbox"><img name="hipImg" id="hip" align="left" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAABGCAIAAAAGgExhAAAIYklEQVR42u2bd0wUWxjFQVCxYF8UG8+CYiyINYga/lERu8ZClCJRYyWaGH2WGFBiCWBEEqOiUaPIxgZRsIC6T9RYVow9GgvWgIINe33vxMmbTGZml9nGgp7z79429/7m+853d9flX4pygFy4BRTBoggWRbAoimBRBIsiWBRFsCiCRREsiiJYFMGiCBZFESyKYFEEi6IIFkWwKIJFUQTLkVtjlbhvBItgEaw/BiwXm0WwKnrkIFgVHSwzu1CtWrX69ev7+vqGhobGxcVduXLFQQf8+fNnvV4fHh7eqVOnhg0buru7Y+q6deu2bdu2X79+0dHRCQkJJ06cKC0tJVi/A1hKDRky5Pnz5/YFKzMzs2nTplp6ValSxcy8Fj11UVFRTk5OYmJiREREYGCgj4+Pp6cngK5evbpOp+vevfvUqVOzsrK+fftGsMrpLWzfvv2HDx9s2WuEIrH7li1bXF1drTgYG89M43QImceOHSNY5RTe4+Pjbem+YMECoe+9e/cQIaw7mPIBSwiT27dvt3Q0VoXmNgWRKS8vD75H1iAgIEDj4LGxsbK+VatWffr0qfBpTEyM9CP4uaSkpJs3b2Je5KDi4uL8/PxNmzaNHz8eecpZYEGg//bt2wTLbmAJunjxoqxBnTp1tIz86dMnLy8vWV94GrGBn5+f9KPjx4+bGgruPi0trVevXrZESuVTN2nSZM6cOQcOHHj06BFWW1hYePTo0T59+ij7Tp8+nWDZGSzED1mD2rVraxl548aNysGvXbsmNqhVq5b0o48fPzo0g0u7g56MjIzv378rR/758+eYMWNkfdu0aWP1Hr569QpJ32Aw7N27FwEYURyYIgwHBwd369btr19CLawcBHFa+BRvIBqjy7Rp09A9NTUVNXJBQUHlBstoNFqRCnE8sPmyjgMHDpS2kRmsPXv2lBtY5nXr1i1ZXw8PD4sWA3TwsL6+vqg0lWYArHTp0gWsDBs2LOqXZs+eHavQ/PnzhU/HjRuHxsDL29tbOpSbm1vHjh0BHMpbFBkvX77UunvZ2dlfvnxxFlgIIWfOnMEWyBokJyeXOWxmZqZy5NzcXGkb1FwyK4M3Esno7du3zgULmVfWF8FV2uD9+/eXL19OT09ftGjR6NGjlXPpdDok7gkTJqBBSkoKYtXp06cRY75+/Wr7kT1+/PjkyZMoqBcvXjxq1KhWrVqJ88IQI7nv378fYbKM3atXrx6YdRxhlh5PSEiIlt0JCgqSdezatauszcyZM1WncHV1xTuNt3np0qU5OTlwP+UMFvK1rC/MIjL7vHnzQkNDfXx8pDGjQ4cOTvdYr1+/Bmpr1qzB6cCoCMVs//79161bBwpVdu/w4cOgCuWScP0TGRmZlZVlX8IsOpvly5drmf38+fPKvjt37pQ1g/OoWbOmlnuvGTNmiLWko/0yotHQoUNVV4K4BVcUFha2cuVKRIUbN24IN6gVyrxjSWfPno2Li/P39xcW07t37w0bNuC55B4LEeLIkSOTJ09u0KCBUJShtoIjefPmTTmDhQXEx8fDP5kfU2l+mzdvrhrnkDFhX7RMDSeLl8ruYOEYrl+/js1EWhk5ciRckersyDgPHz6sdFXh/fv3V69ejZdBeD9jYmKEexP5+nA28GjR0dFCEYFwFxgYuGzZMjgh1QLHQS54ypQp5h8GC5N1SUhIMNUe7/3gwYO13L8jvN25c8fGs7x79y5oXrVqFRwx7COstJjUYFCQr1VXcurUqUp93XDhwoXw8HChWkJVYXJ9wAjhDoUDymbsiBDG4CLhA8xf5Vm0KeD4wYMHYEJI21IhEZgacNasWcp7rzL9ONIiJoKDady4sRm24O4tOsvCwkLYibVr1+Jt7NGjh/SCo3Xr1sOHD1+4cKFer7969SoMOyyU6qQDBgz4PW7eX7x4gTeqZcuWmtaHM9u3bx92XKwO4MngElasWAHnW+aJatmUrVu3ytoMGjRIdbSSkhKlbULZbNHzP3v27NChQ6inlL5YvE9SLhseH3xgK2CAJk6c2LNnT9Q94qfgFWsGOiimjEbju3fvZHe5yvQtXqKq+t/Ke0GKqGTx+hDnAQEgQ5AXQ3rnzp2RvGDfEORQPlixKSBd1ga5WHUBcPfKa5snT55YtwUwc0uWLJFdSWjJ4C1atABGKLxR6iOLmb/gKS4uhqNQHQev6KVLl2y/C/ytbt5LS0tzc3PhtVG3C65ffAWx6XPnzkXeVC3flEMVFRUpcVG9/lEmskmTJtnyFMjF0tHc3d3xnsiu7G25ccCraMqwe3l5qf4EjV/pyG/VsrOzk5KSUF3CbShtk6hdu3bl5eUVFBSIVWdqaqqsjbe3t3KKzZs3K0czczZwysnJyfn5+fDvBoMhLS0tMTEReROJLDg4GB5ImVURsVC7mTJDloJ17ty5Ro0aqbb08/MD0/b69qLCgWVwpNLT02FHtNRiykIJuSYqKgoZ9m+JlF94wScKX0qMHTs25Jf69u0Lntq1a4fAaepnq6AWYQnpyd/fv0aNGtJPR4wYISzeOrCkj4+sbepHOzASBw8e1L6T5ieqgHKhKIfoH8fLilUh8Ah94eH0/0v2GxghXGVkZNhxahQltixbup/2PQunHJxNh+6UXzeYEVyz6s278jdb0I4dO8xPjRSp0+m0zAsntG3bNid+Q2reNvH3WBZvMVwIDhWeIywsDBa+pKREdRBYKFnHZs2aafmu+sePH0ajcf369REREUFBQbBunp6ebm5uHh4emDcgICAyMnL37t3S77kIVuUA689U5f0fBMGiCBZFsCiKYFEEiyJYFEWwKIJFESyKIlgUwaIIFkURLIpgUQSLoggWRbAogkVRBIsiWBTBoiiCRVUI/QfYHUg4k63fRQAAAABJRU5ErkJggg==" style="mix-blend-mode: multiply;"></div>
+								<span class="reloadcaptcha" onclick="changeHip()" title="Refresh CAPTCHA"> </span>
+								<div class="fielderror"></div> 
+							</div>
+							<div id="yubikey_container">
+								<div class="fielderror"></div>
+							</div>
+							<button class="btn blue waitbtn" id="waitbtn">
+									<span class="loadwithbtn"></span>
+									<span class="waittext">Waiting for approval</span>
+							</button>
+							</div>
+							<div class="textbox_actions_more" id="enablemore">
+								<span class="bluetext_action showmoresigininoption" onclick="showmoresigininoption()">Sign in another way</span>
+									<span class="bluetext_action bluetext_action_right blueforgotpassword" id="blueforgotpassword" onclick="goToForgotPassword();">Forgot Password?</span>
+								<span class="bluetext_action bluetext_action_right resendotp" id="resendotp" onclick="generateOTP(true)">Resend OTP</span>
+							</div>	
+							<div class="addaptivetfalist">
+									<div class="signin_head verify_title">Sign in another way</div>
+									<div class="optionstry optionmod" id="trytotp" onclick="tryAnotherway('totp')">
+										<div class="img_option_try img_option icon-totp"></div>
+										<div class="option_details_try">
+											<div class="option_title_try">Offline TOTP verification</div>
+											<div class="option_description try_option_desc">Open OneAuth, tap&nbsp;<span class="trydesc">Sign in another way</span>,&nbsp;and enter it here to verify your sign-in.</div>
+										</div>
+										<div class="mfa_totp_verify verify_totp" id="verify_totp_container"> 
+											<input id="verify_totp" placeholder="Enter OTP" type="number" name="MFATOTP" class="textbox" required="" onkeypress="clearCommonError('verify_totp')" autocapitalize="off" autocomplete="off" autocorrect="off">
+											<button class="btn blue" id="totpverifybtn" tabindex="2">
+												<span class="loadwithbtn"></span>
+												<span class="waittext">Verify</span>
+											</button>
+											<div class="fielderror"></div>
+										</div>
+									</div>
+									<div class="optionstry optionmod" id="tryscanqr" onclick="tryAnotherway('qr')">
+										<div class="img_option_try img_option icon-qr"></div>
+										<div class="option_details_try">
+											<div class="option_title_try">Scan QR verification</div>
+											<div class="option_description try_option_desc">Open OneAuth and tap&nbsp;<span class="trydesc">Sign in another way</span>. Tap&nbsp;<span class="trydesc">Scan QR instead</span> to open code scanner. Scan the below code to verify sign-in.</div>
+										</div>
+										<div class="verify_qr" id="verify_qr_container">
+											<div class="qrcodecontainer">
+												<div>
+													<span class="qr_before"></span>
+												    <img id="verify_qrimg" src="">
+												   	<span class="qr_after"></span>
+												   	<div class="loader" style="display: none;"></div>
+												   	<div class="blur_elem blur" style="display: none;"></div>
+											   	</div>
+											</div>
+										</div>
+									</div>
+									<span class="close_icon error_icon" onclick="hideTryanotherWay()"></span>
+									<div class="text16 pointer nomargin" id="recoverybtn_mob" onclick="showCantAccessDevice()">Can't access your mobile device?</div>
+									<div class="text16 pointer nomargin" id="problemsignin_mob" onclick="showproblemsignin()">Problem signing in?</div>
+							</div>
+							<div id="problemsigninui"></div>
+							
+							<button class="btn blue" id="nextbtn" tabindex="3"><span class="">Next</span></button>
+							<div class="btn borderless" onclick="hideBackupOptions()">Back</div>
+							<div class="text16 pointer nomargin" id="recoverybtn" onclick="showCantAccessDevice()">Can't access your mobile device?</div>
+							<div class="text16 pointer nomargin" id="problemsignin" onclick="showproblemsignin()">Problem signing in?</div>
+							<div class="tryanother text16" onclick="showTryanotherWay()">Sign in another way</div>
+								<div class="text16 pointer" id="forgotpassword"><a class="text16" onclick="goToForgotPassword();">Forgot Password?</a></div>
+	    					</form>
+	    					<div class="externaluser_container"></div>
+							<button class="btn blue" id="continuebtn" onclick="handleLookupDetails(JSON.stringify(deviceauthdetails),true);return false"><span>Continue</span></button>
+	    					<div id="recovery_container">
+								<div class="signin_head recoveryhead">
+									<span class="icon-backarrow backoption" onclick="goBackToProblemSignin()"></span><span class="rec_head_text">Can't access your mobile device?</span><table id="recoverytitle"></table>
+									</div>
+									<div id="recoverymodeContainer"></div>
+									<div class="recoverymodes">
+										<div class="options options_hover" id="recoverOption" onclick="showBackupVerificationCode()">
+											<div class="img_option icon-backup"></div>
+											<div class="option_details">
+												<div class="option_title">Use backup verification code</div>
+												<div class="option_description">Backup verification codes are 12-digit codes that are given to you when you set up multi-factor authentication.</div>
+											</div>
+										</div>
+										<div class="options options_hover" id="passphraseRecover" onclick="showPassphraseContainer()">
+											<div class="img_option icon-saml"></div>
+											<div class="option_details">
+												<div class="option_title">Sign in using passphrase</div>
+												<div class="option_description">Use passphrase to sign in to your OneAuth app</div>
+											</div>
+										</div>
+										<div class="options contact_support">
+											<div class="img_option icon-support"></div>
+											<div class="option_details">
+												<div class="option_title">Contact Support </div>
+												<div class="option_description contactsuprt">Please send us an email at <a href="mailto:support@zohoaccounts.com" style="color:#696969;text-decoration:none;">support@zohoaccounts.com</a> describing your issue so we can assist you.</div>
+										</div>
+									</div>
+								</div>
+								<div class="btn greytext"></div>
+						   </div>
+						   <div id="backup_container">
+								<div class="signin_head backuphead">
+									<span id="backup_title"><span class="icon-backarrow backoption" onclick="showCantAccessDevice()"></span>Use backup verification code</span>
+									<div class="backup_desc extramargin">Backup verification codes are 12-digit codes that are given to you when you set up multi-factor authentication.</div>
+								</div>
+								<div class="textbox_div" id="backupcode_container">
+									<input id="backupcode" placeholder="Backup verification code" type="text" name="backupcode" class="textbox" required="" onkeypress="clearCommonError('backupcode')" onkeyup="submitbackup(event)" autocapitalize="off" autocomplete="off" autocorrect="off"> 
+									<div class="fielderror"></div>
+									<span class="bluetext_action" id="recovery_passphrase" onclick="changeRecoverOption('passphrase')">Sign in using passphrase</span>
+								</div>
+								<div class="textbox_div" id="passphrase_container">
+									<input id="passphrase" placeholder="Enter passphrase" type="password" name="PASSPHRASE" class="textbox" required="" onkeypress="clearCommonError('passphrase')" autocapitalize="off" autocomplete="off" autocorrect="off">
+									<span class="icon-hide show_hide_password" onclick="showHidePassword();"></span>
+									<div class="fielderror"></div>
+									<span class="bluetext_action" id="recovery_backup" onclick="changeRecoverOption('recoverycode')">Sign in using backup codes</span>
+								</div>
+								<div class="textbox_div" id="bcaptcha_container" style="display: none;">
+									<input id="bcaptcha" placeholder="Enter CAPTCHA" type="text" name="captcha" class="textbox" required="" onkeypress="clearCommonError('bcaptcha')" onkeyup="submitbackup(event)" autocapitalize="off" autocomplete="off" autocorrect="off" maxlength="8">
+									<div id="bcaptcha_img" name="captcha" class="textbox"></div>
+									<span class="reloadcaptcha" onclick="changeHip('bcaptcha_img','bcaptcha')" title="Refresh CAPTCHA"> </span>
+									<div class="fielderror"></div> 
+								</div>
+								<button class="btn blue" onclick="verifyBackupCode()">Verify</button>
+								<div class="btn borderlessbtn back_btn"></div>
+							</div>
+	    				<div>
+	    		</div>
+	    			<div class="line" style="display: none;"></div>
+	    				<div class="fed_2show" style="display: none;">
+							<div class="signin_fed_text">Sign in using</div>
+								
+								<span class="fed_div google_icon google_fed small_box show_fed" onclick="createandSubmitOpenIDForm('google');" title="Sign in using Google" style="display: inline-block;">
+						            <div class="fed_center_google">
+						                <span class="fed_icon googleIcon"></span>
+						            </div>
+						        </span>
+								<span class="fed_div MS_icon azure_fed small_box show_fed" onclick="createandSubmitOpenIDForm('azure');" title="Sign in using Microsoft" style="display: inline-block;">
+						            <div class="fed_center">
+						                <span class="fed_icon"></span>
+						                <span class="fed_text" style="display: none;">Microsoft</span>
+						            </div>
+						        </span>
+								 <span class="fed_div linkedin_fed_box linkedin_fed small_box show_fed" onclick="createandSubmitOpenIDForm('linkedin');" title="Sign in using Linkedin" style="display: inline-block;">
+						            <div class="fed_center">
+						                <span class="fed_icon linked_fed_icon"></span>
+						            </div>
+						        </span>
+								<span class="fed_div fb_fed_box facebook_fed small_box show_fed" onclick="createandSubmitOpenIDForm('facebook');" title="Sign in using Facebook" style="display: inline-block;">
+									<div class="fed_center">
+							            <div class="fed_icon fb_fedicon"></div>
+							            <span class="fed_text" style="display: none;">Facebook</span>
+							        </div>
+						        </span>
+								<span class="fed_div twitter_fed_box twitter_fed small_box show_fed" onclick="createandSubmitOpenIDForm('twitter');" title="Sign in using Twitter" style="display: inline-block;">
+						            <div class="fed_center">
+						                <span class="fed_icon"></span>
+						                <span class="fed_text" style="display: none;">Twitter</span>
+						            </div>
+						        </span>
+								<span class="fed_div yahoo_icon yahoo_fed small_box" onclick="createandSubmitOpenIDForm('yahoo');" title="Sign in using Yahoo" style="display: none;">
+						            <div class="fed_icon yahoo_fedicon"></div>
+						        </span>
+								<span class="fed_div slack_icon slack_fed small_box" onclick="createandSubmitOpenIDForm('slack');" title="Sign in using Slack" style="display: none;">
+						            <div class="fed_icon slack_fedicon"></div>
+						        </span>
+								<span class="fed_div apple_normal_icon apple_fed small_box" id="appleNormalIcon" onclick="createandSubmitOpenIDForm('apple');" title="Sign in using Apple" style="display: none;">
+						             <div class="fed_center">
+						                <span class="fed_icon"></span>
+						                <span class="fed_text" style="display: none;">Sign in with Apple</span>
+						            </div>
+						        </span>
+							<span class="fed_div more small_box" id="showIDPs" title="More" onclick="showMoreIdps();" style="display: inline;"> <span class="morecircle"></span> <span class="morecircle"></span> <span class="morecircle"></span></span>
+							<div class="zohosignin hide" onclick="showZohoSignin()">Sign in with Zoho</div>	
+					</div>
+    			</div>
+    			<div class="nopassword_container">
+    				<div class="nopassword_icon icon-hint"></div>
+    				<div class="nopassword_message">You have not set a password for this account <a href="javascript:goToForgotPassword();">Set password now</a>.</div>
+    			</div>
+    			<div class="password_expiry_container">
+    				<div class="passexpsuccess"></div>
+    				<div class="signin_head">
+							<span id="headtitle">Password expired</span>
+							<div class="pass_name extramargin" id="password_desc"></div>
+					</div>
+					<div class="textbox_div" id="npassword_container">
+							<input id="new_password" onkeyup="setPassword(event)" placeholder="Enter new password" name="newPassword" type="password" class="textbox" required="" onkeypress="clearCommonError('password')" autocapitalize="off" autocomplete="password" autocorrect="off">
+							<span class="icon-hide show_hide_password" onclick="showHidePassword();"></span>
+							<div class="fielderror"></div>
+					</div>
+					<div class="textbox_div" id="rpassword_container">
+							<input id="new_repeat_password" onkeyup="setPassword(event)" placeholder="Confirm Password" name="cpwd" type="password" class="textbox" required="" onkeypress="clearCommonError('password')" autocapitalize="off" autocomplete="password" autocorrect="off"> 
+					</div>
+					<button class="btn blue" id="changepassword" onclick="updatePassword();"><span>Set password</span></button>
+    			</div>
+    			<div class="terminate_session_container">
+    				<div class="signin_head">
+							<span id="headtitle">Terminate Sessions</span>
+							<div class="pass_name extramargin" id="password_desc">Apart from changing your password, you can also choose any of the following options, if you feel your account is compromised.</div>
+					</div>
+					<form id="terminate_session_form" name="terminate_session_container" onsubmit="return send_terminate_session_request(this);" novalidate="">
+						<div class="checkbox_div" style="padding: 10px 0px 10px 15px;">
+							<input id="termin_web" name="signoutfromweb" class="checkbox_check" type="checkbox">
+							<span class="checkbox">
+								<span class="checkbox_tick"></span>
+							</span>
+							<label for="termin_web" class="checkbox_label">Terminate all browser sessions.</label>
+						</div>
+						<div class="checkbox_div" style="padding: 10px 0px 10px 15px;">
+							<input id="termin_mob" name="signoutfrommobile" class="checkbox_check" type="checkbox" onchange="showOneAuthTerminate(this)">
+							<span class="checkbox">
+								<span class="checkbox_tick"></span>
+							</span>
+							<label for="termin_mob" class="checkbox_label big_checkbox_label">Terminate all web and mobile app sessions.</label>
+						</div>
+						<div class="oneAuthLable">
+							<span class="oneauth_icon one_auth_icon_v2"></span>
+							<span class="text_container">
+								<div class="text_header">Include OneAuth</div>
+								<div class="text_desc">If enabled, you need to verify your new password in OneAuth app installed on your Primary Device.</div>
+							</span>
+							<div class="togglebtn_div include_oneAuth_button">
+								<input class="real_togglebtn" id="include_oneauth" type="checkbox">
+								<div class="togglebase">
+									<div class="toggle_circle"></div>
+								</div>
+							</div>
+						</div>
+						<div class="checkbox_div checkbox_mod" style="padding: 10px 0px 10px 15px;">
+							<input id="termin_api" name="signoutfromapiToken" class="checkbox_check" type="checkbox">
+							<span class="checkbox">
+								<span class="checkbox_tick"></span>
+							</span>
+							<label for="termin_api" class="checkbox_label big_checkbox_label">Terminate all API tokens.</label>
+						</div>
+						<button class="btn blue" id="terminate_session_submit"><span>Continue</span></button>
+					</form>
+    			</div>
+    				<div class="trustbrowser_ui">
+						<div class="signin_head">
+							<span id="headtitle">Trust this browser?</span>
+							<div class="service_name mod_sername"></div>
+						</div>
+						<button class="btn blue trustdevice trustbtn" onclick="updateTrustDevice(true)">
+							<span class="loadwithbtn"></span>
+							<span class="waittext">Trust</span>
+						</button>
+						<button class="btn grey trustdevice notnowbtn" onclick="updateTrustDevice(false)">
+							<span class="loadwithbtn"></span>
+							<span class="waittext">Not now</span>
+						</button>
+				</div>
+				<div id="restict_signin">
+					<div class="signin_head restrict_head">Access denied</div>
+					<div class="restrict_icon"></div> 
+					<div class="restrict_desc service_name">You've enabled Restrict Sign-in for your Zoho account. You can disable it in the OneAuth app.</div>
+					<button class="btn blue trybtn" id="nextbtn" tabindex="2" onclick="window.location.reload()">Try again</button>
+				</div>
+    		</div>
+    		
+    		<div class="rightside_box">
+    			<div class="mfa_panel" style="display: none;">
+    					<div class="pwlessBanner">
+							<div class="pwless_img" id="product_img"></div>
+							<div class="pwless_head">Experience Passwordless Sign-in</div>
+							<div class="pwless_text">Move away from risky passwords and experience one-tap access to your Zoho account. Download and install Zoho OneAuth.</div>
+							<div class="MAppIcon">
+								<a class="GPlayIcon" href="https://play.google.com/store/apps/details?id=com.zoho.accounts.oneauth&amp;referrer=utm_source=za_signin&amp;utm_medium=web&amp;utm_campaign=za_signin_pwdless_promo"></a>
+								<a class="AStoreIcon" href="https://apps.apple.com/app/apple-store/id1142928979?pt=423641&amp;ct=za_signin_pwdless_promo&amp;mt=8"></a>
+							</div>
+							<a class="OnaAuthHLink" href="https://zoho.to/6li">Learn more</a>
+						</div>	
+				</div>
+				<div class="oneauth_panel hide">
+					<div class="Steps">
+	                    <div class="Step" id="Step1" onclick="ClickStep(1,true)">
+	                        <div class="step_values active_step">1</div>
+	                        <div class="step_after">
+	                            <div class="animate_line"></div>
+	                        </div>
+	                    </div>
+	                    <div class="Step" id="Step2" onclick="ClickStep(2,true)">
+	                        <div class="step_values">2</div>
+	                        <div class="step_after">
+	                            <div class="animate_line"></div>
+	                        </div>
+	                    </div>
+	                    <div class="Step" id="Step3" onclick="ClickStep(3,true)">
+	                        <div class="step_values">3</div>
+	                    </div>
+	                </div> 
+	                <div class="text_div"> 
+	                    <div class="overlap_div">  
+	                        <div class="step_content step_one">Tap the push notification you received on your device</div> 
+	                        <div class="step_content step_two">Tap <b>ALLOW SIGN IN</b></div> 
+	                        <div class="step_content step_three">Your sign-in request approved</div>   
+	                    </div> 
+	                </div>
+	                <div class="MFA_illustration PushCame"></div>
+				</div>
+    		<div class="overlapBanner" style="width: 300px; display: block;"><div id="banner_0" class="rightbanner rightbannerTransition slideright">
+    
+    
+    
+    
+    
+    <!--   BANNER TYPE 1     -->
+        <div class="container">
+            <img src="https://accounts.zoho.com/v2/components/images/passwordless_illustration2x.png" style=" display:block; width: 300px; height: 240px; margin:auto;">
+            <div style="display: block; ;line-height: 20px; font-size: 16px; font-weight: 600; margin-top: 20px; text-align: center;">Passwordless sign-in</div>
+            <div style="display: block; ;line-height: 20px; font-size: 14px; font-weight: 400; margin-top: 10px; text-align: center;">
+                Move away from risky passwords and experience one-tap access to Zoho. Download and install OneAuth.
+            </div>
+            <a style="display: block; height: 36px; width: fit-content; max-width: 160px; text-align: center; margin: auto; margin-top: 20px; background-color: #ECF7FE; color: #0091FF; font-weight: 600; border-radius: 18px; padding: 8px 20px; border: none; cursor: pointer; text-decoration: none; box-sizing: border-box; font-size: 14px; line-height: 20px;" href="https://zoho.to/za_signin_oa_rp" target="_blank"> Learn More </a>
+        </div>      
+        
+    
+    
+
+</div><div id="banner_1" class="rightbanner rightbannerTransition slideright">
+    
+    
+    
+    
+    
+    <!--   BANNER TYPE 1     -->
+        <div class="container">
+            <img src="https://accounts.zoho.com/v2/components/images/mfa_illustration2x.png" style=" display:block; width: 300px; height: 240px; margin:auto;">
+            <div style="display: block; ;line-height: 20px; font-size: 16px; font-weight: 600; margin-top: 20px; text-align: center;">MFA for all accounts</div>
+            <div style="display: block; ;line-height: 20px; font-size: 14px; font-weight: 400; margin-top: 10px; text-align: center;">
+                Secure online accounts with OneAuth 2FA. Back up OTP secrets and never lose access to your accounts.
+            </div>
+            <a style="display: block; height: 36px; width: fit-content; max-width: 160px; text-align: center; margin: auto; margin-top: 20px; background-color: #ECF7FE; color: #0091FF; font-weight: 600; border-radius: 18px; padding: 8px 20px; border: none; cursor: pointer; text-decoration: none; box-sizing: border-box; font-size: 14px; line-height: 20px;" href="https://zoho.to/za_signin_oa_rp" target="_blank"> Learn More </a>
+        </div>      
+        
+    
+    
+
+</div><div id="banner_2" class="rightbanner rightbannerTransition">
+    
+    
+    
+    
+    
+    <!--   BANNER TYPE 1     -->
+        <div class="container">
+            <img src="https://accounts.zoho.com/v2/components/images/recovery_illustration2x.png" style=" display:block; width: 300px; height: 240px; margin:auto;">
+            <div style="display: block; ;line-height: 20px; font-size: 16px; font-weight: 600; margin-top: 20px; text-align: center;">Easy recovery modes</div>
+            <div style="display: block; ;line-height: 20px; font-size: 14px; font-weight: 400; margin-top: 10px; text-align: center;">
+                Lost access to OneAuth? Worry not. Set up passphrase and backup number to recover OneAuth easily.
+            </div>
+            <a style="display: block; height: 36px; width: fit-content; max-width: 160px; text-align: center; margin: auto; margin-top: 20px; background-color: #ECF7FE; color: #0091FF; font-weight: 600; border-radius: 18px; padding: 8px 20px; border: none; cursor: pointer; text-decoration: none; box-sizing: border-box; font-size: 14px; line-height: 20px;" href="https://zoho.to/za_signin_oa_rp" target="_blank"> Learn More </a>
+        </div>      
+        
+    
+    
+
+</div></div><div class="dotHead"><div class="dot" id="dot_0"><div></div></div><div class="dot" id="dot_1"><div></div></div><div class="dot" id="dot_2" selected="selected"><div></div></div></div></div>
+		</div>    	
+			<div id="signuplink">Don't have a Zoho account? <a href="javascript:register()">Sign Up Now</a></div>
+		<div id="enableCookie" style="display:none;text-align:center">
+                   <div class="zoho_logo ZohoHome zoho_logo_position_center"></div>
+            <div style="text-align: center;padding: 10px;">Cookies are disabled for your browser. Please enable cookies to continue.</div>
+	    </div>
+	    
+	    <noscript>
+		    <div style="position: fixed; top: 0px; left: 0px; z-index: 3;height: 100%; width: 100%; background-color: #FFFFFF">
+		    	<div id="enableCookie" style='text-align:center'>
+		                   <div class='zoho_logo ZohoHome zoho_logo_position_center'></div>
+		            <div style="text-align: center;padding: 10px;">JavaScript is disabled for your browser. Please enable it in your browser settings and try again.</div>
+	    		</div>
+		    </div>
+		</noscript>
+	
+
+</body></html>

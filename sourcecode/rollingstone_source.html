@@ -1,0 +1,1328 @@
+<html lang="en" class=""><head>
+  <title>Rolling Stone Email Alerts &amp; Newsletter Preferences</title>
+
+<link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/css/bootstrap.css">
+<style class="cp-pen-styles">
+@import url("https://fonts.googleapis.com/css?family=Istok+Web|Montserrat:400,700");
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap');
+
+* {
+  font-family: 'Lato', sans-serif;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+*:before, *:after {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.container {
+  padding: 0 40px 40px 40px;
+}
+
+section {
+  padding: 25px 0;
+}
+
+#navigation {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  right: 0;
+  top: 10px;
+  max-width: 1060px;
+  margin: auto auto;
+  padding: 0px;
+  z-index: 20;
+}
+#navigation .alert {
+  margin-bottom: 0;
+  border-radius: 0;
+  z-index: 5;
+  margin-top: 15px;
+}
+#navigation .nav {
+  z-index: 10;
+  position: relative;
+  background: #000000;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25);
+}
+#navigation .nav a {
+  color: #fff;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 13px;
+}
+#navigation .nav a.save {
+  background: #666;
+  transition: all 500ms ease-out;
+}
+
+h1 {
+  font-family: 'Lato', sans-serif;
+  color: #000000;
+  font-size: 44px;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 52px;
+  text-align: center;
+}
+
+h2 {
+  font-family: 'Lato', sans-serif;
+  color: #000000;
+  font-size: 44px;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 52px;
+  text-align: center;
+}
+
+h3 {
+  font-family: 'Lato', sans-serif;
+  color: #000000;
+  font-size: 23px;
+  letter-spacing: 0;
+  line-height: 28px;
+  text-align: center;
+}
+
+.unsubscribe {
+  text-align: right;
+  padding-top: 10px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.row-cards .col-sm-12, .col-sm-6, .col-sm-4 {
+  margin-bottom: 30px;
+}
+
+.row-cards .col-lg-6,
+.row-cards .col-sm-12 {
+  padding-right: 13px;
+  padding-left: 13px;
+}
+
+.card-content {
+  position: relative;
+  height: 100%;
+  flex-direction: column;
+  border-radius: 5px;
+  background-color: #FFFFFF;
+  box-shadow: 1px 2px 9px 0 rgba(0,0,0,0.08);
+}
+.card-content * {
+  cursor: pointer;
+}
+.card-content h4 {
+  font-family: 'Lato', sans-serif;
+  color: #000000;
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 34px;
+  margin-bottom: 7px;
+}
+.card-content p {
+  font-family: 'Lato', sans-serif;
+  color: #000000;
+  font-family: Lato;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: 22px;
+}
+
+.c-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+}
+.c-card ~ .card-content {
+  transition: all 800ms ease-out;
+  border: 1px solid transparent;
+}
+.c-card ~ .card-content:hover {
+  border: 1px solid #57CF39;
+}
+.c-card ~ .card-content label {
+  margin-bottom: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.c-card ~ .card-content .card-text {
+  padding: 21px 21px 37px 21px;
+  flex-grow: 1;
+  transition: all 200ms ease-out;
+}
+.c-card ~ .card-content .card-bottom {
+  transition: all 200ms ease-out;
+}
+.c-card ~ .card-content .card-bottom .schedule {
+  border-bottom: 1px solid #D9D9D9;
+  padding-left: 25px;
+  padding-bottom: 13px;
+}
+.c-card ~ .card-content .card-bottom .schedule span {
+  font-family: 'Lato', sans-serif;
+  color: #000000;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 0.53px;
+  line-height: 17px;
+  text-align: center;
+  text-transform: uppercase;
+}
+.c-card ~ .card-content .card-bottom .schedule span:before {
+  width: 24px;
+  height: 23px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px;
+  content: '';
+  background: url("data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCIgdmlld0JveD0iMCAwIDUxMS42MzQgNTExLjYzNCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTExLjYzNCA1MTEuNjM0OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPHBhdGggZD0iTTQ4Mi41MTMsODMuOTQyYy03LjIyNS03LjIzMy0xNS43OTctMTAuODUtMjUuNjk0LTEwLjg1aC0zNi41NDF2LTI3LjQxYzAtMTIuNTYtNC40NzctMjMuMzE1LTEzLjQyMi0zMi4yNjEgICBDMzk3LjkwNiw0LjQ3NSwzODcuMTU3LDAsMzc0LjU5MSwwaC0xOC4yNjhjLTEyLjU2NSwwLTIzLjMxOCw0LjQ3NS0zMi4yNjQsMTMuNDIyYy04Ljk0OSw4Ljk0NS0xMy40MjIsMTkuNzAxLTEzLjQyMiwzMi4yNjF2MjcuNDEgICBoLTEwOS42M3YtMjcuNDFjMC0xMi41Ni00LjQ3NS0yMy4zMTUtMTMuNDIyLTMyLjI2MUMxNzguNjQsNC40NzUsMTY3Ljg4NiwwLDE1NS4zMjEsMEgxMzcuMDUgICBjLTEyLjU2MiwwLTIzLjMxNyw0LjQ3NS0zMi4yNjQsMTMuNDIyYy04Ljk0NSw4Ljk0NS0xMy40MjEsMTkuNzAxLTEzLjQyMSwzMi4yNjF2MjcuNDFINTQuODIzYy05LjksMC0xOC40NjQsMy42MTctMjUuNjk3LDEwLjg1ICAgYy03LjIzMyw3LjIzMi0xMC44NSwxNS44LTEwLjg1LDI1LjY5N3YzNjUuNDUzYzAsOS44OSwzLjYxNywxOC40NTYsMTAuODUsMjUuNjkzYzcuMjMyLDcuMjMxLDE1Ljc5NiwxMC44NDksMjUuNjk3LDEwLjg0OWg0MDEuOTg5ICAgYzkuODk3LDAsMTguNDctMy42MTcsMjUuNjk0LTEwLjg0OWM3LjIzNC03LjIzNCwxMC44NTItMTUuODA0LDEwLjg1Mi0yNS42OTNWMTA5LjYzOSAgIEM0OTMuMzU3LDk5LjczOSw0ODkuNzQzLDkxLjE3NSw0ODIuNTEzLDgzLjk0MnogTTM0Ny4xODcsNDUuNjg2YzAtMi42NjcsMC44NDktNC44NTgsMi41Ni02LjU2NyAgIGMxLjcxMS0xLjcxMSwzLjkwMS0yLjU2OCw2LjU3LTIuNTY4aDE4LjI2OGMyLjY3LDAsNC44NTMsMC44NTQsNi41NywyLjU2OGMxLjcxMiwxLjcxMiwyLjU2NywzLjkwMywyLjU2Nyw2LjU2N3Y4Mi4yMjQgICBjMCwyLjY2Ni0wLjg1NSw0Ljg1My0yLjU2Nyw2LjU2N2MtMS43MTgsMS43MDktMy45LDIuNTY4LTYuNTcsMi41NjhoLTE4LjI2OGMtMi42NjksMC00Ljg1OS0wLjg1NS02LjU3LTIuNTY4ICAgYy0xLjcxMS0xLjcxNS0yLjU2LTMuOTAxLTIuNTYtNi41NjdWNDUuNjg2eiBNMTI3LjkxNSw0NS42ODZjMC0yLjY2NywwLjg1NS00Ljg1OCwyLjU2OC02LjU2NyAgIGMxLjcxNC0xLjcxMSwzLjkwMS0yLjU2OCw2LjU2Ny0yLjU2OGgxOC4yNzFjMi42NjcsMCw0Ljg1OCwwLjg1NCw2LjU2NywyLjU2OGMxLjcxMSwxLjcxMiwyLjU3LDMuOTAzLDIuNTcsNi41Njd2ODIuMjI0ICAgYzAsMi42NjYtMC44NTUsNC44NTYtMi41Nyw2LjU2N2MtMS43MTMsMS43MDktMy45LDIuNTY4LTYuNTY3LDIuNTY4SDEzNy4wNWMtMi42NjYsMC00Ljg1Ni0wLjg1NS02LjU2Ny0yLjU2OCAgIGMtMS43MDktMS43MTUtMi41NjgtMy45MDEtMi41NjgtNi41NjdWNDUuNjg2eiBNNDU2LjgxMiw0NzUuMDg4SDU0LjgyM3YtMjkyLjM2aDQwMS45ODlWNDc1LjA4OHoiIGZpbGw9IiMwMDAwMDAiLz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K") no-repeat;
+}
+.c-card ~ .card-content .card-bottom .subscribe {
+  display: flex;
+  line-height: 31px;
+  padding-left: 23px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.c-card ~ .card-content .card-bottom .subscribe .circle {
+  width: 31px;
+  height: 31px;
+  border-radius: 50%;
+  border: 1px solid #D9D9D9;
+  background-color: #FFFFFF;
+  display: inline-block;
+  margin-right: 10px;
+  position: relative;
+}
+.c-card ~ .card-content .card-bottom .subscribe .circle .card-state-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 31px;
+  height: 31px;
+  background: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDI2IDI2IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAyNiAyNiIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCI+CiAgPHBhdGggZD0ibS4zLDE0Yy0wLjItMC4yLTAuMy0wLjUtMC4zLTAuN3MwLjEtMC41IDAuMy0wLjdsMS40LTEuNGMwLjQtMC40IDEtMC40IDEuNCwwbC4xLC4xIDUuNSw1LjljMC4yLDAuMiAwLjUsMC4yIDAuNywwbDEzLjQtMTMuOWgwLjF2LTguODgxNzhlLTE2YzAuNC0wLjQgMS0wLjQgMS40LDBsMS40LDEuNGMwLjQsMC40IDAuNCwxIDAsMS40bDAsMC0xNiwxNi42Yy0wLjIsMC4yLTAuNCwwLjMtMC43LDAuMy0wLjMsMC0wLjUtMC4xLTAuNy0wLjNsLTcuOC04LjQtLjItLjN6IiBmaWxsPSIjRkZGRkZGIi8+Cjwvc3ZnPgo=) no-repeat;
+  transition: all 100ms ease-out;
+  display: none;
+  background-position: 7px 6px;
+}
+.c-card ~ .card-content .card-bottom .subscribe span {
+  font-family: 'Lato', sans-serif;
+  color: #000000;
+  font-size: 12px;
+  letter-spacing: 1.12px;
+}
+.c-card:checked ~ .card-content .card-bottom .subscribe .circle {
+  background-color: #57CF39;
+}
+.c-card:checked ~ .card-content .card-bottom .subscribe .circle .card-state-icon {
+  display: block;
+}
+
+.footer {
+  font-size:.9em;
+  text-align:center;
+}
+
+.checkbox {
+  margin-bottom:20px;
+  display: inline-block;
+}
+
+.checkbox label {
+  color:#666;
+}
+
+label p {
+  margin:0;
+}
+
+h4 {
+  margin:0;
+  color:#000;
+}
+
+#header {
+  background: #D42532;
+  text-align: center;
+  padding: 60px 0 44px 0;
+}
+
+.logo {
+  margin: 0 0 11px 0;
+  padding: 0;
+}
+
+.logo img {
+  width:500px;
+}
+
+#header .content h1{
+  font-family: 'Lato', sans-serif;
+  color: #FFFFFF;
+  font-size: 30px;
+  letter-spacing: 4.07px;
+  line-height: 36px;
+  text-align: center;
+  font-weight: 400;
+}
+
+#account {
+  padding: 60px 0 40px 0;
+}
+
+#account h2 {
+  margin-bottom: 11px;
+}
+
+#account h3 {
+  margin-bottom: 7px;
+}
+
+.save {
+  font-family: 'Lato', sans-serif;
+  background-color: #000000;
+  color: #FFFFFF;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+  line-height: 24px;
+  padding: 17px 118px;
+  border-radius: 0;
+  border: 0;
+  box-shadow: none;
+  margin-top: 20px;
+}
+
+.btn-secondary.save:hover,
+.btn-secondary.save:active,
+.btn-secondary.save:focus {
+  background-color: #000000de;
+  outline: none;
+  box-shadow: none;
+}
+
+.btn-secondary:not([disabled]):not(.disabled):active, .btn-secondary:not([disabled]):not(.disabled).active, .show > .btn-secondary.dropdown-toggle {
+  box-shadow: none;
+}
+
+#subscriptions,
+#Offers,
+#footer {
+  background-color: #F9F9F9;
+}
+
+#footer {
+  z-index: 99;
+  position: relative;
+}
+
+#subscriptions {
+  padding-top: 70px;
+  padding-bottom: 0;
+}
+
+#Offers {
+  padding-top: 60px;
+  padding-bottom: 0;
+}
+
+#Offers h2 {
+  margin-bottom: 35px;
+}
+
+#Offers .subscribe-options {
+  margin-bottom: 0;
+}
+
+#Offers .subscribe-options .save {
+  margin-top: 0;
+}
+
+#subscriptions .container,
+#Offers .container {
+  padding: 0 0;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  width: 31px;
+  height: 31px;
+}
+
+input[type="radio"]:checked,
+input[type="checkbox"]:checked {
+  background: #57CF39;
+}
+
+.subscribe-options {
+  margin-top: 27px;
+  margin-bottom: 75px;
+}
+
+.subscribe-options .form-check-inline {
+  margin: 0 28px;
+  line-height: 31px;
+}
+
+.subscribe-options .form-check label {
+  font-family: 'Lato', sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.8px;
+  line-height: 24px;
+  padding-left: 28px;
+}
+
+#update-bar {
+  background-color: #919191;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  opacity: 0;
+  transition: all .75s ease;
+  z-index: 9;
+}
+
+#update-bar.sticky {
+  opacity: 1;
+}
+
+#update-bar .container {
+  padding: 0;
+}
+
+#update-bar .form-group {
+  margin-bottom: 12px;
+}
+
+#update-bar .save {
+  padding: 17px 70px;
+  margin-top: 0;
+}
+
+#update-bar h3 {
+  color: #fff;
+  margin-bottom: 0;
+}
+
+@keyframes jump {
+  0% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.jump {
+  transform-origin: 50% 50%;
+  animation: jump 1s cubic-bezier(0.645, 0.045, 0.355, 1) alternate infinite;
+  background: #d32531 !important;
+}
+
+.jump-success {
+  transform-origin: 50% 50%;
+  animation: jump 1s cubic-bezier(0.645, 0.045, 0.355, 1) alternate 3;
+  background: #ceead5 !important;
+}
+
+.alert-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  overflow: hidden;
+  outline: 0;
+  display: none;
+}
+
+.alert-modal.modal-open {
+  display: block;
+  background-color: #000000bf;
+  animation: fadeIn 1s;
+  -webkit-animation: fadeIn 1s;
+  -moz-animation: fadeIn 1s;
+  -o-animation: fadeIn 1s;
+  -ms-animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+.alert-modal .modal-content button.close {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  z-index: 9;
+}
+
+.alert-modal .modal-content .modal-body {
+  padding: 30px;
+}
+
+@media only screen and (max-width: 768px) {
+  h3 {
+    font-size: 18px;
+  }
+
+  br {
+    display: none;
+  }
+
+  .logo img {
+    width: 350px;
+  }
+
+  #header .content h1 {
+    font-size: 20px;
+  }
+
+  .save {
+    padding: 17px 40px;
+  }
+
+  .subscribe-options .form-check-inline {
+    margin-bottom: 10px;
+  }
+
+  #subscriptions .container, #Offers .container {
+    padding: 0 20px;
+  }
+}
+
+</style>
+<script type="text/javascript">
+  function toggle(source) {
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i] != source)
+            checkboxes[i].checked = source.checked;
+    }
+}
+</script>
+
+</head>
+<body>
+
+<form action="" method="POST" id="form">
+
+  <!-- Modal -->
+  <div class="alert-modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <button type="button" class="close">
+          <span aria-hidden="true">×</span>
+        </button>
+        <div class="modal-body">
+          <h2>Thank You</h2>
+          <p class="text-center">Your subscription preferences have been updated.<br><i> Please allow up to 24 hours for changes to take effect.</i></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="header">
+    <div class="logo">
+      <a href="https://pages.email.rollingstone.com/Redirect.aspx?EQ=eyJkZWtJZCI6IkNsb3VkUGFnZXMucGdzX2RlayIsImRla1ZlcnNpb24iOjEsIml2IjoiLzEzQ3ZYTDdDV3AxNHI3RU9xa3FpQT09IiwiY2lwaGVyVGV4dCI6IkVZUE9WandxWTBkd1ljTmpxVXJKVUlKZFBUWitjMkNyUUJEQllYYm02QXZxaStqN29pYkZDYXlJczhVblRFUStFQ3I2ZkxRajhpS1k1Q082MmV1M2wram9IOEk4djlPb1NMYjhEWXB3M2tpQzY5SmlhQ0dkUWRwaGJLUDBva3N0MkQxdWFBbGVDNWhlaEJCUnBiY3Z5cFFMTGtJOWhicG9uYVByK3phZ2t6SXRsaTUzKytIUnNEQnhjaVJGcGt6ZnNjWTMwbFpheGFkVnJmZk1ESUxJMnI1NlVnS1A3WGwvakx3c2t2N0ljekpVbUF3a3ZvUWsvMTNDdlhMN0NXcDE0cjdFT3FrcWlBPT0iLCJhdXRoVGFnIjoiZjR5OExKTCt5SE15VkpnTUpMNkVKQT09In0"><img src="https://image.s7.sfmc-content.com/lib/fe9413727466077476/m/1/76025a4e-db62-468c-b559-73adb6459283.png"></a>
+    </div>
+    <div class="content">
+      <h1>SUBSCRIBE TO OUR NEWSLETTERS</h1>
+    </div>
+  </section>
+
+  <section id="account">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h2>Account Info</h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="form-group">
+            <label for="email">Email Address*</label>
+            <input type="email" class="form-control" name="EmailAddress" id="EmailAddress" aria-describedby="emailHelp" placeholder="Enter email" value="hussain_miya@hotmail.com" required="">
+            
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="FirstName">First Name</label>
+            <input type="text" class="form-control" placeholder="Enter First Name" maxlength="50" name="FirstName" id="FirstName" value="">
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="LastName">Last Name</label>
+            <input type="text" class="form-control" placeholder="Enter Last Name" maxlength="50" name="LastName" id="LastName" value="">
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="ZipCode">Zip Code*</label>
+            <input type="text" class="form-control" placeholder="Enter Zip Code" maxlength="50" name="ZipCode" id="ZipCode" value="" required="">
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="Country">Country*</label>
+            <select class="form-control" name="Country" id="Country" value="" onchange="toggle(this)" required="">
+              <option value="United States">United States</option>
+              <option value="United Kingdom">United Kingdom</option>
+              <option value="Afghanistan">Afghanistan</option>
+              <option value="Albania">Albania</option>
+              <option value="Algeria">Algeria</option>
+              <option value="American Samoa">American Samoa</option>
+              <option value="Andorra">Andorra</option>
+              <option value="Angola">Angola</option>
+              <option value="Anguilla">Anguilla</option>
+              <option value="Antarctica">Antarctica</option>
+              <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+              <option value="Argentina">Argentina</option>
+              <option value="Armenia">Armenia</option>
+              <option value="Aruba">Aruba</option>
+              <option value="Australia">Australia</option>
+              <option value="Austria">Austria</option>
+              <option value="Azerbaijan">Azerbaijan</option>
+              <option value="Bahamas">Bahamas</option>
+              <option value="Bahrain">Bahrain</option>
+              <option value="Bangladesh">Bangladesh</option>
+              <option value="Barbados">Barbados</option>
+              <option value="Belarus">Belarus</option>
+              <option value="Belgium">Belgium</option>
+              <option value="Belize">Belize</option>
+              <option value="Benin">Benin</option>
+              <option value="Bermuda">Bermuda</option>
+              <option value="Bhutan">Bhutan</option>
+              <option value="Bolivia">Bolivia</option>
+              <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+              <option value="Botswana">Botswana</option>
+              <option value="Bouvet Island">Bouvet Island</option>
+              <option value="Brazil">Brazil</option>
+              <option value="British Indian Ocean Territory">British Indian Ocean Territory</option>
+              <option value="Brunei Darussalam">Brunei Darussalam</option>
+              <option value="Bulgaria">Bulgaria</option>
+              <option value="Burkina Faso">Burkina Faso</option>
+              <option value="Burundi">Burundi</option>
+              <option value="Cambodia">Cambodia</option>
+              <option value="Cameroon">Cameroon</option>
+              <option value="Canada">Canada</option>
+              <option value="Cape Verde">Cape Verde</option>
+              <option value="Cayman Islands">Cayman Islands</option>
+              <option value="Central African Republic">Central African Republic</option>
+              <option value="Chad">Chad</option>
+              <option value="Chile">Chile</option>
+              <option value="China">China</option>
+              <option value="Christmas Island">Christmas Island</option>
+              <option value="Cocos (Keeling) Islands">Cocos (Keeling) Islands</option>
+              <option value="Colombia">Colombia</option>
+              <option value="Comoros">Comoros</option>
+              <option value="Congo">Congo</option>
+              <option value="Congo, The Democratic Republic of The">Congo, The Democratic Republic of The</option>
+              <option value="Cook Islands">Cook Islands</option>
+              <option value="Costa Rica">Costa Rica</option>
+              <option value="Cote D'ivoire">Cote D'ivoire</option>
+              <option value="Croatia">Croatia</option>
+              <option value="Cuba">Cuba</option>
+              <option value="Cyprus">Cyprus</option>
+              <option value="Czech Republic">Czech Republic</option>
+              <option value="Denmark">Denmark</option>
+              <option value="Djibouti">Djibouti</option>
+              <option value="Dominica">Dominica</option>
+              <option value="Dominican Republic">Dominican Republic</option>
+              <option value="Ecuador">Ecuador</option>
+              <option value="Egypt">Egypt</option>
+              <option value="El Salvador">El Salvador</option>
+              <option value="Equatorial Guinea">Equatorial Guinea</option>
+              <option value="Eritrea">Eritrea</option>
+              <option value="Estonia">Estonia</option>
+              <option value="Ethiopia">Ethiopia</option>
+              <option value="Falkland Islands (Malvinas)">Falkland Islands (Malvinas)</option>
+              <option value="Faroe Islands">Faroe Islands</option>
+              <option value="Fiji">Fiji</option>
+              <option value="Finland">Finland</option>
+              <option value="France">France</option>
+              <option value="French Guiana">French Guiana</option>
+              <option value="French Polynesia">French Polynesia</option>
+              <option value="French Southern Territories">French Southern Territories</option>
+              <option value="Gabon">Gabon</option>
+              <option value="Gambia">Gambia</option>
+              <option value="Georgia">Georgia</option>
+              <option value="Germany">Germany</option>
+              <option value="Ghana">Ghana</option>
+              <option value="Gibraltar">Gibraltar</option>
+              <option value="Greece">Greece</option>
+              <option value="Greenland">Greenland</option>
+              <option value="Grenada">Grenada</option>
+              <option value="Guadeloupe">Guadeloupe</option>
+              <option value="Guam">Guam</option>
+              <option value="Guatemala">Guatemala</option>
+              <option value="Guinea">Guinea</option>
+              <option value="Guinea-bissau">Guinea-bissau</option>
+              <option value="Guyana">Guyana</option>
+              <option value="Haiti">Haiti</option>
+              <option value="Heard Island and Mcdonald Islands">Heard Island and Mcdonald Islands</option>
+              <option value="Holy See (Vatican City State)">Holy See (Vatican City State)</option>
+              <option value="Honduras">Honduras</option>
+              <option value="Hong Kong">Hong Kong</option>
+              <option value="Hungary">Hungary</option>
+              <option value="Iceland">Iceland</option>
+              <option value="India">India</option>
+              <option value="Indonesia">Indonesia</option>
+              <option value="Iran, Islamic Republic of">Iran, Islamic Republic of</option>
+              <option value="Iraq">Iraq</option>
+              <option value="Ireland">Ireland</option>
+              <option value="Israel">Israel</option>
+              <option value="Italy">Italy</option>
+              <option value="Jamaica">Jamaica</option>
+              <option value="Japan">Japan</option>
+              <option value="Jordan">Jordan</option>
+              <option value="Kazakhstan">Kazakhstan</option>
+              <option value="Kenya">Kenya</option>
+              <option value="Kiribati">Kiribati</option>
+              <option value="Korea, Democratic People's Republic of">Korea, Democratic People's Republic of</option>
+              <option value="Korea, Republic of">Korea, Republic of</option>
+              <option value="Kuwait">Kuwait</option>
+              <option value="Kyrgyzstan">Kyrgyzstan</option>
+              <option value="Lao People's Democratic Republic">Lao People's Democratic Republic</option>
+              <option value="Latvia">Latvia</option>
+              <option value="Lebanon">Lebanon</option>
+              <option value="Lesotho">Lesotho</option>
+              <option value="Liberia">Liberia</option>
+              <option value="Libyan Arab Jamahiriya">Libyan Arab Jamahiriya</option>
+              <option value="Liechtenstein">Liechtenstein</option>
+              <option value="Lithuania">Lithuania</option>
+              <option value="Luxembourg">Luxembourg</option>
+              <option value="Macao">Macao</option>
+              <option value="Macedonia, The Former Yugoslav Republic of">Macedonia, The Former Yugoslav Republic of</option>
+              <option value="Madagascar">Madagascar</option>
+              <option value="Malawi">Malawi</option>
+              <option value="Malaysia">Malaysia</option>
+              <option value="Maldives">Maldives</option>
+              <option value="Mali">Mali</option>
+              <option value="Malta">Malta</option>
+              <option value="Marshall Islands">Marshall Islands</option>
+              <option value="Martinique">Martinique</option>
+              <option value="Mauritania">Mauritania</option>
+              <option value="Mauritius">Mauritius</option>
+              <option value="Mayotte">Mayotte</option>
+              <option value="Mexico">Mexico</option>
+              <option value="Micronesia, Federated States of">Micronesia, Federated States of</option>
+              <option value="Moldova, Republic of">Moldova, Republic of</option>
+              <option value="Monaco">Monaco</option>
+              <option value="Mongolia">Mongolia</option>
+              <option value="Montserrat">Montserrat</option>
+              <option value="Morocco">Morocco</option>
+              <option value="Mozambique">Mozambique</option>
+              <option value="Myanmar">Myanmar</option>
+              <option value="Namibia">Namibia</option>
+              <option value="Nauru">Nauru</option>
+              <option value="Nepal">Nepal</option>
+              <option value="Netherlands">Netherlands</option>
+              <option value="Netherlands Antilles">Netherlands Antilles</option>
+              <option value="New Caledonia">New Caledonia</option>
+              <option value="New Zealand">New Zealand</option>
+              <option value="Nicaragua">Nicaragua</option>
+              <option value="Niger">Niger</option>
+              <option value="Nigeria">Nigeria</option>
+              <option value="Niue">Niue</option>
+              <option value="Norfolk Island">Norfolk Island</option>
+              <option value="Northern Mariana Islands">Northern Mariana Islands</option>
+              <option value="Norway">Norway</option>
+              <option value="Oman">Oman</option>
+              <option value="Pakistan">Pakistan</option>
+              <option value="Palau">Palau</option>
+              <option value="Palestinian Territory, Occupied">Palestinian Territory, Occupied</option>
+              <option value="Panama">Panama</option>
+              <option value="Papua New Guinea">Papua New Guinea</option>
+              <option value="Paraguay">Paraguay</option>
+              <option value="Peru">Peru</option>
+              <option value="Philippines">Philippines</option>
+              <option value="Pitcairn">Pitcairn</option>
+              <option value="Poland">Poland</option>
+              <option value="Portugal">Portugal</option>
+              <option value="Puerto Rico">Puerto Rico</option>
+              <option value="Qatar">Qatar</option>
+              <option value="Reunion">Reunion</option>
+              <option value="Romania">Romania</option>
+              <option value="Russian Federation">Russian Federation</option>
+              <option value="Rwanda">Rwanda</option>
+              <option value="Saint Helena">Saint Helena</option>
+              <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
+              <option value="Saint Lucia">Saint Lucia</option>
+              <option value="Saint Pierre and Miquelon">Saint Pierre and Miquelon</option>
+              <option value="Saint Vincent and The Grenadines">Saint Vincent and The Grenadines</option>
+              <option value="Samoa">Samoa</option>
+              <option value="San Marino">San Marino</option>
+              <option value="Sao Tome and Principe">Sao Tome and Principe</option>
+              <option value="Saudi Arabia">Saudi Arabia</option>
+              <option value="Senegal">Senegal</option>
+              <option value="Serbia and Montenegro">Serbia and Montenegro</option>
+              <option value="Seychelles">Seychelles</option>
+              <option value="Sierra Leone">Sierra Leone</option>
+              <option value="Singapore">Singapore</option>
+              <option value="Slovakia">Slovakia</option>
+              <option value="Slovenia">Slovenia</option>
+              <option value="Solomon Islands">Solomon Islands</option>
+              <option value="Somalia">Somalia</option>
+              <option value="South Africa">South Africa</option>
+              <option value="South Georgia and The South Sandwich Islands">South Georgia and The South Sandwich Islands</option>
+              <option value="Spain">Spain</option>
+              <option value="Sri Lanka">Sri Lanka</option>
+              <option value="Sudan">Sudan</option>
+              <option value="Suriname">Suriname</option>
+              <option value="Svalbard and Jan Mayen">Svalbard and Jan Mayen</option>
+              <option value="Swaziland">Swaziland</option>
+              <option value="Sweden">Sweden</option>
+              <option value="Switzerland">Switzerland</option>
+              <option value="Syrian Arab Republic">Syrian Arab Republic</option>
+              <option value="Taiwan, Province of China">Taiwan, Province of China</option>
+              <option value="Tajikistan">Tajikistan</option>
+              <option value="Tanzania, United Republic of">Tanzania, United Republic of</option>
+              <option value="Thailand">Thailand</option>
+              <option value="Timor-leste">Timor-leste</option>
+              <option value="Togo">Togo</option>
+              <option value="Tokelau">Tokelau</option>
+              <option value="Tonga">Tonga</option>
+              <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+              <option value="Tunisia">Tunisia</option>
+              <option value="Turkey">Turkey</option>
+              <option value="Turkmenistan">Turkmenistan</option>
+              <option value="Turks and Caicos Islands">Turks and Caicos Islands</option>
+              <option value="Tuvalu">Tuvalu</option>
+              <option value="Uganda">Uganda</option>
+              <option value="Ukraine">Ukraine</option>
+              <option value="United Arab Emirates">United Arab Emirates</option>
+              <option value="United Kingdom">United Kingdom</option>
+              <option value="United States">United States</option>
+              <option value="United States Minor Outlying Islands">United States Minor Outlying Islands</option>
+              <option value="Uruguay">Uruguay</option>
+              <option value="Uzbekistan">Uzbekistan</option>
+              <option value="Vanuatu">Vanuatu</option>
+              <option value="Venezuela">Venezuela</option>
+              <option value="Viet Nam">Viet Nam</option>
+              <option value="Virgin Islands, British">Virgin Islands, British</option>
+              <option value="Virgin Islands, U.S.">Virgin Islands, U.S.</option>
+              <option value="Wallis and Futuna">Wallis and Futuna</option>
+              <option value="Western Sahara">Western Sahara</option>
+              <option value="Yemen">Yemen</option>
+              <option value="Zambia">Zambia</option>
+              <option value="Zimbabwe">Zimbabwe</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="Gender">Gender</label>
+            <input type="text" class="form-control" placeholder="Enter Gender" maxlength="50" name="Gender" id="Gender" value="">
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="BirthDate">Date of Birth</label>
+            <input type="text" class="form-control" placeholder="Enter Date of Birth" maxlength="254" name="BirthDate" id="BirthDate" value="">
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="form-group text-center">
+            <button class="btn btn-secondary btn-lg save" type="submit" id="btn-save">SUBSCRIBE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="subscriptions">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <h2>Newsletter Subscriptions</h2>
+          <h3>Manage your email subscriptions below by selecting the <br> newsletters you'd like to receive.</h3>
+        </div>
+        <div class="col-lg-12 text-center subscribe-options">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="subsBulkOptionSelect" id="subscribe-all" onclick="toggle(this);">
+            <label class="form-check-label" for="subscribe-all">
+              SUBSCRIBE TO ALL
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input unsubscribe-all" name="subsBulkOptionSelect" id="unsubscribe-all" type="radio">
+            <label class="form-check-label unsubscribe-all" for="unsubscribe-all">
+              UNSUBSCRIBE FROM ALL
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row row-cards">
+
+        <div class="col-lg-6 col-sm-12">
+          <input class="c-card" type="checkbox" id="Editorial_RollingStone_Opted_In" name="Editorial_RollingStone_Opted_In" value="Yes" checked="">
+          <div class="card-content">
+            <label for="Editorial_RollingStone_Opted_In">
+              <div class="card-text">
+                <h4>Rolling Stone Newsletter</h4>
+                <p>Receive the Rolling Stone email newsletter.</p>
+              </div>
+              <div class="card-bottom">
+                <div class="schedule">
+                  <span>Daily</span>
+                </div>
+                <div class="subscribe">
+                  <span class="circle"><span class="card-state-icon"></span></span>
+                  <span>SUBSCRIBE</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="col-lg-6 col-sm-12">
+          <input class="c-card" type="checkbox" id="Editorial_Breaking_News_Opted_In" name="Editorial_Breaking_News_Opted_In" value="Yes">
+          <div class="card-content">
+            <div class="card-state-icon"></div>
+            <label for="Editorial_Breaking_News_Opted_In">
+              <div class="card-text">
+                <h4>Rolling Stone Breaking News</h4>
+                <p>Receive Rolling Stone breaking news alerts.</p>
+              </div>
+              <div class="card-bottom">
+                <div class="schedule">
+                  <span>Daily</span>
+                </div>
+                <div class="subscribe">
+                  <span class="circle"><span class="card-state-icon"></span></span>
+                  <span>SUBSCRIBE</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-sm-12">
+          <input class="c-card" type="checkbox" id="RS_Pro_Opted_In" name="RS_Pro_Opted_In" value="Yes">
+          <div class="card-content">
+            <div class="card-state-icon"></div>
+            <label for="RS_Pro_Opted_In">
+              <div class="card-text">
+                <h4>Rolling Stone: Pro</h4>
+                <p>Want the inside scoop on the behind-the-scenes of music? This dynamic new newsletter is for you.</p>
+              </div>
+              <div class="card-bottom">
+                <div class="schedule">
+                  <span>Daily</span>
+                </div>
+                <div class="subscribe">
+                  <span class="circle"><span class="card-state-icon"></span></span>
+                  <span>SUBSCRIBE</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-sm-12">
+          <input class="c-card" type="checkbox" id="Editorial_Music_Opted_In" name="Editorial_Music_Opted_In" value="Yes">
+          <div class="card-content">
+            <div class="card-state-icon"></div>
+            <label for="Editorial_Music_Opted_In">
+              <div class="card-text">
+                <h4>Rolling Stone: Music</h4>
+                <p>Receive the Rolling Stone music newsletter.</p>
+              </div>
+              <div class="card-bottom">
+                <div class="schedule">
+                  <span>Daily</span>
+                </div>
+                <div class="subscribe">
+                  <span class="circle"><span class="card-state-icon"></span></span>
+                  <span>SUBSCRIBE</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-sm-12">
+          <input class="c-card" type="checkbox" id="Editorial_Country_Opted_In" name="Editorial_Country_Opted_In" value="Yes">
+          <div class="card-content">
+            <div class="card-state-icon"></div>
+            <label for="Editorial_Country_Opted_In">
+              <div class="card-text">
+                <h4>Rolling Stone: Country</h4>
+                <p>Receive the Rolling Stone country music newsletter.</p>
+              </div>
+              <div class="card-bottom">
+                <div class="schedule">
+                  <span>Daily</span>
+                </div>
+                <div class="subscribe">
+                  <span class="circle"><span class="card-state-icon"></span></span>
+                  <span>SUBSCRIBE</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-sm-12">
+          <input class="c-card" type="checkbox" id="Editorial_Entertainment_Opted_In" name="Editorial_Entertainment_Opted_In" value="Yes">
+          <div class="card-content">
+            <div class="card-state-icon"></div>
+            <label for="Editorial_Entertainment_Opted_In">
+              <div class="card-text">
+                <h4>Rolling Stone: Entertainment</h4>
+                <p>Receive the Rolling Stone entertainment newsletter.</p>
+              </div>
+              <div class="card-bottom">
+                <div class="schedule">
+                  <span>Weekly</span>
+                </div>
+                <div class="subscribe">
+                  <span class="circle"><span class="card-state-icon"></span></span>
+                  <span>SUBSCRIBE</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-sm-12">
+          <input class="c-card" type="checkbox" id="Editorial_Politics_Opted_In" name="Editorial_Politics_Opted_In" value="Yes">
+          <div class="card-content">
+            <div class="card-state-icon"></div>
+            <label for="Editorial_Politics_Opted_In">
+              <div class="card-text">
+                <h4>Rolling Stone: Politics</h4>
+                <p>Receive the Rolling Stone politics newsletter.</p>
+              </div>
+              <div class="card-bottom">
+                <div class="schedule">
+                  <span>Daily</span>
+                </div>
+                <div class="subscribe">
+                  <span class="circle"><span class="card-state-icon"></span></span>
+                  <span>SUBSCRIBE</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-sm-12">
+          <input class="c-card" type="checkbox" id="Editorial_Throwback_Opted_In" name="Editorial_Throwback_Opted_In" value="Yes">
+          <div class="card-content">
+            <div class="card-state-icon"></div>
+            <label for="Editorial_Throwback_Opted_In">
+              <div class="card-text">
+                <h4>Rolling Stone: Throwback</h4>
+                <p>Receive the Rolling Stone throwback newsletter.</p>
+              </div>
+              <div class="card-bottom">
+                <div class="schedule">
+                  <span>Weekly</span>
+                </div>
+                <div class="subscribe">
+                  <span class="circle"><span class="card-state-icon"></span></span>
+                  <span>SUBSCRIBE</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-sm-12">
+          <input class="c-card" type="checkbox" id="Editorial_FYC_Opted_In" name="Editorial_FYC_Opted_In" value="Yes">
+          <div class="card-content">
+            <div class="card-state-icon"></div>
+            <label for="Editorial_FYC_Opted_In">
+              <div class="card-text">
+                <h4>Rolling Stone: FYC</h4>
+                <p>Receive the Rolling Stone FYC newsletters.</p>
+              </div>
+              <div class="card-bottom">
+                <div class="schedule">
+                  <span>As Warranted</span>
+                </div>
+                <div class="subscribe">
+                  <span class="circle"><span class="card-state-icon"></span></span>
+                  <span>SUBSCRIBE</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-sm-12">
+          <input class="c-card" type="checkbox" id="Editorial_Ecomm_Opted_In" name="Editorial_Ecomm_Opted_In" value="Yes">
+          <div class="card-content">
+            <div class="card-state-icon"></div>
+            <label for="Editorial_Ecomm_Opted_In">
+              <div class="card-text">
+                <h4>RS Recommends</h4>
+                <p>The top-rated products and cool finds online, as selected by Rolling Stone's editors.</p>
+              </div>
+              <div class="card-bottom">
+                <div class="schedule">
+                  <span>As Warranted</span>
+                </div>
+                <div class="subscribe">
+                  <span class="circle"><span class="card-state-icon"></span></span>
+                  <span>SUBSCRIBE</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="Offers">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h2>Offers</h2>
+        </div>
+      </div>
+
+      <div class="row row-cards">
+        <div class="col-lg-4 col-sm-12">
+          <input class="c-card" type="checkbox" id="SalesMarketing_Opted_In" name="SalesMarketing_Opted_In" value="Yes">
+          <div class="card-content">
+            <div class="card-state-icon"></div>
+            <label for="SalesMarketing_Opted_In">
+              <div class="card-text">
+                <h4>Special Offers</h4>
+                <p>Receive from Rolling Stone and its marketing partners.</p>
+              </div>
+              <div class="card-bottom">
+                <div class="schedule">
+                  <span>As Warranted</span>
+                </div>
+                <div class="subscribe">
+                  <span class="circle"><span class="card-state-icon"></span></span>
+                  <span>SUBSCRIBE</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-sm-12">
+          <input class="c-card" type="checkbox" id="MagazineOffers_Opted_In" name="MagazineOffers_Opted_In" value="Yes">
+          <div class="card-content">
+            <div class="card-state-icon"></div>
+            <label for="MagazineOffers_Opted_In">
+              <div class="card-text">
+                <h4>Magazine Offers</h4>
+                <p>Receive magazine offers from Rolling Stone.</p>
+              </div>
+              <div class="card-bottom">
+                <div class="schedule">
+                  <span>As Warranted</span>
+                </div>
+                <div class="subscribe">
+                  <span class="circle"><span class="card-state-icon"></span></span>
+                  <span>SUBSCRIBE</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-sm-12">
+          <input class="c-card" type="checkbox" id="Surveys_Opted_In" name="Surveys_Opted_In" value="Yes">
+          <div class="card-content">
+            <div class="card-state-icon"></div>
+            <label for="Surveys_Opted_In">
+              <div class="card-text">
+                <h4>Rolling Stone Surveys</h4>
+                <p>Messaging about Rolling Stone performance surveys for our readers and valued Rolling Stone subscribers.</p>
+              </div>
+              <div class="card-bottom">
+                <div class="schedule">
+                  <span>Occasional</span>
+                </div>
+                <div class="subscribe">
+                  <span class="circle"><span class="card-state-icon"></span></span>
+                  <span>SUBSCRIBE</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-sm-12">
+          <input class="c-card" type="checkbox" id="FYC_Promo_Opted_In" name="FYC_Promo_Opted_In" value="Yes">
+          <div class="card-content">
+            <div class="card-state-icon"></div>
+            <label for="FYC_Promo_Opted_In">
+              <div class="card-text">
+                <h4>Special Offers - FYC</h4>
+                <p>Receive from Rolling Stone and its FYC partners.</p>
+              </div>
+              <div class="card-bottom">
+                <div class="schedule">
+                  <span>Occasional</span>
+                </div>
+                <div class="subscribe">
+                  <span class="circle"><span class="card-state-icon"></span></span>
+                  <span>SUBSCRIBE</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="col-lg-12 text-center subscribe-options">
+          <div class="form-group text-center">
+            <button class="btn btn-secondary btn-lg save" type="submit" id="btn-save">SUBSCRIBE</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+<section id="footer">
+
+<div class="footer">
+    <p>Please view our <a href="https://pages.email.rollingstone.com/Redirect.aspx?EQ=eyJkZWtJZCI6IkNsb3VkUGFnZXMucGdzX2RlayIsImRla1ZlcnNpb24iOjEsIml2IjoiWWJndWs1SDYzUkN5ai91QUkrVlpHdz09IiwiY2lwaGVyVGV4dCI6IkIwMGdnOFY2K0ZBZVo0YkkwVlNveHhqeEtmcTVYSkJtd0U5dU15SGhmOS96YVNDaDEycWhlclFwWDlDZzNwaGh2WWlhUU9nODBaczBvUmljVUpqRDJqWFJxTTB3Ym9EWERWT1g1a1Z3VkZmSFloOHdtWll2ZEgxVVhDamFQZnI0UjVQalRqRkloelRDSWRMKzRDR1BRbE9oaEdvVE1sa1E1NWN3VXdrbTlJVFlLdTFXSXhhb0gvUC8zUndXbmVNSGtTVUdEVUtPL2c4aHZMbWJlTCt1RDdMWkFHa2tlV2lGc20yZlVObzJCN3o0YWpyWkIvTUdVZU1tYWpIUVEyRzRMcE9SK3QwUXNvLzdnQ1BsV1JzPSIsImF1dGhUYWciOiJCN3o0YWpyWkIvTUdVZU1tYWpIUVF3PT0ifQ" target="_blank">Privacy Policy</a></p>
+  <p> <a href="https://pages.email.rollingstone.com/Redirect.aspx?EQ=eyJkZWtJZCI6IkNsb3VkUGFnZXMucGdzX2RlayIsImRla1ZlcnNpb24iOjEsIml2IjoiNHFkcW45cXd2dktERHpCZFNPalNjZz09IiwiY2lwaGVyVGV4dCI6IkZnc2VKNC9adTJjMkpKWlhHS09Ca0dveGtOQ1RENDJTR1NsUnhCWVFWY3JwSjk5UllUeUxuS0RTTVNNc1QyeGtzVFRZZmlkYWhneFpVVHJIUW13VDNPeGhJWVpNNlk5eU5DakV6a2dDdlhjTUdvKzRTelBOdUU4aENNU2NJajlCNWU2QXN0TkplY29QT2RNSjRhcXU0dG5NS3M3ZjI1ZWhqN09oUnNmcjBSclhkM0dNQTkvWDNMamQ2U1dBU1FsbW14L1lkOGJ1Uk83UzFydUt1ZldkQnBvWkRTTG1FVVhOSjdzTSswNm44cFQxV1BBVjlGa3pVSUdxdTNyUDRxZHFuOXF3dnZLRER6QmRTT2pTY2c9PSIsImF1dGhUYWciOiJwL0tVOVZqd0ZmUlpNMUNCcXJ0Nnp3PT0ifQ" style="text-decoration: none; color: #999999;">Privacy Policy</a> | <a href="https://pages.email.rollingstone.com/Redirect.aspx?EQ=eyJkZWtJZCI6IkNsb3VkUGFnZXMucGdzX2RlayIsImRla1ZlcnNpb24iOjEsIml2IjoicGpCTkFadXRWa1dQOTBWOXliVmx5UT09IiwiY2lwaGVyVGV4dCI6IitvZ3paTzNQd1h3V21QK0xkcjFXNGN6TjJYTkFleGdBTHFSMU04SDZhdXdoYUU1SzhKeXk4WW1pcjJ3SE1KYkV6d2dYYVVaQ3ZrbE92WEQ4eXN1ZEQ3cjBOQUNpeHN5NXFCclZZa3puWkV0MlFXMVJiYlE2YlB6d0R2cW81ODB1bnlxTjZzWWRBWmVhVkt2Y0NnZDdEOWNhYXpqUThjbWo2RG5RdzRlelRnenBVdG0vSGJ6aEJRU2FZZXJDdEJzZE5BODZRaEw1V2NHS1llK1AvQ2ljUnoyenIxV1FndHh1bXhLUjFYY25oZUNvM2F2Snd5ZmJia3ZtNkNIRTk5M2dwakJOQVp1dFZrV1A5MFY5eWJWbHlRPT0iLCJhdXRoVGFnIjoicU4ycnljTW4yMjVMNXVnaHhQZmQ0QT09In0" style="text-decoration: none; color: #999999;">Terms of Use</a> | <a href="https://pages.email.rollingstone.com/Redirect.aspx?EQ=eyJkZWtJZCI6IkNsb3VkUGFnZXMucGdzX2RlayIsImRla1ZlcnNpb24iOjEsIml2IjoidjJ0enZPMUp2d000aFlNcUZLRUdOdz09IiwiY2lwaGVyVGV4dCI6IjNBbkJ5aUR5Q1BFYkVtdFlvQ2FmL2RuOU5lYTIwS3B0QW85MlJDWUFHTG9RVVFZdUptbmRjUm1yd1RsbFp0VlJrTTlPUzBLRE4ybTJUb1VQdWlWVEZkdloxSVZINy8rWFJwemlwTDVEOWNBYnE1aE42KzRwNENJRmd2VmczakQ4UXRZUVdyN2kzZ0hUaVd0NnkzcW5WdWFWSWE3a0djbEdaVzdqWER6UzJEYStzL1N4Q0RJWEhEQXRGOTlIK2MxdEpselFlbFA4RkxlZnB6UVluTzR6dGZmOGx1Z2h3SEVCYWZ0cWdKNktSZUVzcCt4VlZzYmlUWFdQTm85K09mcTY0NlFFQTZxNSsxemZBQ08vYTNPODdVbS9BemlGZ3lvVW9RWTMiLCJhdXRoVGFnIjoiajM0NStycmpwQVFEcXJuN1hOOEFJdz09In0" style="text-decoration: none; color: #999999;">Your California Privacy Rights</a> | <a href="https://pages.email.rollingstone.com/Redirect.aspx?EQ=eyJkZWtJZCI6IkNsb3VkUGFnZXMucGdzX2RlayIsImRla1ZlcnNpb24iOjEsIml2IjoiSjZmdEU1aTUyMjA3OVIzcHF5cHFKQT09IiwiY2lwaGVyVGV4dCI6Im9HM3ZLTStlVlZhYXVndFUvMHJYRXBHUUR4bHdOaUs1OER2bnVQMzdkZFRHWFZJaTNIOS9hMTNHZU5hRHVoY0Voc0Jtbk9xT2xRT0twdk0xK3NMWk9IRXdnKzNOTStOelJGSWVVLzNsckNXbXl0eUZ4SHVWVjAzWG44UXRVUFo5d0VDWWhTdVdJTWgzY0FQQmNpZWZrcHFNblE3bWs1b3pJekcxSFIrdFY5Skc3OUFQSXhMekNBMzNsUnQxOWV2eDc4TU1HSGxRMWMycEZzTWt4TW5BRmV3TmlPUGgyUUVXNVVoQWF6ZTZNOWxpNmJUZlpId2NKNmZ0RTVpNTIyMDc5UjNwcXlwcUpBPT0iLCJhdXRoVGFnIjoiRnVWSVFHczN1alBaWXVtMDMyUjhIQT09In0" style="text-decoration: none; color: #999999;">Do Not Sell My Personal Information</a></p>
+</div>
+
+<span style="display: none;" id="post_code">
+
+</span>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<input type="hidden" name="__successPage" id="__successPage" value="https://pages.email.rollingstone.com/newsletters/">
+<input type="hidden" name="__contextName" id="__contextName" value="FormPost">
+<input type="hidden" name="__executionContext" id="__executionContext" value="Post">
+
+</section> <!-- Container -->
+
+  <section id="update-bar">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="form-group text-center">
+            <button class="btn btn-secondary btn-lg save" type="submit" id="btn-save">SUBSCRIBE</button>
+          </div>
+          <h3>Subscribe to submit your email preferences</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+</form>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+<script src="https://malsup.github.io/jquery.form.js"></script>
+<script>
+$( document ).ready(function() {
+
+   $('.unsubscribe-all').click(function(event) {
+     unsubscribeAll();
+    });
+
+  $('.row-cards label').click(function(event) {
+    $("#btn-save").addClass('jump');
+  });
+
+  $("#btn-save").click(function(event) {
+    $(this).removeClass('jump');
+  });
+
+  $('.alert-modal .close').click(function(event) {
+    $(".alert-modal").removeClass('modal-open');
+  });
+
+// wait for the DOM to be loaded
+    $(document).ready(function() {
+        // bind 'form' and provide a simple callback function
+        $('#form').ajaxForm(function() {
+          $(".alert-modal").addClass('modal-open');
+          return false;
+        });
+    });
+
+    window.onscroll = function () {
+      var updateBar = document.getElementById("update-bar");
+      var updateBarHeight = updateBar.offsetHeight;
+      var scrollPosition = window.innerHeight + window.scrollY;
+      var documentHeight = document.body.offsetHeight;
+
+      if (scrollPosition >= (documentHeight - updateBarHeight)) {
+        updateBar.classList.remove("sticky");
+      } else {
+        updateBar.classList.add("sticky");
+      }
+    };
+
+});
+
+
+function unsubscribeAll(){
+
+  $('input:checkbox').each(function (index, value) {
+    $(this).removeAttr('checked');
+    $(this).prop('checked', false);
+  });
+
+}
+//# sourceURL=pen.js
+</script>
+
+<!--<p style="color:#dedede;">hussain_miya@hotmail.com<br />
+hussain_miya@hotmail.com<br />
+hussain_miya@hotmail.com<br />
+hussain_miya%40hotmail.com</p>-->
+
+
+
+<script type="text/javascript" src="https://pages.email.rollingstone.com/Script/HttpRequest.js"></script>
+<script type="text/javascript" src="https://pages.email.rollingstone.com/Script/pageTracking.js"></script>
+<script type="text/javascript">
+	absoluteBaseUrl = "https://pages.email.rollingstone.com/";
+	SaveAnalyticData(7314483, '03715e7b-9813-4798-ac93-c14d709ce096', '8f5ed716-4dd5-4019-80f8-2bd28ff98d17'); 
+</script>
+
+
+
+</body></html>

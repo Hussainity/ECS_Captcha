@@ -1,0 +1,100 @@
+<html lang="en"><head>
+        <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Log In - Libsyn</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:600&amp;display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<style>
+
+		body {
+			font-family: 'Open Sans', sans-serif;
+			background-image: url("https://static.libsyn.com/p/libsyn5/assets/signup/signup-bg-opt.png");
+			background-color: #005159;
+			background-position: right bottom; /*Positioning*/
+   			background-repeat: no-repeat;
+			background-attachment: fixed;
+		}
+
+		#layout-main {
+			z-index: 999;
+			
+			width: 100vw;
+			height: 100vh;
+			position: absolute;
+			left: 0;
+			top: 0;
+			font-family: 'Open Sans';
+			font-weight: 600;
+		}
+		#layout-main .login-logo {
+			width: 250px;
+		}
+		#layout-main input {
+			background: rgba(255, 255, 255, 0.2);
+			color: rgba(255, 255, 255, 0.8);
+			border: transparent;
+			padding: 1rem 2rem;
+			border-radius: 2rem;
+			width: 300px;
+		}
+		#layout-main input::placeholder {
+			color: rgba(255, 255, 255, 0.4);
+			font-weight: 600;
+		}
+		#layout-main .btn {
+			width: 300px;
+			background: rgba(255, 255, 255, .8);
+			color: rgba(0, 0, 0, 0.4);
+			height: 50px;
+			font-family: 'Open Sans';
+			font-weight: 600;
+		}
+		#layout-main .btn:hover{
+			background: rgba(255, 255, 255, 1);
+		}
+		#layout-main a {
+			font-size: 0.8rem;
+			color: rgba(0, 0, 0, 0.55);
+			font-weight: 600;
+		}
+		#layout-main a.highlight {
+			font-size: 0.8rem;
+			color: #fff;
+			margin-top: 1rem;
+		}
+
+	</style>
+
+    </head>
+    <body>
+		<div id="layout-main" class="align-items-center container-fluid d-flex justify-content-center flex-column container-fluid">
+			<div class="row">
+				<div class="col"><img class="img-fluid login-logo py-5" src="/img/libsyn-logo-white.png" alt="Libsyn Logo All White"></div>
+			</div>
+            
+
+
+<div class="alert alert-danger mt-3"><div>Invalid email address or password</div></div>
+<div class="row">
+    <form action="https://five-api.libsyn.com/auth/authorize?client_id=Libsyn5&amp;state=pw4t3j8h4sc&amp;redirect_uri=https%3A%2F%2Ffive.libsyn.com%2F" method="post" name="login-form" class="d-flex flex-column" id="login-form">      <div class="form-group mx-auto">
+		<label class="sr-only" for="email">Email</label>		<input type="text" name="email" class="form-control" placeholder="email" value="hussain_miya@hotmail.com">	  </div>
+	  <div class="form-group mx-auto">
+		      </div>
+      <div class="form-group mx-auto">
+		<label class="sr-only" for="password">Password</label>		<input type="password" name="password" class="form-control" placeholder="password" value="">	  </div>
+	  <div class="form-group mx-auto">
+		      </div>
+	  <div class="form-group mx-auto mt-4 mb-4">
+      	<button type="submit" name="submit" class="btn" value="">Sign In</button>	  </div>
+    </form></div>
+<div class="row">
+    <a class="highlight" href="/auth/forgot-password?client_id=Libsyn5&amp;state=pw4t3j8h4sc&amp;redirect_uri=https%3A%2F%2Ffive.libsyn.com%2F">Forgot Password</a>
+</div>
+<div class="row">
+    <a class="highlight" href="//signup.libsyn.com">Create Account</a>
+</div>
+		</div>
+    
+
+</body></html>

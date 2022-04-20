@@ -1,0 +1,88 @@
+<html lang="en"><head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<meta name="description" content="Citrix Consolidated Login">
+		<meta name="forSiteMonitoring" content="SEARCHSTR_CONSOLIDATEDLOGIN">
+
+		<link rel="icon" type="image/vnd.microsoft.icon" href="https://prod.static.citrix.com/assets/branding/web/images/logo/favicon.png">
+		<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="https://prod.static.citrix.com/assets/branding/web/images/logo/favicon.png">
+		<link media="screen" href="../../css/base.css" rel="stylesheet" type="text/css">
+
+		<title>Citrix Login</title>
+	</head>
+	<body>
+	<header class="app-cb-header">
+    <div class="app-cb-header--max-width">
+        <div class="header__logo">
+            <a href="https://www.citrix.com/" class="logo__citrix-link">
+                <picture>
+                    <source type="image/svg+xml" srcset="https://prod.static.citrix.com/assets/branding/web/images/logo/logo-header-white-login.svg" data-swapid="SiteLogo">
+                    <img src="https://prod.static.citrix.com/assets/branding/web/images/logo/logo-header-white-login.png" alt="Citrix" data-swapid="SiteLogo">
+                </picture>
+            </a>
+        </div>
+    </div>
+</header>
+		<section>
+			<article class="login-wrap gutter">
+				<h1>
+					Sign in with your Citrix account
+				</h1>
+				<!-- LOGIN FORM -->
+				<form name="loginForm" method="post" action="https://identity.citrix.com/Utility/STS/Sign-In" id="login-form">
+					<input type="hidden" name="returnURL" value="https://login.citrix.com/bridge?url=">
+					<input type="hidden" name="errorURL" value="https://login.citrix.com?url=&amp;err=y">
+					<input type="hidden" name="persistent" value="1">
+
+						<div class="login-input-wrap invalid">
+						<div class="login-label-wrap">
+							<input type="text" data-swapid="Username" class="login-label-field login-label-field--s1" value="" name="username" id="username" autofocus="autofocus" autocomplete="on" placeholder="Username*">
+							<label for="username" class="login-label">Username*</label>
+						</div>
+						<div class="login-label-wrap">
+							<input type="password" data-swapid="Password" class="login-label-field login-label-field--s1" name="password" value="" id="password" placeholder="Password*">
+							<label for="password" class="login-label">Password*</label>
+						</div>
+						<div id="err" class="errorText">
+								<div id="textError">
+									Login ID or Password incorrect. Please try again.
+								</div>
+						</div>
+						<button id="loginbtn" data-swapid="loginBtn" name="loginbtn" value="Log in" alt="Log in" class="btn-primary btn cb-btn btn-md rounded-pill">Log in</button>
+					</div>
+				</form>
+				<div class="help-wrap">
+					<a href="https://www.citrix.com/welcome/create-account.html" data-swapid="NeedAnAccountLink" target="_blank" class="need-account cb-link">
+						Need an Account?
+					</a>
+					<a href="https://www.citrix.com/welcome/request-password.html" data-swapid="CantAccessAccountLink" target="_blank" class="not-access cb-link">
+						Can't access your account?
+					</a>
+				</div>
+			</article>
+		</section>
+<footer class="app-cb-footer">
+    <div class="app-cb-footer--max-width">
+        <div class="footer__logo">
+            <a href="https://www.citrix.com/" class="logo__citrix-link">
+                <picture>
+                    <source type="image/svg+xml" srcset="https://prod.static.citrix.com/assets/branding/web/images/logo/logo-footer-black-citrix-h19.svg" media="(max-width: 580px)" data-swapid="SiteLogo">
+                    <source type="image/svg+xml" srcset="https://prod.static.citrix.com/assets/branding/web/images/logo/logo-footer-black-citrix-h29.svg" data-swapid="SiteLogo">
+                    <img src="https://prod.static.citrix.com/assets/branding/web/images/logo/logo-footer-black-citrix-h29.png" alt="Citrix" data-swapid="SiteLogo">
+                </picture>
+            </a>
+        </div>
+        <div class="footer__content">
+           <div class="content__privacy-terms">
+               <a href="https://www.citrix.com/about/legal/" target="_blank" class="cb-link" data-swapid="PrivacyLegalTermsLink">Privacy and legal terms</a>
+           </div>
+            <div class="content__copy-rights" data-swapid="CopyRightsReservedText">© 1999-2022 Citrix Systems, Inc. All rights reserved.</div>
+        </div>
+    <div>
+</div></div></footer>
+		<script type="text/javascript" src="https://prod.static.citrix.com/js/insights-min.js"></script>
+		<script type="text/javascript" src="../../js/login-insight.js"></script>
+	
+
+</body></html>

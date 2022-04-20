@@ -1,0 +1,462 @@
+<html><head>
+
+  <!-- meta -->
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  
+
+  <link rel="icon" type="image/png" href="https://readthedocs-static-prod.s3.amazonaws.com/images/favicon.f231b6609d0b.png">
+
+  <!-- title -->
+  <title>Sign In | Read the Docs </title>
+
+  
+  <!-- Google Analytics -->
+  <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=UA-17997319-5&amp;l=dataLayer&amp;cx=c"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script>
+    if (true && navigator.doNotTrack === '1') {
+      console.debug('Respecting DNT with respect to analytics...');
+    } else {
+      // For more details on analytics at Read the Docs, please see:
+      // https://docs.readthedocs.io/en/stable/advertising/advertising-details.html#analytics
+      (function () {
+        // New Google Site Tag (gtag.js) tagging/analytics framework
+        // https://developers.google.com/gtagjs
+        var script = document.createElement("script");
+        script.src = "https://www.googletagmanager.com/gtag/js?id=UA-17997319-1";
+        script.type = "text/javascript";
+        script.async = true;
+        document.getElementsByTagName("head")[0].appendChild(script);
+      }())
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // Setup the RTD global analytics code and send a pageview
+      gtag('config', 'UA-17997319-1', {
+        'anonymize_ip': true,
+        'cookie_expires': 0,  // Session cookie (non-persistent)
+        'groups': 'rtfd'
+      });
+
+      
+        // Dashboard Analytics Code
+        gtag('config', 'UA-17997319-5', {
+          'anonymize_ip': true,
+          'cookie_expires': 0,  // Session cookie (non-persistent)
+          'groups': 'dashboard'
+        });
+        // End Dashboard Analytics Code
+      
+    }
+  </script><script src="https://www.googletagmanager.com/gtag/js?id=UA-17997319-1" type="text/javascript" async=""></script>
+  <!-- End Google Analytics -->
+  
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://readthedocs-static-prod.s3.amazonaws.com/css/core.25dabcb7b270.css">
+  
+
+  <!-- jquery -->
+  <script src="https://readthedocs-static-prod.s3.amazonaws.com/vendor/jquery.013fa7c77aad.js"></script>
+  <script src="https://readthedocs-static-prod.s3.amazonaws.com/vendor/jquery-migrate.f09538abc35d.js"></script>
+  <script src="https://readthedocs-static-prod.s3.amazonaws.com/vendor/jquery-ui.8c0e21740322.js"></script>
+  <script>
+    require('jquery');
+  </script>
+
+  <script src="https://readthedocs-static-prod.s3.amazonaws.com/javascript/base.b58bc89ca9ff.js"></script>
+  <script src="https://readthedocs-static-prod.s3.amazonaws.com/core/js/site.73b8dd178721.js"></script>
+  <script>
+    var site = require('core/site');
+    site.handle_notification_dismiss();
+  </script>
+
+  
+
+<script type="text/javascript" src="https://static.mailerlite.com/js/w/ml_jQuery.inputmask.bundle.min.js?v3.3.1"></script></head>
+
+<body class="login-page" style="">
+
+    
+        
+
+
+<!-- BEGIN header-->
+<div id="rtfd-header">
+  <div class="wrapper">
+
+    <!-- BEGIN header title-->
+    <div class="rtfd-header-title">
+      <h1>
+        
+        <a href="/">Read the Docs</a>
+      </h1>
+    </div>
+    <!-- END header title -->
+
+    <!-- BEGIN header nav -->
+    
+      
+      
+    
+    <!-- END header nav -->
+
+
+  </div>
+</div>
+<!-- END header-->
+
+    
+
+    
+
+    
+
+
+    <!-- BEGIN content-->
+    <div id="content">
+      <div class="wrapper">
+
+        <!-- BEGIN notify -->
+        
+          
+        
+        <!-- END notify -->
+
+        
+        
+
+        
+
+<h1>Sign In</h1>
+
+<p><small>If you have not created an account yet, then please <a href="/accounts/signup/">sign up</a> first.</small></p>
+
+<form class="login" method="POST" action="/accounts/login/">
+  <input type="hidden" name="csrfmiddlewaretoken" value="5HoN6vjrxUbOatS8M8JZCYMC6uKgJNhpJP8bNHQT2azMZ1lqK4sGU6SObJHLPG5d">
+  <p><label for="id_login">Login:</label> <input type="text" name="login" placeholder="Username or e-mail" autofocus="autofocus" required="" id="id_login"></p>
+<p><label for="id_password">Password:</label> <input type="password" name="password" placeholder="Password" required="" id="id_password"></p>
+<p><label for="id_remember">Remember Me:</label> <input type="checkbox" name="remember" id="id_remember"></p>
+  
+  <button class="primaryAction" type="submit">Sign In</button>
+
+  
+  <p>
+    <small>If you forgot your password, <a href="/accounts/password/reset/">reset it.</a></small>
+  </p>
+</form>
+
+<h3>Or</h3>
+
+<div class="clearfix">
+  <ul class="socialaccount_providers">
+    
+
+
+
+
+
+  
+  
+  
+    <li>
+      <a title="GitHub" class="socialaccount-provider github button" href="/accounts/github/login/?process=login">
+         Sign in with GitHub
+      </a>
+    </li>
+  
+  
+
+  
+  
+  
+    <li>
+      <a title="GitLab" class="socialaccount-provider gitlab button" href="/accounts/gitlab/login/?process=login">
+         Sign in with GitLab
+      </a>
+    </li>
+  
+  
+
+  
+  
+
+  
+  
+  
+    <li>
+      <a title="Bitbucket" class="socialaccount-provider bitbucket_oauth2 button" href="/accounts/bitbucket_oauth2/login/?process=login">
+         Sign in with Bitbucket
+      </a>
+    </li>
+  
+  
+
+
+  </ul>
+</div>
+
+
+
+      </div>
+    </div>
+    <!-- END content-->
+
+    <!-- BEGIN footer-->
+    <div id="footer">
+      <div class="wrapper">
+
+        <hr>
+
+
+        
+
+        <div id="mlb2-4726913" class="column-logo ml-form-embedContainer ml-subscribe-form ml-subscribe-form-4726913">
+          <div id="email-signup" class="ml-form-align-center">
+            <div class="ml-form-embedWrapper embedForm">
+              <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
+                <div class="ml-form-embedContent">
+                  <h4>Stay Updated</h4>
+
+                  <ul>
+                    <li>
+                      <a href="https://blog.readthedocs.com/">Blog</a>
+                    </li>
+                  </ul>
+
+                  <p>Sign up for our newsletter to get our latest blog updates delivered to your inbox weekly.</p>
+                </div>
+                <form class="validate ml-block-form" action="https://static.mailerlite.com/webforms/submit/t0a9l4" data-code="t0a9l4" method="post" target="_blank">
+                  <div class="ml-form-formContent">
+                    <div class="ml-form-fieldRow ml-last-item">
+                      <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
+                        <label for="ml-EMAIL">Email</label>
+                        <input aria-label="email" aria-required="true" type="email" id="ml-EMAIL" class="required email form-control" data-inputmask="" name="fields[email]" placeholder="you@example.com" autocomplete="email" aria-invalid="false">
+                      </div>
+                    </div>
+                  </div>
+                  <input type="hidden" name="ml-submit" value="1" aria-invalid="false">
+                  <div class="ml-form-embedSubmit">
+                    <button type="submit" class="primary">Subscribe</button>
+                    <button disabled="disabled" style="display:none" type="button" class="loading"> <div class="ml-form-embedSubmitLoad"></div> <span class="sr-only">Loading...</span> </button>
+                  </div>
+                  <input type="hidden" name="anticsrf" value="true" aria-invalid="false">
+                </form>
+              </div>
+              <div class="ml-form-successBody row-success" style="display:none">
+                <div class="ml-form-successContent">
+                  <h4>Thank you!</h4>
+                  <p>You have successfully joined our subscriber list.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script>
+          function ml_webform_success_4726913(){var r=ml_jQuery||jQuery;r(".ml-subscribe-form-4726913 .row-success").show(),r(".ml-subscribe-form-4726913 .row-form").hide()}
+        </script>
+        <img src="https://track.mailerlite.com/webforms/o/4726913/t0a9l4?v1632124791" width="1" height="1" style="max-width:1px;max-height:1px;visibility:hidden;padding:0;margin:0;display:block" alt="." border="0">
+        <script src="https://static.mailerlite.com/js/w/webforms.min.js?v0c75f831c56857441820dcec3163967c" type="text/javascript"></script>
+
+        <div class="column-about">
+          <h4>Resources</h4>
+
+          <ul>
+            <li>
+              <a href="https://docs.readthedocs.io/page/tutorial/">Tutorial</a>
+            </li>
+            <li>
+              <a href="https://docs.readthedocs.io/page/team.html">Team</a>
+            </li>
+            <li>
+              <a href="https://docs.readthedocs.io">Documentation</a>
+            </li>
+            <li>
+              <a href="https://readthedocs.org/sustainability/">Going Ad-free</a>
+            </li>
+            <li>
+              <a href="https://readthedocs.org/support/">Site Support</a>
+            </li>
+            <li>
+              <a href="http://status.readthedocs.com/">Site Status</a>
+            </li>
+          </ul>
+
+        </div>
+
+        <div class="column-rtd">
+          <h4>Company</h4>
+
+          <ul>
+            <li>
+              <a href="http://blog.readthedocs.com/jobs/">Jobs</a>
+            </li>
+            <li>
+              <a href="https://www.ethicalads.io/advertisers/?ref=rtd">Advertise with Us</a>
+            </li>
+            <li>
+              <a href="https://readthedocs.com">Read the Docs for Business</a>
+            </li>
+            <li>
+              <a href="https://read-the-docs-guidelines.readthedocs-hosted.com/">Branding &amp; Media Kit</a>
+            </li>
+            <li>
+              <a href="https://docs.readthedocs.io/page/privacy-policy.html">Privacy Policy</a>
+            </li>
+            <li>
+              <a href="https://docs.readthedocs.io/page/terms-of-service.html">Terms of Service</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="social-column">
+          <ul class="social">
+            <li><a href="https://github.com/rtfd/readthedocs.org" rel="noopener noreferrer"><span class="icon github"></span></a></li>
+            <li><a href="https://twitter.com/readthedocs" rel="noopener noreferrer"><span class="icon twitter"></span></a></li>
+          </ul>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="footer-bottom">
+          <hr>
+
+          <div class="column-copyright">
+            <p>
+              <small>© Copyright 2022, Read the Docs, Inc &amp; contributors</small>
+            </p>
+
+            <p>
+              <small>Version <a href="http://docs.readthedocs.io/page/changelog.html">7.6.1</a></small>
+            </p>
+          </div>
+
+          
+            <div class="column-setlang">
+              
+              <form action="/i18n/setlang/" method="post" style="float: right">
+                <input name="next" type="hidden" value="/">
+                <input type="hidden" name="csrfmiddlewaretoken" value="5HoN6vjrxUbOatS8M8JZCYMC6uKgJNhpJP8bNHQT2azMZ1lqK4sGU6SObJHLPG5d">
+                <select name="language">
+                  
+                    
+                    <option value="ca">català [Catalan]</option>
+                    
+                  
+                    
+                    <option selected="selected" value="en">English [English]</option>
+                    
+                  
+                    
+                    <option value="es">español [Spanish]</option>
+                    
+                  
+                    
+                    <option value="pt-br">Português Brasileiro [Brazilian Portuguese]</option>
+                    
+                  
+                    
+                    <option value="nb">norsk (bokmål) [Norwegian Bokmål]</option>
+                    
+                  
+                    
+                    <option value="fr">français [French]</option>
+                    
+                  
+                    
+                    <option value="ru">Русский [Russian]</option>
+                    
+                  
+                    
+                    <option value="de">Deutsch [German]</option>
+                    
+                  
+                    
+                    <option value="gl">galego [Galician]</option>
+                    
+                  
+                    
+                    <option value="vi">Tiếng Việt [Vietnamese]</option>
+                    
+                  
+                    
+                    <option value="zh-cn">简体中文 [Simplified Chinese]</option>
+                    
+                  
+                    
+                    <option value="zh-tw">繁體中文 [Traditional Chinese]</option>
+                    
+                  
+                    
+                    <option value="ja">日本語 [Japanese]</option>
+                    
+                  
+                    
+                    <option value="uk">Українська [Ukrainian]</option>
+                    
+                  
+                    
+                    <option value="it">italiano [Italian]</option>
+                    
+                  
+                    
+                    <option value="ko">한국어 [Korean]</option>
+                    
+                  
+                </select>
+                <input type="submit" value="Change Language" name="submit">
+              </form>
+            </div>
+          
+
+        </div>
+
+          <div class="clearfix"></div>
+
+          <div class="sponsors">
+            <a class="sponsor" href="https://aws.amazon.com" rel="noopener" target="_blank">
+              <img src="https://readthedocs-static-prod.s3.amazonaws.com/images/sponsors/aws.e8af7274bc7e.png" alt="Amazon Web Services" class="sponsor-image">
+              <div class="sponsor-name">AWS</div>
+              <div class="sponsor-description">Cloud Computing</div>
+            </a>
+            <a class="sponsor" href="https://cloudflare.com" rel="noopener" target="_blank">
+              <img src="https://readthedocs-static-prod.s3.amazonaws.com/images/sponsors/cloudflare.d6e78f9ba0ea.png" alt="CloudFlare" class="sponsor-image">
+              <div class="sponsor-name">Cloudflare</div>
+              <div class="sponsor-description">DNS &amp; SSL</div>
+            </a>
+            <a class="sponsor" href="https://sentry.io/" rel="noopener" target="_blank">
+              <img src="https://readthedocs-static-prod.s3.amazonaws.com/images/sponsors/sentry.69bffb7378b8.png" alt="Sentry" class="sponsor-image">
+              <div class="sponsor-name">Sentry</div>
+              <div class="sponsor-description">Monitoring</div>
+            </a>
+            <a class="sponsor" href="https://www.elastic.co/" rel="noopener" target="_blank">
+              <img src="https://readthedocs-static-prod.s3.amazonaws.com/images/sponsors/elastic.933a07e99e1c.png" alt="Elastic" class="sponsor-image">
+              <div class="sponsor-name">Elastic</div>
+              <div class="sponsor-description">Search</div>
+            </a>
+            <a class="sponsor" href="https://newrelic.com/" rel="noopener" target="_blank">
+              <img src="https://readthedocs-static-prod.s3.amazonaws.com/images/sponsors/newrelic.7b6a28df19ab.png" alt="New Relic" class="sponsor-image">
+              <div class="sponsor-name">New Relic</div>
+              <div class="sponsor-description">Performance</div>
+            </a>
+            <a class="sponsor" href="https://www.pagerduty.com/" rel="noopener" target="_blank">
+              <img src="https://readthedocs-static-prod.s3.amazonaws.com/images/sponsors/pagerduty.7cb28e10b7ae.png" alt="PagerDuty" class="sponsor-image">
+              <div class="sponsor-name">PagerDuty</div>
+              <div class="sponsor-description">Monitoring</div>
+            </a>
+          </div>
+
+        
+
+      </div>
+    </div>
+    <!-- END footer-->
+
+    
+
+
+
+
+</body></html>

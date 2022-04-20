@@ -1,0 +1,677 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>User Sign In</title>
+    
+    <meta name="description" content="Log into the account which best suits your needs: a Global Client Account or a Reader Account.">
+    <meta name="title" content="GlobeNewswire Login Sequence Selection">
+    <meta http-equiv="content-language" content="en-us">
+
+    <link rel="shortcut icon" href="/Content/logo/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600;1,700&amp;display=swap" crossorigin="" onload="this.rel='stylesheet'">
+    <link rel="stylesheet" as="style" href="/Content/css/bootstrap.min.css" onload="this.rel='stylesheet'">
+
+    <link href="/bundles/react-styles?v=awmH5AYajb9NOLL85mXYqpEfR2eM3V-QuFTrXvJW16I1" rel="stylesheet" as="style" onload="this.rel='stylesheet'">
+
+    <link href="/bundles/pnr-global-styles?v=gpUk24Wg4FZS3QdxsrK7Aqz5f6IkvBxNl0M8SxgytJo1" rel="stylesheet" as="style" onload="this.rel='stylesheet'">
+
+
+    <script type="text/javascript" async="" src="https://ssl.google-analytics.com/ga.js"></script><script src="/Scripts/stickyfill.min.js" defer="" async=""></script>
+        <link rel="canonical" href="https://www.globenewswire.com/Home/Signin">
+<script type="text/javascript" src="/bundles/layout-jquery-scripts?v=-OGLMVWxIPR3zeOU27ZatCn90l4Fd6xEKfsznyki1xw1"></script>
+
+
+    
+    <link href="/bundles/page/generic-template?v=s2oMgYCpDLGETIWjzgJmFpEEZHnzbNpGsgvQJOzmE001" rel="stylesheet">
+
+
+    <script type="text/javascript">
+
+        window.initGradientEffect = function () {
+
+            if ($(".context-facets-filters") && $(".context-facets-filters").length > 0) {
+
+                let scrollExists = $(".context-facets-filters")[0].clientWidth < $(".context-facets-filters")[0].scrollWidth;
+
+                if (!scrollExists) {
+                    $(".context-facets-filters").parent().removeClass('section-fade-effect');
+                    return;
+                }
+
+                $(".context-facets-filters").scroll(function () {
+
+                    var maxScrollLeft = $(this)[0].scrollWidth - $(this)[0].clientWidth;
+                    var leftPosition = $(this)[0].scrollLeft;
+
+                    if (leftPosition >= (maxScrollLeft - 5)) {
+                        let hasClass = $(this).parent().hasClass('section-fade-effect');
+                        if (hasClass) {
+                            $(this).parent().removeClass('section-fade-effect');
+                        }
+                    } else {
+                        $(this).parent().addClass('section-fade-effect');
+                    }
+                });
+            }
+        }
+
+        $(document).ready(function () {
+
+            const extendedTableZoomElements = document.querySelectorAll('.extended-table-zoom');
+            if (extendedTableZoomElements && extendedTableZoomElements.length > 0) {
+                window.Stickyfill.add(extendedTableZoomElements);
+            }
+
+            const socialMediaSideBarContainerElement = document.querySelectorAll('.social-media-side-bar-container');
+            if (socialMediaSideBarContainerElement && socialMediaSideBarContainerElement.length > 0) {
+                window.Stickyfill.add(socialMediaSideBarContainerElement);
+            }
+        });
+    </script>
+
+
+        <script type="text/javascript">
+            
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-24489796-1']);
+            _gaq.push(['_setDomainName', '.globenewswire.com']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.preload = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') +
+                    '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+
+<style data-jss="" data-meta="MuiPaper">
+.MuiPaper-root {
+  color: rgba(0, 0, 0, 0.87);
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  background-color: #fff;
+}
+.MuiPaper-rounded {
+  border-radius: 4px;
+}
+.MuiPaper-outlined {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+.MuiPaper-elevation0 {
+  box-shadow: none;
+}
+.MuiPaper-elevation1 {
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
+}
+.MuiPaper-elevation2 {
+  box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
+}
+.MuiPaper-elevation3 {
+  box-shadow: 0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12);
+}
+.MuiPaper-elevation4 {
+  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
+}
+.MuiPaper-elevation5 {
+  box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 5px 8px 0px rgba(0,0,0,0.14),0px 1px 14px 0px rgba(0,0,0,0.12);
+}
+.MuiPaper-elevation6 {
+  box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
+}
+.MuiPaper-elevation7 {
+  box-shadow: 0px 4px 5px -2px rgba(0,0,0,0.2),0px 7px 10px 1px rgba(0,0,0,0.14),0px 2px 16px 1px rgba(0,0,0,0.12);
+}
+.MuiPaper-elevation8 {
+  box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12);
+}
+.MuiPaper-elevation9 {
+  box-shadow: 0px 5px 6px -3px rgba(0,0,0,0.2),0px 9px 12px 1px rgba(0,0,0,0.14),0px 3px 16px 2px rgba(0,0,0,0.12);
+}
+.MuiPaper-elevation10 {
+  box-shadow: 0px 6px 6px -3px rgba(0,0,0,0.2),0px 10px 14px 1px rgba(0,0,0,0.14),0px 4px 18px 3px rgba(0,0,0,0.12);
+}
+.MuiPaper-elevation11 {
+  box-shadow: 0px 6px 7px -4px rgba(0,0,0,0.2),0px 11px 15px 1px rgba(0,0,0,0.14),0px 4px 20px 3px rgba(0,0,0,0.12);
+}
+.MuiPaper-elevation12 {
+  box-shadow: 0px 7px 8px -4px rgba(0,0,0,0.2),0px 12px 17px 2px rgba(0,0,0,0.14),0px 5px 22px 4px rgba(0,0,0,0.12);
+}
+.MuiPaper-elevation13 {
+  box-shadow: 0px 7px 8px -4px rgba(0,0,0,0.2),0px 13px 19px 2px rgba(0,0,0,0.14),0px 5px 24px 4px rgba(0,0,0,0.12);
+}
+.MuiPaper-elevation14 {
+  box-shadow: 0px 7px 9px -4px rgba(0,0,0,0.2),0px 14px 21px 2px rgba(0,0,0,0.14),0px 5px 26px 4px rgba(0,0,0,0.12);
+}
+.MuiPaper-elevation15 {
+  box-shadow: 0px 8px 9px -5px rgba(0,0,0,0.2),0px 15px 22px 2px rgba(0,0,0,0.14),0px 6px 28px 5px rgba(0,0,0,0.12);
+}
+.MuiPaper-elevation16 {
+  box-shadow: 0px 8px 10px -5px rgba(0,0,0,0.2),0px 16px 24px 2px rgba(0,0,0,0.14),0px 6px 30px 5px rgba(0,0,0,0.12);
+}
+.MuiPaper-elevation17 {
+  box-shadow: 0px 8px 11px -5px rgba(0,0,0,0.2),0px 17px 26px 2px rgba(0,0,0,0.14),0px 6px 32px 5px rgba(0,0,0,0.12);
+}
+.MuiPaper-elevation18 {
+  box-shadow: 0px 9px 11px -5px rgba(0,0,0,0.2),0px 18px 28px 2px rgba(0,0,0,0.14),0px 7px 34px 6px rgba(0,0,0,0.12);
+}
+.MuiPaper-elevation19 {
+  box-shadow: 0px 9px 12px -6px rgba(0,0,0,0.2),0px 19px 29px 2px rgba(0,0,0,0.14),0px 7px 36px 6px rgba(0,0,0,0.12);
+}
+.MuiPaper-elevation20 {
+  box-shadow: 0px 10px 13px -6px rgba(0,0,0,0.2),0px 20px 31px 3px rgba(0,0,0,0.14),0px 8px 38px 7px rgba(0,0,0,0.12);
+}
+.MuiPaper-elevation21 {
+  box-shadow: 0px 10px 13px -6px rgba(0,0,0,0.2),0px 21px 33px 3px rgba(0,0,0,0.14),0px 8px 40px 7px rgba(0,0,0,0.12);
+}
+.MuiPaper-elevation22 {
+  box-shadow: 0px 10px 14px -6px rgba(0,0,0,0.2),0px 22px 35px 3px rgba(0,0,0,0.14),0px 8px 42px 7px rgba(0,0,0,0.12);
+}
+.MuiPaper-elevation23 {
+  box-shadow: 0px 11px 14px -7px rgba(0,0,0,0.2),0px 23px 36px 3px rgba(0,0,0,0.14),0px 9px 44px 8px rgba(0,0,0,0.12);
+}
+.MuiPaper-elevation24 {
+  box-shadow: 0px 11px 15px -7px rgba(0,0,0,0.2),0px 24px 38px 3px rgba(0,0,0,0.14),0px 9px 46px 8px rgba(0,0,0,0.12);
+}
+</style><style data-jss="" data-meta="MuiTouchRipple">
+.MuiTouchRipple-root {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  overflow: hidden;
+  position: absolute;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.MuiTouchRipple-ripple {
+  opacity: 0;
+  position: absolute;
+}
+.MuiTouchRipple-rippleVisible {
+  opacity: 0.3;
+  animation: MuiTouchRipple-keyframes-enter 550ms cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(1);
+}
+.MuiTouchRipple-ripplePulsate {
+  animation-duration: 200ms;
+}
+.MuiTouchRipple-child {
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 1;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+.MuiTouchRipple-childLeaving {
+  opacity: 0;
+  animation: MuiTouchRipple-keyframes-exit 550ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.MuiTouchRipple-childPulsate {
+  top: 0;
+  left: 0;
+  position: absolute;
+  animation: MuiTouchRipple-keyframes-pulsate 2500ms cubic-bezier(0.4, 0, 0.2, 1) 200ms infinite;
+}
+@-webkit-keyframes MuiTouchRipple-keyframes-enter {
+  0% {
+    opacity: 0.1;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+}
+@-webkit-keyframes MuiTouchRipple-keyframes-exit {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes MuiTouchRipple-keyframes-pulsate {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.92);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+</style><style data-jss="" data-meta="MuiButtonBase">
+.MuiButtonBase-root {
+  color: inherit;
+  border: 0;
+  cursor: pointer;
+  margin: 0;
+  display: inline-flex;
+  outline: 0;
+  padding: 0;
+  position: relative;
+  align-items: center;
+  user-select: none;
+  border-radius: 0;
+  vertical-align: middle;
+  -moz-appearance: none;
+  justify-content: center;
+  text-decoration: none;
+  background-color: transparent;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.MuiButtonBase-root::-moz-focus-inner {
+  border-style: none;
+}
+.MuiButtonBase-root.Mui-disabled {
+  cursor: default;
+  pointer-events: none;
+}
+@media print {
+  .MuiButtonBase-root {
+    -webkit-print-color-adjust: exact;
+  }
+}
+</style><style data-jss="" data-meta="MuiButton">
+.MuiButton-root {
+  color: rgba(0, 0, 0, 0.87);
+  padding: 6px 16px;
+  font-size: 0.875rem;
+  min-width: 64px;
+  box-sizing: border-box;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  line-height: 1.75;
+  border-radius: 4px;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+}
+.MuiButton-root:hover {
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+.MuiButton-root.Mui-disabled {
+  color: rgba(0, 0, 0, 0.26);
+}
+@media (hover: none) {
+  .MuiButton-root:hover {
+    background-color: transparent;
+  }
+}
+.MuiButton-root:hover.Mui-disabled {
+  background-color: transparent;
+}
+.MuiButton-label {
+  width: 100%;
+  display: inherit;
+  align-items: inherit;
+  justify-content: inherit;
+}
+.MuiButton-text {
+  padding: 6px 8px;
+}
+.MuiButton-textPrimary {
+  color: #3f51b5;
+}
+.MuiButton-textPrimary:hover {
+  background-color: rgba(63, 81, 181, 0.04);
+}
+@media (hover: none) {
+  .MuiButton-textPrimary:hover {
+    background-color: transparent;
+  }
+}
+.MuiButton-textSecondary {
+  color: #f50057;
+}
+.MuiButton-textSecondary:hover {
+  background-color: rgba(245, 0, 87, 0.04);
+}
+@media (hover: none) {
+  .MuiButton-textSecondary:hover {
+    background-color: transparent;
+  }
+}
+.MuiButton-outlined {
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  padding: 5px 15px;
+}
+.MuiButton-outlined.Mui-disabled {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+.MuiButton-outlinedPrimary {
+  color: #3f51b5;
+  border: 1px solid rgba(63, 81, 181, 0.5);
+}
+.MuiButton-outlinedPrimary:hover {
+  border: 1px solid #3f51b5;
+  background-color: rgba(63, 81, 181, 0.04);
+}
+@media (hover: none) {
+  .MuiButton-outlinedPrimary:hover {
+    background-color: transparent;
+  }
+}
+.MuiButton-outlinedSecondary {
+  color: #f50057;
+  border: 1px solid rgba(245, 0, 87, 0.5);
+}
+.MuiButton-outlinedSecondary:hover {
+  border: 1px solid #f50057;
+  background-color: rgba(245, 0, 87, 0.04);
+}
+.MuiButton-outlinedSecondary.Mui-disabled {
+  border: 1px solid rgba(0, 0, 0, 0.26);
+}
+@media (hover: none) {
+  .MuiButton-outlinedSecondary:hover {
+    background-color: transparent;
+  }
+}
+.MuiButton-contained {
+  color: rgba(0, 0, 0, 0.87);
+  box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
+  background-color: #e0e0e0;
+}
+.MuiButton-contained:hover {
+  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
+  background-color: #d5d5d5;
+}
+.MuiButton-contained.Mui-focusVisible {
+  box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
+}
+.MuiButton-contained:active {
+  box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12);
+}
+.MuiButton-contained.Mui-disabled {
+  color: rgba(0, 0, 0, 0.26);
+  box-shadow: none;
+  background-color: rgba(0, 0, 0, 0.12);
+}
+@media (hover: none) {
+  .MuiButton-contained:hover {
+    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
+    background-color: #e0e0e0;
+  }
+}
+.MuiButton-contained:hover.Mui-disabled {
+  background-color: rgba(0, 0, 0, 0.12);
+}
+.MuiButton-containedPrimary {
+  color: #fff;
+  background-color: #3f51b5;
+}
+.MuiButton-containedPrimary:hover {
+  background-color: #303f9f;
+}
+@media (hover: none) {
+  .MuiButton-containedPrimary:hover {
+    background-color: #3f51b5;
+  }
+}
+.MuiButton-containedSecondary {
+  color: #fff;
+  background-color: #f50057;
+}
+.MuiButton-containedSecondary:hover {
+  background-color: #c51162;
+}
+@media (hover: none) {
+  .MuiButton-containedSecondary:hover {
+    background-color: #f50057;
+  }
+}
+.MuiButton-disableElevation {
+  box-shadow: none;
+}
+.MuiButton-disableElevation:hover {
+  box-shadow: none;
+}
+.MuiButton-disableElevation.Mui-focusVisible {
+  box-shadow: none;
+}
+.MuiButton-disableElevation:active {
+  box-shadow: none;
+}
+.MuiButton-disableElevation.Mui-disabled {
+  box-shadow: none;
+}
+.MuiButton-colorInherit {
+  color: inherit;
+  border-color: currentColor;
+}
+.MuiButton-textSizeSmall {
+  padding: 4px 5px;
+  font-size: 0.8125rem;
+}
+.MuiButton-textSizeLarge {
+  padding: 8px 11px;
+  font-size: 0.9375rem;
+}
+.MuiButton-outlinedSizeSmall {
+  padding: 3px 9px;
+  font-size: 0.8125rem;
+}
+.MuiButton-outlinedSizeLarge {
+  padding: 7px 21px;
+  font-size: 0.9375rem;
+}
+.MuiButton-containedSizeSmall {
+  padding: 4px 10px;
+  font-size: 0.8125rem;
+}
+.MuiButton-containedSizeLarge {
+  padding: 8px 22px;
+  font-size: 0.9375rem;
+}
+.MuiButton-fullWidth {
+  width: 100%;
+}
+.MuiButton-startIcon {
+  display: inherit;
+  margin-left: -4px;
+  margin-right: 8px;
+}
+.MuiButton-startIcon.MuiButton-iconSizeSmall {
+  margin-left: -2px;
+}
+.MuiButton-endIcon {
+  display: inherit;
+  margin-left: 8px;
+  margin-right: -4px;
+}
+.MuiButton-endIcon.MuiButton-iconSizeSmall {
+  margin-right: -2px;
+}
+.MuiButton-iconSizeSmall > *:first-child {
+  font-size: 18px;
+}
+.MuiButton-iconSizeMedium > *:first-child {
+  font-size: 20px;
+}
+.MuiButton-iconSizeLarge > *:first-child {
+  font-size: 22px;
+}
+</style><style data-jss="" data-meta="MuiSnackbarContent">
+.MuiSnackbarContent-root {
+  color: #fff;
+  display: flex;
+  padding: 6px 16px;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  font-size: 0.875rem;
+  align-items: center;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.43;
+  border-radius: 4px;
+  letter-spacing: 0.01071em;
+  background-color: rgb(49, 49, 49);
+}
+@media (min-width:600px) {
+  .MuiSnackbarContent-root {
+    flex-grow: initial;
+    min-width: 288px;
+  }
+}
+.MuiSnackbarContent-message {
+  padding: 8px 0;
+}
+.MuiSnackbarContent-action {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: -8px;
+  padding-left: 16px;
+}
+</style><style data-jss="" data-meta="MuiSnackbar">
+.MuiSnackbar-root {
+  left: 8px;
+  right: 8px;
+  display: flex;
+  z-index: 1400;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+}
+.MuiSnackbar-anchorOriginTopCenter {
+  top: 8px;
+}
+@media (min-width:600px) {
+  .MuiSnackbar-anchorOriginTopCenter {
+    top: 24px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+}
+.MuiSnackbar-anchorOriginBottomCenter {
+  bottom: 8px;
+}
+@media (min-width:600px) {
+  .MuiSnackbar-anchorOriginBottomCenter {
+    left: 50%;
+    right: auto;
+    bottom: 24px;
+    transform: translateX(-50%);
+  }
+}
+.MuiSnackbar-anchorOriginTopRight {
+  top: 8px;
+  justify-content: flex-end;
+}
+@media (min-width:600px) {
+  .MuiSnackbar-anchorOriginTopRight {
+    top: 24px;
+    left: auto;
+    right: 24px;
+  }
+}
+.MuiSnackbar-anchorOriginBottomRight {
+  bottom: 8px;
+  justify-content: flex-end;
+}
+@media (min-width:600px) {
+  .MuiSnackbar-anchorOriginBottomRight {
+    left: auto;
+    right: 24px;
+    bottom: 24px;
+  }
+}
+.MuiSnackbar-anchorOriginTopLeft {
+  top: 8px;
+  justify-content: flex-start;
+}
+@media (min-width:600px) {
+  .MuiSnackbar-anchorOriginTopLeft {
+    top: 24px;
+    left: 24px;
+    right: auto;
+  }
+}
+.MuiSnackbar-anchorOriginBottomLeft {
+  bottom: 8px;
+  justify-content: flex-start;
+}
+@media (min-width:600px) {
+  .MuiSnackbar-anchorOriginBottomLeft {
+    left: 24px;
+    right: auto;
+    bottom: 24px;
+  }
+}
+</style></head>
+<body id="app-body-container">
+<div role="main">
+    <!--Start header -->
+    <div id="pnr-global-site-header-section"><div id="navigation" class="nav-container  nav-container-not-auth "><div id="navigation-logo" class="logo-container" title="Home"><a id="navigation-home-link" href="https://www.globenewswire.com"><img src="https://www.globenewswire.com/content/logo/color.svg" id="navigation-company-logo" title="Home" alt="GlobeNewswire"></a></div><div id="navigation-title" class="title-container hide"></div><div id="navigation-hamburger-button" class="hamburger-button material-icons">dehaze</div><div id="navigation-small-devices-search-container" class="search-small-devices-container"><span id="navigation-small-devices-search-button" class="search-button material-icons">search</span></div><div id="navigation-main-nav-bar" class="side-bar side-bar-right"><div id="navigation-main-small-devices-container" class="hamburger-button material-icons close-button">close</div><div id="navigation-main-navbar-container" class="navbar-container" style="display: block;"><ul id="navigation-main-navbar-nav" class="navbar-nav"><li id="navigation-nav-item-COVID-19-News" class="nav-item"><a id="navigation-COVID-19-News" class="nav-link" href="/en/covid-19" target="_self">COVID-19 News</a></li><li id="navigation-nav-item-services" class="nav-item drop-down"><a id="navigation-services" class="nav-link dropdown-toggle" href="#" target="">services</a><div id="navigation-services-dropdown-menu" class=" dropdown-menu"><a id="navigation-press_release_distribution" class="nav-link dropdown-item" href="https://www.notified.com/gnw-pr/press-release-distribution" target="_blank">press release distribution</a><a id="navigation-global_options" class="nav-link dropdown-item" href="https://www.notified.com/gnw-pr/global-distribution" target="_blank">global options</a><a id="navigation-regulatory_filings" class="nav-link dropdown-item" href="https://www.notified.com/gnw-pr/regulatory-filings" target="_blank">regulatory filings</a><a id="navigation-media_partners" class="nav-link dropdown-item" href="https://www.notified.com/gnw-pr/media-partners" target="_blank">media partners</a></div></li><li id="navigation-nav-item-contact" class="nav-item"><a id="navigation-contact" class="nav-link" href="https://insight.notified.com/globenewswire-contact-us" target="_blank">contact us</a></li><li id="navigation-nav-item-language" class="nav-item"><a id="navigation-language" class="nav-link" href="https://www.globenewswire.com/fr/Home/Signin" target="_self">Français</a></li></ul></div></div><div id="navigation-right-navigation-container" class="right-navigation-container"><div class="link-button-container"><a href="https://www.globenewswire.com/home/signin" id="navigation-desktop-signin" target="_self">sign in</a></div><div class="link-button-container"><a class="MuiButtonBase-root MuiButton-root MuiButton-contained registerButton MuiButton-containedPrimary" tabindex="0" aria-disabled="false" id="navigation-desktop-register-btuuton" href="https://www.globenewswire.com/home/registration" target="_self"><span class="MuiButton-label">register</span><span class="MuiTouchRipple-root"></span></a></div><div class="link-button-container"><span id="global-search-expand" class="search-button material-icons">search</span></div></div><div id="navigation-authentication-container-scroll" class="right-navigation-container authentication  hide"><div class="link-button-container sign-in-scroll"><a href="https://www.globenewswire.com/home/signin" id="navigation-small-device-signin" target="_self">sign in</a></div></div><div id="navigation-hamburger-button-scroll" class="hamburger-buton-scroll hide"></div><div id="navigation-small-devices-background-disabled" class="small-devices-navigation-background-disabled"></div></div><div class="search-container"></div></div>
+    <!--End header-->
+    <!-- Start Body -->
+    <div class="pnr-body-container">
+                <script type="text/javascript">
+
+            // used in ui component
+            window.pnrApplicationSettings = {
+                SelectedLocale: 'en-US',
+                PnrHostUrl: 'https://www.globenewswire.com',
+                IsAuthenticated: 'False' === "True" ? true : false,
+                ContextUser: '',
+                ApplicationUrl: 'https://www.globenewswire.com',
+                PageContext: '',
+                SubscriptionId: 0,
+                SubscriptionName: '',
+                ArticleLogoUrl: '',
+                ArticleHeadline: '',
+                IsMobileVersion: 'False' === "True" ? true : false,
+                HideLanguageSelection : false,
+                NewsSearchHeading: '',
+                ArticleMediaAttachments: [],
+                AuthSessionExpirationMinutes: '0',
+                AppLogoUrl: 'https://www.globenewswire.com/content/logo/color.svg'
+            };
+        </script>
+
+
+
+<div class="row template-row">
+    <div class="col-12 col-md-12 col-lg-6 col-xl-6 template-container template-left-container">
+        <h4>Global Client Account</h4>
+        <p>Log into your Global Client Account to use any of GlobeNewswire's broad suite of products, from press release distribution and regulatory filings to a full complement of tools to assist with your PR workflows.</p>
+        <a href="https://pr.globenewswire.com/" class="register-home-page-button btn btn-primary template-1-button">
+            Sign In
+        </a>
+    </div>
+    <div class="col-12 col-md-12 col-lg-6 col-xl-6 template-container">
+        <h4>Newsroom Reader Sign In</h4>
+        <p>Log into your Reader Account to gain access to GlobeNewswire's entire press release archive and set up news alerts so that you're always up-to-date on the latest news.</p>
+        <a id="SignInReaderAccountButton" href="https://pnrlogin.globenewswire.com/en/" class="register-home-page-button btn btn-primary template-1-button">
+            Sign In
+        </a>
+    </div>
+</div>
+
+<!-- End Body -->
+
+    </div>
+    <!-- End Body -->
+    <!--Start footer -->
+    <div id="pnr-global-site-footer-section" class="home-page-footer"><div class="footer-container" id="footer-container"><div class="header-container"><div id="footer-logo" class="logo-container" title="Home"><a id="footer-logo-home-link" href="/"><img src="https://www.globenewswire.com/content/logo/footer.svg" id="footer-company-logo" title="Home" alt="GlobeNewswire" loading="lazy"></a></div></div><div class="body-container"><div class="content-section" id="footer-left"><h1>About Us</h1><p>GlobeNewswire is one of the world's largest newswire distribution networks, specializing in the delivery of corporate press releases, financial disclosures and multimedia content to media, investors, and consumers worldwide.</p><p class="social-links"><span>Follow us on social media: </span><span><a href="https://www.linkedin.com/company/1006947" title="GlobeNewswire" target="_blank" rel="noopener"><i><svg viewBox="0 0 64 64" width="64" height="64" class="share-button-icon"><rect width="64" height="64" rx="0" ry="0" fill="#007fb1" style="fill: none;"></rect><path d="M20.4,44h5.4V26.6h-5.4V44z M23.1,18c-1.7,0-3.1,1.4-3.1,3.1c0,1.7,1.4,3.1,3.1,3.1 c1.7,0,3.1-1.4,3.1-3.1C26.2,19.4,24.8,18,23.1,18z M39.5,26.2c-2.6,0-4.4,1.4-5.1,2.8h-0.1v-2.4h-5.2V44h5.4v-8.6 c0-2.3,0.4-4.5,3.2-4.5c2.8,0,2.8,2.6,2.8,4.6V44H46v-9.5C46,29.8,45,26.2,39.5,26.2z" fill="white"></path></svg></i></a><a href="https://twitter.com/Notified" class="share-alignment" title="@IntradoDigital" target="_blank" rel="noopener"><i><svg viewBox="0 0 64 64" width="64" height="64" class="share-button-icon"><rect width="64" height="64" rx="0" ry="0" fill="#00aced" style="fill: none;"></rect><path d="M48,22.1c-1.2,0.5-2.4,0.9-3.8,1c1.4-0.8,2.4-2.1,2.9-3.6c-1.3,0.8-2.7,1.3-4.2,1.6 C41.7,19.8,40,19,38.2,19c-3.6,0-6.6,2.9-6.6,6.6c0,0.5,0.1,1,0.2,1.5c-5.5-0.3-10.3-2.9-13.5-6.9c-0.6,1-0.9,2.1-0.9,3.3 c0,2.3,1.2,4.3,2.9,5.5c-1.1,0-2.1-0.3-3-0.8c0,0,0,0.1,0,0.1c0,3.2,2.3,5.8,5.3,6.4c-0.6,0.1-1.1,0.2-1.7,0.2c-0.4,0-0.8,0-1.2-0.1 c0.8,2.6,3.3,4.5,6.1,4.6c-2.2,1.8-5.1,2.8-8.2,2.8c-0.5,0-1.1,0-1.6-0.1c2.9,1.9,6.4,2.9,10.1,2.9c12.1,0,18.7-10,18.7-18.7 c0-0.3,0-0.6,0-0.8C46,24.5,47.1,23.4,48,22.1z" fill="white"></path></svg></i></a></span></p></div><div class="content-section" id="footer-right"><h1>Newswire Distribution Network &amp; Management</h1><ul><li id="footer-home" class=""><a id="footer-home-link" class="" href="https://www.globenewswire.com/" target="_self">Home</a></li><li id="footer-Newsroom" class=""><a id="footer-Newsroom-link" class="" href="https://www.globenewswire.com/newsroom" target="_self">Newsroom</a></li><li id="footer-rssFeeds" class=""><a id="footer-rssFeeds-link" class="" href="https://www.globenewswire.com/rss/list" target="_self">RSS Feeds</a></li><li id="footer-legal" class=""><a id="footer-legal-link" class="" href="https://www.west.com/legal-privacy/" target="_blank">Legal</a></li></ul></div></div></div><div class="copyright-container"><div class="intro-section-2"><p>GlobeNewswire is a newswire distribution network. Articles and other content published by GlobeNewswire are the legal responsibility of the author and GlobeNewswire accepts no liability for the content of such material. GlobeNewswire publishes content for informational purposes and makes no representations regarding, recommendation or invitation to engage in, any form of financial or investment activity, and does not endorse the content of any material published.</p></div><div class="copyright-year">© 2022 GlobeNewswire, Inc. All Rights Reserved.</div></div></div>
+    <!--End footer-->
+    <div id="cookies-consent"><div class="MuiSnackbar-root MuiSnackbar-anchorOriginBottomCenter user-cookie-consent-section"><div class="MuiPaper-root MuiSnackbarContent-root MuiPaper-elevation6" role="alert" direction="up" style="opacity: 1; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"><div class="MuiSnackbarContent-message"><div class="cookie-consent-disclosure"><div class="row"><div class="col-lg-9"><span class="cookie-txt-style" id="cookie-text">We use cookies to improve your GlobeNewswire experience. By continuing, you agree to our use of cookies. For more information, please see our <a class="policy-link" href="https://www.west.com/legal-privacy/">Privacy Policy</a>.</span></div><div class="col-lg-3 text-center"><button class="btn cookie-accept">ACCEPT</button></div></div></div></div></div></div></div>
+
+   <script src="/Scripts/React/dist/main.js"></script>
+   <script src="/Scripts/React/dist/vendor.js"></script>
+</div>
+
+
+</body></html>

@@ -1,0 +1,178 @@
+<html class=" js no-mobile desktop no-ie chrome chrome100 cas-section gradient rgba opacity textshadow multiplebgs boxshadow borderimage borderradius cssreflections csstransforms csstransitions no-touch no-retina fontface domloaded w-1920 gt-240 gt-320 gt-480 gt-640 gt-768 gt-800 gt-1024 gt-1280 gt-1440 gt-1680 no-portrait landscape" id="login-page"><head>
+    <title>Login</title>
+    <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link rel="stylesheet" href="/cas/css/style.css"><link rel="icon" href="/cas/images/favicon.ico" type="image/x-icon"><script type="text/javascript" src="/cas/webjars/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/cas/js/cas.js"></script>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"></head>
+
+<body class="login">
+<div id="wrapper" class="wrapper">
+    <div class="container">
+        <header role="banner" id="header" class="header">
+    <h1>
+        <a href="https://www.asu.edu/" title="Arizona State University">
+            <span class="sr-only">Arizona State University</span>
+        </a>
+    </h1>
+    <div id="ad" class="ad"><img src="https://www.asu.edu/weblogin/images/ads/5.jpg"></div>
+</header>
+        
+        <main role="main" class="content">
+            <div id="content" class="row">
+            <div id="loginForm">
+                <div class="card login-form">
+                <!--
+                    <div class="card-header" th:if="${delegatedAuthenticationProviderPrimary == null}" th:replace="fragments/serviceui :: serviceUI">
+                        <a href="fragments/serviceui.html">service ui fragment</a>
+                    </div>
+                --><div class="card-body">
+                    <form method="post" id="login" action="login" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                        <h2 class="welcome-text">Sign In</h2>
+                        <div id="status" class="error">
+                            <div><div class="title">User ID and/or Password Is Incorrect</div>Please Try Again </div>
+                        </div>
+                        <div id="credentialsIncorrect" class="error hide"><div class="title">User ID and/or Password Is Incorrect</div>Please Try Again</div>
+                        <fieldset>
+                            <section class="form-group">
+                                </section>
+                            
+                            <section class="form-group">
+                                <label class="control-label">ASURITE User ID</label>
+                            
+                                <div class="input-container">
+                                    <input class="form-control required" id="username" size="25" tabindex="1" type="text" accesskey="u" autofocus="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="username" value="hussain_miya@hotmail.com"></div>
+                                <div class="hint request-id-link">
+                                    <a href="https://selfsub.asu.edu/activation">Activate</a> or <a href="https://www.asu.edu/asuriterequest">request an
+                                        ID</a>
+                                </div>
+                            </section>
+                            
+                            <section class="form-group">
+                                <label class="control-label">Password</label>
+                                <div class="input-container">
+                                    <input class="form-control required" type="password" id="password" size="25" tabindex="2" accesskey="p" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="password" value=""><span id="capslock-on" style="display:none;">
+                                        <p>
+                                            <i class="fa fa-exclamation-circle"></i>
+                                            <span>CAPSLOCK key is turned on!</span>
+                                        </p>
+                                    </span>
+                                </div>
+                                <div class="hint forgot-password-link">
+                                    <span><a href="https://www.asu.edu/lostpassword">Forgot ID / password?</a></span>
+                                </div>
+                            </section>
+                        </fieldset>
+                        
+
+                        <section class="form-group">
+                            </section>
+
+                        <section class="form-group form-actions">
+                            
+                            <div class="form-action">
+                                <input class="btn btn-submit btn-primary" name="submit" accesskey="l" tabindex="4" type="submit" value="Sign In"></div>
+                            <div class="form-check form-remember">
+                                <div class="form-type-checkbox">
+                                    <input type="checkbox" name="rememberid" id="rememberid" value="true" tabindex="5"><label for="rememberid" id="rememberid_label">Remember my user ID</label>
+                                </div>
+                            </div>
+                        </section>
+
+                        <input type="hidden" name="execution" value="86231408-2a49-44a2-ac25-12f38958c879_ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LlVXT2xvWTBpblJPR3IzX3Q2SUFfdUY1QXBIUXRDWXp0eE10X1k2OVJzdXlXOEdfVzc1NndWVWFoUnZCU1k5LWdkWWE4REpIQVRWSnVvYjFWZ2dHVHI2WWp0N25aMjB0UHF0Uk9wZ1ZzSGRlb1EyOXk0Ul9QODNHR3JUVG0xUnB3NXRQNENTQXoxeHpLaVpITi1WaDg0dFQ0UnJDS3dHQ3FvUVJCQ013algtb2xHVHhDdnRDUWZCaW1VTVpMVGVwa1VmcFIyQUhONTNVcFNTX3V1MkUtYUJmc3lwSU5obEt0M09JU0taUEtocjdNREpka1l3U1ZhWlI1VGhjeG1vR0h1Y0xhaWR6eklzWHpfNXNPZWtwanM1cXlmWXBTS0M5OGx1Zm92X2hLNzFtNUNVWTQtLS1SWW03WTc3WU9WWGZ4U0loZEg1Zi1NbWdOY2gxN1hQRWZCcVBNZllST21zX1FBUTc3QW5EbWtxUm5xWDRYNktKbDNZX3FWLWl5Q2RJYWlkMnpxdmZpMy1TQjVVbFZaLWY0U0xGampnOFpPQ1R2SE0wX3haN0VvdHVyaGtDemJIeGxyNEpHUExXUmZ4Vm1JNW9lVmdCZ2I2NHZwbFlkYUV5MmZiWXBPWDBndmlyUlk2T1gxSnlEYl92UTNHMWFaRmluSmlJSGdFUVk0NlZNcHpQeWNZd2lpYUVwMENnUVVVRlRBWG85aVl2Nmp3MldVeHktXzlnd0ZTcFNSazRHUDBEYVhsaTZwUDh1d2EwTDRzUVdQYXNCUTNPVkdENnpJdl9pQnRLTmlYNi1OMUhmcmRKV0ExN3NCZS1LYXF0bUFSZTV4Y1B4LUpqQkhTU21KX245N053VFV1Yk1TY2FfbVFiZ3lxaHlOR1NQYnFYVWhKdVVqVHRNaW96ZnNTY09HNWpvZDk5SzhfUVpMREM4b3NDdGl1MDl3ZW9KYzkzbS1xTHpWSUl5djBhS09EbU9FUlFibjFsU29TZ2NEU2hrNzZYTGlHMUxISEdjWnAxMkhUN21sV1BHUlpzX2JZRzJfQWdQaVpCNFlGaVZaWExDQ1k5MF84WjM3WXNaZGQxR0pXNlpWM1EtVlI4YnIzR2QzU0otVXNtUHd5dUlvR3l0dEVFdWh5UHNRUTZISUF5Q3hNRDZvSm8yVnRsSmFzX3hmbW5sQnJEMjZkOGZOYUs0S2lrTy1BM1p3MVZmT2dSZnF1dHkxSVVZbnV3UFVxbGNzZ2RjbVpvQ0pzdUotZ242ODZSV3FzT1NRSUdERVB1STZId042bHZpenlvZGpjSlVrcm9ybXJWdVlLd0pXdTJ4UFhaTUxXUVV1aWVNbmkxTDdLLW11TFk5bjV4QVNteTlxSkdYc3Y5Z0pnUURGdkJIMFcwdldLeVplMHZldUpPbDdobTJiRGZGRGJzcGU4c1Y4T1JGcDBZbU9henJhUy1aY2s4dkdKNjRqTnpFelVMNlo0T2l4VFdyWlhJWVJTV2VmZVlLVXMtN012cHlMVDJvR0VoOVpOYkVtNjVVOXd5dmVPdWphR3BPNmIxNkVRcnNWU3lwYm1YaVc2XzlycDdxZmJCNF9UYzFOTy1tbXZfa0JqQXFGN21uU3J1d09CNGd1UDI0SnJMaW9LcjNLOGJoUnkwaE5sZlBVZ1FLZ25Da1U4V0szRTRKOV9PNmRhb252eGY2YkI5RXhBbl9JeGRFTWtCYnU1VzJ1TENtZmRwcXo2QmdRM29Na0NRby16OThPLVJ0SFFuY09xQ2FndXViZU9XVkloU1NWV2RBQ1A4TFl0ZlRla0dIQXE4d0Q2MDhqcTdEOWUtUzFXWDlhbnhfTmFQWGdtM1ZKbGFVa0xXbXhoWmplalRZZXJMTzE3bXZING1HRWhaV3gzbXJWZjZZVDlxSlhFSkk5ZUpjVEFkVkNnMWdMdWozUlEwMTlOa045Y0NacEtzZmU2MFhOZGYzNnh3WVZIS3MtUzZ2Ujdja3pLalpmdTBTVi10anRpTHFtR0E4YVlURFQ2em43S2FZeFVtYnJWQ2ZzcEVqazBxWUthNXdGWnRtOThPSzBueDNwRkd5ejRPMXZKX08xbFVZem9WUDJadFFxT0IxVVFEbllPazVuNmFLRmtuS2FEVWZDRklvOTNLNmVDTFBDenljYjJCaXZON0tlT3RkMkNjUlpPN2paQlVMVk5CWTNOZ1hFd0pnMm5hOW9hWnh6MHlmenluNExjNUpCUllMcFRDUERnQUtPazMxbEVYb0x2dUVmZXltM0lTaU9Uc2poVG9zSm94Y2VHRU8wSHBzNGZmNUNMZExqeGxzLTBwZHF5UF9YWHJ0TEd5RmYzRHlxR3R1SmI5STUtUlBvX2lvemRBNHRlM1NrdmtjenJ2XzJudWR2VnBqWkZVSVRBSmhEaVlHc2d1QjcwV2pDSnFPZ0trUjE4TnNlRUY5N015ajhDZXZtVmdtc3Q0bF92NU56OWp2b0k3NjYzMU1KLVhHamFJaEx0VG5reUh0aWw4eW5GQlQ4SkhhSEpxdnREMlRHcnhMMFR1MTgzZU5Db1l4Tmp2OHpVT29aVnFxeFl5MHU0U1VJbEJGVUEzX0xqTFZIUkNvV3hvVFVSTGtYUF91czdDVUJ3SVlRQWFTcVBud0FzMGdiYThNWFNWUlVsakNFaV9aMWV0WjBQY3RhN1pBaXdtYmhGYlk1X3pQUEUxZ3VSQzRxeWJ2ZzN1dFVza0Vaa0xaZ0g5RFI4VUM0X2Q0d3ljODZKU25rZTZqTnFqdFc1Z2tRMXZ3MWZBbXVuaWxpZGpLUzVRTDVrUm9teUdGUHplU0xxak5DYjJZTmZucUtyX09oM3Fsc2FQMmxoZFVOTVI4UjUtSEhyeW9XNEJ4WE9nYTNzdTZVVlVaWGFNVHFZc0Vuc0ZyQ3NNTUlHamROcDlsU2pEZ0xCZ2huaTdTRXdkTjBfX19oY2ZmeHExMXZIZm9UTXAyYUljMVZfRmExX2RfYTFZbTVrMGZVd2Z4RHNXQ1hEaVZacUt2aUJnd2hmdTlzZG5QYlZGbEJkOS02b3pIdHIzNmRQRWZjNDV1NWwtajJqNGlZRG9VaEJoSVptcUgwdFJoYU5WSTBYQ2sxQU51MEhhdFFpRFpEeWs2MlZGbFdrd0t4NFMwNy1CQkJoSWY3VGxrUHNaLWdaZG53bmZBR3RQUUpnaXdPV0hBMzl6Xy16OF9ZT1Q1cDRmQ2VROVlZd2tPaTdhTmN6RW9MbnpWaDZySzV5VGJCdUIwTjlqZ1c2RTBXa19KMlNxbks5TjJnYkNpTERuaVdlcjY2bDNQTFdxRzVMZ25uRmhURk5aMVlnbzRWY1lNcTdDbjFNVmk4cnpHTXBXUTBNU3YtSW8tRTZDV05ESDNBLTFnem4waXR1ZTJqWnVGUU9CWGdsWTNYemJlWFlVaDlIVEZFeVdaRlpoaGZqSGlzeWtnaHlIa3c4bmgyczdsM0ladGhPNHROVkxzQXFHUDZzdzdXUHdSZC1iWVdvV1c2SEhoaWlnUzZpd2RqZGViQnVGaGJLU0V6TTNxb2tuUTJfTmoxMmF5aE5yU2NYWmY0RTdkWGpJeGNtd0xER1NuTUNaS3BNSHpmYjJ3S2hFY3cwYnVTN2Z5NW1JSDFrWHRFQU0waXg1dXRKbmFSZ2s2c3lQLU5SVXlCaU5BLWdWY0Jfck5Tb3BMZWEtRE1jdjMyNkt6RUVoZFN4Z19DUzNFN1lkN1F5OTc1T2dOcFdOZGFmTUJ5N2ZHOGxBMVlLMzREM3k5UGJFYmNsdUpzTWRRMmxwY2U0M1NzcU1TcFlHTHUzcDVJdXV5c29sRXVKTFdEcXBkd091ZHplb2pMLTdod0tNS0JSc2JMYkhkN3VTVGtfN1RiMVk3VjFKMVZ0QzkxRTlWaVZhR2oxNTlyUlRlb1NmNEl3VnB6OXRfQWJFem5QZ1RNVW8xa2lWYTI4MVJsVDRTQW4zM1F2bmZsQWQ2NnN6Qzd5aFZid1NsbVlqOU4xR0NIcUMyVHNDYnR0aWN4RUpiaFFmYktzM2tTbDZ3YVU1RkY1NkRUazBlajI3OVFUQ2ZJOGJ6X1dvaHNrb2Q3eW1lUEx3NzYxMlpVMkVYLUhOdzM3aG02M1Y5a2VqYk9XR1FucWRBeVllOFFvMk01T0M3VnFLd0EwdGtycnNpNS1CLUwycXYzdFlmTGJrczlrODZpZjloaGhUUXllMVZOTlljSTNRZTFZZ0UzMVJtLTJIVDVuN2NpZXpGcHhmLXVEdVhDWkFEdUVaRG84UGNaaUgxTzl3V1BSaTZpek10TzZiYmZmUHNVSXlsYWRlQy1lOXZIRHlULXRJVks5R3hLVEN2ZWZLV2RBc0FWOENHU1cwbGpZWThqN0E2Tm15STkyeEF1aHhkNlVXUVBoX2lfeTlaWktJV2VhUnBSeDRjME1TZWoxRkFENTliUjVYazFlTzlXVzZ0Q2tfclZnLkR1VFlDdHY1RjV4R1FNVFBkUmRqa2FKZVFQY05rNDAyM1BhWUgwTkJ2TmtreUh3MHpfS2tITG1adnAzRXh1dGFHRF9IMWhiSS01M1RhN3RzYWtrMm9B"><input type="hidden" name="_eventId" value="submit"><input type="hidden" name="geolocation"><p>
+                            </p>
+                    </form>
+
+                    <div></div>
+                </div>
+            </div>
+            </div>
+            <script>
+                if ($('#list-providers').length) {
+                    $('#providers').addClass("col");
+                    $('#loginForm').addClass("col");
+                    $('#providers').show();
+                }
+            </script>
+        </div>
+        </main>
+        
+        <footer class="footer" role="contentinfo">
+        <div id="help" class="help">
+            <div class="teaser">Need Help?</div>
+            <span class="advice">
+                Visit the <a href="https://help.asu.edu">Help Center</a> or call 1-855-ASU-5080
+                (1-855-278-5080)
+            </span>
+        </div>
+        <ul id="footer" class="link-list">
+            <li><a href="https://systemstatus.asu.edu/">System Status</a></li>
+            <li><a href="https://asu.edu">ASU Home</a></li>
+            <li><a href="https://www.asu.edu/copyright/">Copyright</a></li>
+            <li><a href="https://www.asu.edu/aad/manuals/acd/acd125.html">Acceptable Use</a></li>
+            <li><a href="https://www.asu.edu/privacy/">Privacy</a></li>
+        </ul>
+    </footer>
+    </div>
+</div>
+<script type="text/javascript" src="/cas/webjars/zxcvbn/dist/zxcvbn.js"></script>
+<script type="text/javascript" src="/cas/webjars/jquery-ui/1.12.1/jquery-ui.min.js"></script>
+
+<script type="text/javascript" src="/cas/js/asu-signin.js"></script>
+<script type="text/javascript" src="/cas/js/onload.js"></script>
+
+<script src="/cas/webjars/headjs/1.0.3/head.min.js"></script>
+<script type="text/javascript" src="/cas/js/cas.js"></script>
+
+<script>
+    head.ready(document, function () {
+        if (!window.jQuery) {
+            var jqueryUrl = "\/cas\/webjars\/jquery\/3.4.1\/jquery.min.js";
+            head.load(jqueryUrl, loadjQueryUI);
+        } else {
+            notifyResourcesAreLoaded(resourceLoadedSuccessfully);
+        }
+    });
+
+    function loadjQueryUI() {
+        var jqueryUrl = "\/cas\/webjars\/jquery-ui\/1.12.1\/jquery-ui.min.js";
+        head.load(jqueryUrl, notifyResourcesAreLoaded(resourceLoadedSuccessfully));
+    }
+
+    function notifyResourcesAreLoaded(callback) {
+        if (typeof callback === "function") {
+            callback();
+        }
+    }
+</script>
+
+<script>
+    /*<![CDATA[*/
+
+    var trackGeoLocation = false
+    "true";
+
+    var googleAnalyticsTrackingId = null;
+
+    if (googleAnalyticsTrackingId != null && googleAnalyticsTrackingId != '') {
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', googleAnalyticsTrackingId, 'auto');
+        ga('send', 'pageview');
+    }
+
+    /*]]>*/
+</script>
+
+
+
+</body></html>

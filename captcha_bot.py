@@ -1,3 +1,4 @@
+from numpy import record
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver import *
@@ -5,6 +6,7 @@ from time import sleep
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from collections import defaultdict
+import json
 
 USERNAME = "hussain_miya@hotmail.com"
 PASSWORD = "Password1!"
@@ -23,11 +25,12 @@ options.add_experimental_option('excludeSwitches', ['enable-logging'])
 s=Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(PATH, service=s, options=options)
 driver.maximize_window()
+driver.set_script_timeout(30)
+driver.set_page_load_timeout(30)
 
 # TODO: replace with toplist urls
 urls = ["https://www.google.com","https://www.yahoo.com", "https://www.amazon.com", "https://www.reddit.com", "https://www.instagram.com", "https://en.wikipedia.org/wiki/Main_Page", "https://www.bing.com", "https://www.linkedin.com", "https://www.twitter.com", "https://www.zoom.us", "https://www.ebay.com", "https://www.office.com", "https://www.live.com",  "https://www.fandom.com/", "https://www.microsoft.com", "https://www.nytimes.com"]
 # urls = ["https://www.reddit.com/login"]
-
 
 records = defaultdict(dict)
 
@@ -43,6 +46,13 @@ records:
 urls_found_signin_btn = 0
 urls_no_login = []
 urls_cannot_resolve = []
+
+def log(base):
+    with open("./records.csv", "a") as record_file:
+        if records.get(base, []):
+            record_file.write(base + ", " + json.dumps(records.get(base, [])) + "\n")
+        records.clear()
+
 
 def find_username():
     count = 17 # set this to the number of ways we are looking for the log in button
@@ -101,7 +111,7 @@ def find_username():
                 username_box = driver.find_element(By.XPATH, "//textarea[@autocomplete= 'username']")
                 break
             if (count == 0):
-                print(url + ": no username box found in login page")
+                # print(url + ": no username box found in login page")
                 break
         except:
           # if just needs user--> send to keyboard and click enter if possible
@@ -157,7 +167,7 @@ def find_password():
                 password_box.send_keys(Keys.BACKSPACE)
                 break
             if (count == 0):
-                print(url + ": no password box found in login page")
+                #print(url + ": no password box found in login page")
                 break
         except:
           # if just needs user--> send to keyboard and click enter if possible
@@ -168,10 +178,12 @@ def find_password():
 
 toplist = open("./top-1m.csv", "r")
 
-for i in range(84):
+for i in range(1166):
     l = toplist.readline()
 
-for siteCount in range(1, 1000):
+resolve_fail = 0
+
+for siteCount in range(1, 2000):
     try:
 
         login_not_found = False
@@ -184,17 +196,33 @@ for siteCount in range(1, 1000):
             url = base
 
         records[base] = dict()
+        records[base]['resolved'] = False
+        records[base]['login'] = -1
+        records[base]['username'] = -1
+        records[base]['password'] = -1
+        records[base]['attempted_logins'] = -1
+        records[base]['captcha_seen'] = -1
+        records[base]['error'] = False
 
         # get website
         try:
             driver.get(url)
             records[base]['resolved'] = True
+            resolve_fail = 0
         except:
             urls_cannot_resolve.append(url)
             records[base]['resolved'] = False
+            resolve_fail += 1
+            if (resolve_fail == 10):
+                print("DRIVER ERROR")
+                driver = webdriver.Chrome(PATH, service=s, options=options)
+                driver.maximize_window()
+                driver.set_script_timeout(30)
+                driver.set_page_load_timeout(30)
+            log(base)
             continue
 
-        sleep(2) 
+        sleep(3) 
 
         # find sign in
         count = 27 # set this to the number of ways we are looking for the log in button
@@ -297,7 +325,7 @@ for siteCount in range(1, 1000):
             count = 4
             while (count >= 0):
                 try:
-                    if (count == 4): print()
+                    if (count == 4): sleep(0.1)
                     elif (count == 3): driver.get(url + "/login")
                     elif (count == 2): driver.get(url + "/signin")
                     elif (count == 1): driver.get(url + "/sign_in")
@@ -312,39 +340,62 @@ for siteCount in range(1, 1000):
                     count -= 1
 
         if (login_not_found):
+            log(base)
             continue
 
         # At this point, bot should be at login page... now look for username box
         sleep(2)
 
-        (username_box, username_code) = find_username()
-        (password_box, password_code) = find_password()
+        login_attempts = 0
+        for login_attempts in range(5):
 
-        records[base]['username'] = username_code
-        records[base]['password'] = password_code
-
-        if (username_box and password_box):
-            username_box.send_keys(USERNAME)
-            password_box.send_keys(PASSWORD)
-            sleep(0.5)
-            password_box.send_keys(Keys.ENTER)
-
-        elif (username_box):
-            username_box.send_keys(USERNAME)
-            sleep(0.5)
-            username_box.send_keys(Keys.ENTER)
-
-        sleep(2)
-
-        if (not password_box and username_box):
+            (username_box, username_code) = find_username()
             (password_box, password_code) = find_password()
+
+            records[base]['username'] = username_code
             records[base]['password'] = password_code
+
+            if (not username_box and not password_box):
+                break
+
+            if (username_box):
+                username_box.send_keys(Keys.CONTROL + "a")
+                username_box.send_keys(Keys.DELETE)
+
             if (password_box):
+                password_box.send_keys(Keys.CONTROL + "a")
+                password_box.send_keys(Keys.DELETE)
+
+
+            if (username_box and password_box):
+                username_box.send_keys(USERNAME)
                 password_box.send_keys(PASSWORD)
                 sleep(0.5)
                 password_box.send_keys(Keys.ENTER)
-        
-        sleep(2)
+            elif (username_box):
+                username_box.send_keys(USERNAME)
+                sleep(0.5)
+                username_box.send_keys(Keys.ENTER)
+            elif (password_box):
+                password_box.send_keys(PASSWORD)
+                sleep(0.5)
+                password_box.send_keys(Keys.ENTER)
+
+            sleep(1)
+
+            if (not password_box and username_box):
+                (password_box, password_code) = find_password()
+                records[base]['password'] = password_code
+                if (password_box):
+                    password_box.send_keys(Keys.CONTROL + "a")
+                    password_box.send_keys(Keys.DELETE)
+                    password_box.send_keys(PASSWORD)
+                    sleep(0.5)
+                    password_box.send_keys(Keys.ENTER)
+            
+        sleep(1)
+
+        records[base]['attempted_logins'] = login_attempts
 
         try:
             x = driver.find_element(By.XPATH, "//iframe[@id='recaptcha-iframe']")
@@ -352,7 +403,8 @@ for siteCount in range(1, 1000):
             x = driver.find_element(By.XPATH, "//iframe[@title='reCAPTCHA']")
             driver.switch_to.frame(x)
         except:
-            print("No recaptcha frame")
+            #do nothing
+            sleep(0.1)
 
         count = 5 # set this to the number of ways we are looking for CAPTCHA
         while (count >= 0):
@@ -361,8 +413,7 @@ for siteCount in range(1, 1000):
                     driver.find_element(By.XPATH, "//div[@role='checkbox']").click()
                     break
                 if (count == 4): 
-                    x = driver.find_element(By.XPATH, "//div[@class='recaptcha-checkbox-borderAnimation']")
-                    x.click()
+                    x = driver.find_element(By.XPATH, "//div[@class='recaptcha-checkbox-borderAnimation']").click()
                     break
                 if (count == 3): 
                     driver.find_element(By.XPATH, "//div[@role='checkbox']").click()
@@ -374,13 +425,14 @@ for siteCount in range(1, 1000):
                     driver.find_element(By.XPATH, "//span[@role='checkbox']").click()
                     break
                 if (count == 0):
-                    CAPTCHA_NOTFOUND = True
-                    print(CAPTCHA_NOTFOUND)
                     break
             except:
                 count -= 1
                 continue
 
+        # record attempt to find captcha box
+        records[base]['captcha_seen'] = count
+                    
         # grab source code, dump to url
         source_code = driver.page_source
         with open("./sourcecode/"+ url.split(".")[1] + "_source.html", "w", encoding="utf-8") as f:
@@ -389,24 +441,11 @@ for siteCount in range(1, 1000):
         driver.get_screenshot_as_file("./screenshots/" + url.split(".")[1] + "_screenshot.png")
     
     except Exception as E:
-        print("Error found")
-        print(E.with_traceback())
+        records[base]['error'] = True
+        log(base)
 
+    log(base)
 
 sleep(2)
-print(records)
+toplist.close()
 driver.close()
-
-
-
-# TODO:
-# DONE - Debug why facebook will not work
-# DONE - Make sure the top 50 are able to grab the login page and input username password
-# - Create signals for missed websites at different stages
-# - Create retry functionality
-# 
-# TODO:
-# - Create analysis script to parse source code
-# - Read through top 25 to find captcha types
-# - Try and trigger 10 websites manually
-# 

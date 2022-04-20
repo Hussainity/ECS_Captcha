@@ -1,0 +1,100 @@
+<html><head>
+<link rel="stylesheet" type="text/css" href="https://www.buzzfeed.com/static-assets/solid/solid.2.10.6.min.css">
+<style>
+.grecaptcha-badge { visibility: hidden; }
+.error-new-line { white-space: pre-line; }
+</style>
+<title>BuzzFeed</title>
+
+<script type="text/javascript" async="" src="https://www.gstatic.com/recaptcha/releases/QENb_qRrX0-mQMyENQjD6Fuj/recaptcha__en.js" crossorigin="anonymous" integrity="sha384-GLJMwNj3546zgUVjrd41QmXS0fdK5/SrrvaM33bRtDDYeW5KygkcPN+lQPjFA6D+"></script><script src="https://www.google.com/recaptcha/api.js?render=6LeMqMAUAAAAADLgrLKQrapEkPvnj4NbeqIllU6H"></script>
+<script>
+window.bfauthui = {
+redirect: '',
+userInfoEndpoint: 'https://www.buzzfeed.com/buzzfeed/user_info'
+}
+window.recaptcha_site_key = '6LeMqMAUAAAAADLgrLKQrapEkPvnj4NbeqIllU6H';
+grecaptcha.ready(function() {
+grecaptcha.execute(window.recaptcha_site_key, {action: 'signin'}).then(function(token) {
+document.getElementById('recaptcha_token').value=token;
+});
+});
+</script>
+<script src="/static-assets/js/signin.a5d5a271cd2578c015bc.js" type="text/javascript"></script>
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<div class="xs-col-12 sm-col-6 lg-col-4 sm-offset-3 lg-offset-4 card xs-my4 xs-p3">
+<div class="xs-text-center">
+<h1 class="bold xs-mb1 xs-text-2">Sign in</h1>
+<p class="xs-mb2">Or <a href="/auth/signup?redirect=">sign up</a> to make your own posts</p>
+<a href="/auth/csrf?provider=facebook&amp;redirect=" class="button button--social button--icon button--facebook xs-col-12 xs-mb1">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 38" aria-hidden="true">
+<title>Facebook</title>
+<path d="M36.5 0h-35C.3 0 0 .3 0 1.5v34.9C0 37.7.3 38 1.5 38h18.9V23.4h-5.8v-5.8h5.8v-4.4c0-5.1 2.8-7.8 7.4-7.8 2.2 0 4.3.2 4.3.2v4.7h-2.8c-2.5 0-3.1 1.8-3.1 3.5v3.8h6l-.8 5.8h-5.3V38h10.2c1.2 0 1.5-.3 1.5-1.5v-35C38 .3 37.7 0 36.5 0z"></path>
+</svg>
+Sign in with Facebook
+</a>
+<a href="/auth/csrf?provider=google&amp;redirect=" class="button button--social button--icon button--google xs-col-12 xs-mb1">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 38" aria-hidden="true">
+<title>Google</title>
+<path d="M23.5 17.3c.1.6.2 1.2.2 2 0 6.8-4.6 11.6-11.6 11.6C5.4 30.9 0 25.6 0 19 0 12.4 5.4 7.1 12.1 7.1c3.3 0 6 1.2 8.1 3.1l-3.3 3.1c-.9-.8-2.5-1.8-4.8-1.8-4.1 0-7.5 3.4-7.5 7.5s3.4 7.5 7.5 7.5c4.8 0 6.6-3.4 6.9-5.1h-6.9v-4.1h11.4zm11 0v-3.4H31v3.4h-3.5v3.4H31v3.4h3.5v-3.4H38v-3.4h-3.5z"></path>
+</svg>
+Sign in with Google
+</a>
+
+<a href="/auth/csrf?provider=apple&amp;redirect=" class="button button--social button--icon button--apple-news xs-col-12 xs-mb3">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 38">
+<title>Apple</title>
+<path d="M35.3 27.9c-.9 2-1.3 2.9-2.5 4.6-1.5 2.4-3.8 5.5-6.6 5.5-2.5 0-3.1-1.6-6.5-1.6S15.6 38 13.1 38c-2.8 0-4.9-2.8-6.5-5.2C2.1 26 1.6 18 4.4 13.7c2-3 5.1-4.8 8-4.8 3 0 4.8 1.6 7.3 1.6 2.4 0 3.8-1.6 7.3-1.6 2.6 0 5.3 1.4 7.3 3.9-6.5 3.5-5.5 12.6 1 15.1zm-11-21.7c1.2-1.6 2.2-3.9 1.9-6.2-2 .1-4.4 1.4-5.8 3.1-1.3 1.5-2.3 3.8-1.9 6 2.2.1 4.5-1.2 5.8-2.9z"></path>
+</svg>
+Sign in with Apple
+</a>
+
+<div class="xs-mb3">
+<div class="xs-col-4 xs-border-bottom xs-inline-block xs-mr1"></div>
+<div class="xs-text-4 xs-align-middle text-gray-lightest xs-inline-block">or</div>
+<div class="xs-col-4 xs-border-bottom xs-inline-block xs-ml1"></div>
+</div>
+</div>
+<div id="signin_error" class="fill-red-lighter xs-border rounded xs-p2 xs-my3 xs-flex-align-center xs-flex">
+<div class="xs-pr2">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 38" class="svg-red svg-4">
+<path d="M19 0C8.5 0 0 8.5 0 19s8.5 19 19 19 19-8.5 19-19S29.5 0 19 0zm-2 7h4v14h-4V7zm2 24c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3-1.3 3-3 3z"></path>
+</svg>
+</div>
+<p class="text-red">
+<span id="signin_error_message">Some of the required fields are empty.</span>
+<span id="forgot_your_password" class="xs-hide"><br>Forgot your password? <u><a class="text-red" href="/auth/password/reset?redirect=">Reset it here</a></u></span>
+</p>
+</div>
+<div id="account_unverified" class="fill-red-lighter xs-border rounded xs-p2 xs-my3 xs-flex-align-center xs-hide">
+<div class="xs-pr2">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 38" class="svg-red svg-4">
+<path d="M19 0C8.5 0 0 8.5 0 19s8.5 19 19 19 19-8.5 19-19S29.5 0 19 0zm-2 7h4v14h-4V7zm2 24c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3-1.3 3-3 3z"></path>
+</svg>
+</div>
+<p class="text-red">Your account is currently unverified. We've sent you an email with a new temporary password and further instructions to follow</p>
+</div>
+<form id="signin_form" method="post">
+<input type="hidden" name="_xsrf" value="2|9ed30136|f94a8ee18af9527bf482a66ea572fb38|1650426210">
+<input type="hidden" name="recaptcha_token" id="recaptcha_token" value="03AGdBq25VqYEWiIiCBf2rrzLi7K0bF4rZ--wpGLc68CFteV9OVtzITPFnO8EDG8dPjehYNZcroobak0yxAphiFa8LwbnmSb4Vjn7d0FXMCmOj1YkAZySO8FFIDq1dMvmXpUsGh8SpHpAqU042kJbw6wSzrwZyVdahKI3cJfukZhl1GvPk34KHptO2Z9NZJhIGYDt3Xk-aANecaOr0XhFb2uE04T8oW9M41fDhZR2XgPvTTsiRDpukOyaHhVoLI3rF5nF7Qru1Hv7WGrWG-0G64-zYNCsUUGYxqZdsf2oIxDMxzmibv5JBVnh_45ewtV1JzcELiwTMbodwncxne5fZk-vmSY6zuCNYQjoeJN2YCN1xDloLMc4uu9IkNGGV_TzgmFUfZN0pLyJWHBDDNbAjY_xrUmXNOovHkcyVWx8jwAU66KmogpVPJimc3fn_I9y-zRSBIdVmpeNh">
+<label class="form-label">Username or email</label>
+<input class="text-input xs-col-12 xs-mb2" type="text" name="user" id="input_identifier" autocorrect="off" autocapitalize="off">
+<label class="form-label">Password</label>
+<input class="text-input xs-col-12 xs-mb2" type="password" name="pass" id="input_password">
+<input class="button xs-col-12" type="submit" value="Sign in" id="signin">
+<label class="form-helper">
+This site is protected by reCAPTCHA and the Google
+<a href="https://policies.google.com/privacy">Privacy Policy</a> and
+<a href="https://policies.google.com/terms">Terms of Service</a> apply.
+</label>
+</form>
+<p class="xs-my2 xs-text-center"><a href="/auth/password/reset?redirect=">I forgot my password</a></p>
+</div>
+
+
+
+<div><div class="grecaptcha-badge" data-style="bottomright" style="width: 256px; height: 60px; display: block; transition: right 0.3s ease 0s; position: fixed; bottom: 14px; right: -186px; box-shadow: gray 0px 0px 5px; border-radius: 2px; overflow: hidden;"><div class="grecaptcha-logo"><iframe title="reCAPTCHA" src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LeMqMAUAAAAADLgrLKQrapEkPvnj4NbeqIllU6H&amp;co=aHR0cHM6Ly93d3cuYnV6emZlZWQuY29tOjQ0Mw..&amp;hl=en&amp;v=QENb_qRrX0-mQMyENQjD6Fuj&amp;size=invisible&amp;cb=r8a81eg6xbn3" width="256" height="60" role="presentation" name="a-rb1su7pmdzax" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe></div><div class="grecaptcha-error"></div><textarea id="g-recaptcha-response-100000" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div><iframe style="display: none;"></iframe></div></body></html>

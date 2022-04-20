@@ -1,0 +1,1200 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#" class=" js canvas geolocation video audio localstorage sessionstorage texttrackapi track"><head><script type="text/javascript" src="https://ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&amp;Operation=GetAdHtml&amp;OneJS=1&amp;placement=adunit&amp;region=US&amp;marketplace=amazon&amp;debug=false&amp;linkid=eab03cd8e5efaefb657e12001b02c706&amp;ad_type=link_enhancement_widget&amp;tracking_id=tv-popover-20&amp;slotNum=0"> //# sourceURL=dynscript-1.js</script><script type="text/javascript">
+				/**
+ * Created by pedapav on 4/1/15.
+ *
+ * Tracking utilities to be used by client side rendering templates.
+ */
+
+window["trackingUtils"] = function(regionInt, foresterChannelUrlPrefix, pixelUrl,
+                                   clickUrl, impressionToken, slotNum, subtag, ABPPixelURL, disableABPCheck, AESPixelUrl) {
+    var that = {},
+        refMatch = new RegExp("\/(ref=[\\w]+)\/\?", "i"),
+        TRANSIT_ID_KEY = "assocPayloadId",
+        encodeStr = function (b) {
+            return b && encodeURIComponent(b).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        },
+        rawRefURL = (function() {
+            var alink = document.createElement("a");
+            alink.href = (window.location !== window.parent.location) ? document.referrer : document.location;
+            // on IE, path name does not begin with a '/' - append it.
+            // on IE, 'host' property includes the port even if it is standard port 80/443
+            // but on IE, document.location.href does not include standard ports
+            // so we have to remove them before forming 'ref-refUrl'
+            return alink.protocol + "//" + alink.hostname +
+                ((alink.port === "" || alink.port === "80" || alink.port === "443") ? "" : (":" + alink.port)) +
+                (alink.pathname.indexOf("/") !== 0 ? ("/" + alink.pathname) : alink.pathname);
+        }()),
+        refRefURL = (function() {
+            return encodeStr(rawRefURL);
+        }()),
+        addQueryParameter = function(linkElem, paramName, paramValue, overwrite) {
+            if(typeof paramValue === "string" && paramValue !== "") {
+                if (linkElem.search === "") {
+                    linkElem.search = "?" + paramName + "=" + paramValue;
+                } else if(!linkElem.search.match(new RegExp("[?&]" + paramName + "="))) {
+                    linkElem.search = linkElem.search.replace(/\?/, "?" + paramName + "=" + paramValue + "&");
+                } else if(overwrite) {
+                    // query parameter already present - overwrite it, if forced
+                    linkElem.search = linkElem.search.replace(new RegExp(paramName + "=([^&]*)"), paramName + "=" + paramValue);
+                }
+            }
+            return linkElem;
+        },
+        addQueryParameterStr = function(linkTarget, paramName, paramValue) {
+            if(typeof paramValue === "string" && paramValue !== "") {
+                if (!linkTarget.match(/\?/)) {
+                    linkTarget = linkTarget + "?" + paramName + "=" + paramValue;
+                } else if(!linkTarget.match(paramName)) {
+                    linkTarget = linkTarget.replace(/\?/, "?" + paramName + "=" + paramValue + "&");
+                }
+            }
+            return linkTarget;
+        },
+        getEffectiveSlotNum = function(localSlotNum) {
+            var finalSlotNum = (typeof slotNum !== "undefined") ? slotNum : 0;
+            if(typeof localSlotNum !== "undefined") finalSlotNum = localSlotNum;
+            return finalSlotNum;
+        };
+
+    that.addRefUrls = function (allLinks, linkId, linkCode, trackingId) {
+        var amazonLinkPattern = new RegExp("^http://.*(amazon|endless|myhabit|amazonwireless|javari|smallparts)\\.(com|ca|co\\.jp|de|fr|co\\.uk|cn|it|es)/.*", "i"),
+            href, results, i;
+        for (i = 0; i < allLinks.length; i++) {
+            allLinks[i].rel = "nofollow";
+            href = String(allLinks[i].href);
+            if (results = href.match(amazonLinkPattern)) {
+                allLinks[i].href = that.addTrackingParameters(allLinks[i], linkId, linkCode, trackingId);
+            }
+        }
+    };
+
+    that.addRefRefUrl = function(linkElem) {
+        return addQueryParameter(linkElem, "ref-refURL", refRefURL);
+    };
+
+    that.getRefRefUrl = function() {
+        return refRefURL;
+    };
+
+    that.getRawRefUrl = function() {
+        return rawRefURL;
+    };
+
+    that.addSignature = function(linkElem, signature, signatureTimeStamp) {
+        return addQueryParameter(
+                addQueryParameter(linkElem, "sig", signature),
+            "sigts", signatureTimeStamp);
+    };
+
+    that.addLinkCode = function(linkElem, linkCode) {
+        return addQueryParameter(linkElem, "linkCode", linkCode);
+    };
+
+    that.addTrackingId = function(linkElem, trackingId) {
+        return addQueryParameter(linkElem, "tag", trackingId);
+    };
+
+    that.addLinkId = function(linkElem, linkId) {
+        return addQueryParameter(linkElem, "linkId", linkId);
+    };
+
+    that.addSubtag = function(linkElem, subtag) {
+        return addQueryParameter(linkElem, "ascsubtag", subtag);
+    };
+
+    that.addCreativeAsin = function(linkElem, adId){
+        return addQueryParameter(addQueryParameter(linkElem, "creativeASIN", adId), "adId", adId);
+    };
+
+    that.addAdType = function(linkElem, adType) {
+        return addQueryParameter(linkElem, 'adType', adType);
+    };
+
+    that.addAdMode = function(linkElem, adMode) {
+        return addQueryParameter(linkElem, 'adMode', adMode);
+    };
+
+    that.addAdFormat = function(linkElem, adFormat) {
+        return addQueryParameter(linkElem, 'adFormat', adFormat);
+    };
+
+    that.addImpressionTimestamp = function(linkElem, impressionTimestamp) {
+	if (typeof impressionTimestamp === "number") impressionTimestamp = impressionTimestamp.toString();
+        return addQueryParameter(linkElem, 'impressionTimestamp', impressionTimestamp);
+    };
+
+    that.convertToRedirectedUrl = function(linkElem, prefix, destParamName) {
+        var alink = document.createElement("a");
+        alink.setAttribute("href", prefix);
+        if(typeof destParamName !== "undefined") {
+            addQueryParameter(alink, destParamName, encodeStr(linkElem.getAttribute("href")), true);
+        } else {
+            alink.setAttribute("href", prefix + "/" + alink.getAttribute("href"));
+        }
+        linkElem.setAttribute("href", alink.getAttribute("href"));
+        return linkElem;
+    };
+
+    that.getImpressionToken = function() {
+        return impressionToken;
+    };
+
+    //we are using impressionToken as transitId right now,
+    //can be changed to GUID in future
+    that.generateTransitId = function() {
+        return that.getHashedImpressionToken();
+    };
+
+    that.getHashedImpressionToken = function(){
+        var pixelUrlParts = pixelUrl.split("/");
+        //pixelUrl is http://pixelurl.com/x/px/HASHEDIMPRESSIONTOKEN/
+        var hashedImpressionToken = pixelUrlParts[pixelUrlParts.length - 2]
+        return hashedImpressionToken;
+    };
+
+    that.getTransitId = function(){
+       if(typeof assoc_session_storage !== "undefined"){
+            var existingTransitId = assoc_session_storage.get(TRANSIT_ID_KEY);
+            return existingTransitId;
+        } 
+        return null;
+    };
+
+    that.getClickUrl = function() {
+        return clickUrl;
+    };
+
+    that.addImpressionToken = function(linkElem, localSlotNum) {
+        var finalSlotNum = getEffectiveSlotNum(localSlotNum);
+        if(typeof impressionToken === "string" && impressionToken !== "") {
+            addQueryParameter(linkElem, "imprToken", impressionToken);
+            if(typeof finalSlotNum !== "undefined") addQueryParameter(linkElem, "slotNum", finalSlotNum);
+        }
+        return linkElem;
+    };
+
+    that.addImpressionTokenStr = function(url, localSlotNum) {
+        var finalSlotNum = getEffectiveSlotNum(localSlotNum);
+        if(typeof impressionToken === "string" && impressionToken !== "") {
+            url = addQueryParameterStr(url, "imprToken", impressionToken);
+            if(typeof finalSlotNum !== "undefined") url = addQueryParameterStr(url, "slotNum", finalSlotNum);
+        }
+        return url;
+    };
+
+    that.addTrackingParameters = function(linkElem, linkId, linkCode, trackingId, refMarker, creativeASIN, signature, signatureTimeStamp, adType, adMode, adFormat, impressionTimestamp) {
+        return that.addSignature(
+            that.addCreativeAsin(
+                that.addLinkId(
+                    that.addTrackingId(
+                        that.addSubtag(
+                            that.addLinkCode(
+                                that.addRefRefUrl(
+                                    that.addImpressionToken(
+                                        that.addRefMarker(
+                                            that.addAdType(
+                                                that.addAdMode(
+                                                    that.addAdFormat(
+                                                        that.addImpressionTimestamp(linkElem, impressionTimestamp),
+                                                    adFormat),
+                                                adMode),
+                                            adType),
+                                        refMarker))),
+                                linkCode),
+                            subtag),
+                        trackingId),
+                    linkId),
+                creativeASIN),
+            signature, signatureTimeStamp
+        );
+    };
+
+    that.addRefMarker = function(linkElem, refMarker) {
+        var match, endsWithSlash = false;
+        if(typeof refMarker === "undefined") return linkElem;
+        if(match = linkElem.pathname.match(refMatch)) {
+            linkElem.pathname = linkElem.pathname.replace(match[1], "ref=" + refMarker);
+        } else {
+            endsWithSlash = (linkElem.pathname.charAt(linkElem.pathname.length - 1) === '/');
+            linkElem.pathname = linkElem.pathname + (endsWithSlash ? "" : "/") + "ref=" + refMarker;
+        }
+        return linkElem;
+    };
+
+    that.getRefMarker = function(linkElem) {
+        var match;
+        if(match = linkElem.pathname.match(refMatch)) {
+            return match[1].substr(4);
+        } else return undefined;
+    };
+
+    that.getCurrentURL = function(){
+        return (window.location !== window.parent.location) ? document.referrer : document.location.href;
+    }
+
+    that.makeForesterCall = function(data) {
+        var finalAAXPixelUrl = undefined, json;
+        if(typeof JSON !== 'undefined') json = JSON.stringify(data);
+        else if(typeof amzn_assoc_utils !== "undefined" && typeof amzn_assoc_utils["stringify"] === "function") json = amzn_assoc_utils.stringify(data);
+        else return;
+
+        if(typeof pixelUrl === "string") {
+            finalAAXPixelUrl = pixelUrl + "?assoc_payload=" + encodeURIComponent(json);
+            that.generateImage(finalAAXPixelUrl);
+        }
+    };
+
+    that.recordImpression = function(linkCode, trackingId, data, skipIRCall, slotNum) {
+        data["linkCode"] = linkCode;
+        data["trackingId"] = trackingId;
+        data["refUrl"] = that.getCurrentURL();
+        if(disableABPCheck || !ABPPixelURL) {
+            that.makeForesterCall(data);
+        } else {
+            that.addABPFlag(data, that.makeForesterCall);
+        }
+    };
+
+    that.createAssocPayload = function(data, linkCode, trackingId, refUrl){
+        data["linkCode"] = linkCode;
+        data["trackingId"] = trackingId;
+        data["refUrl"] = refUrl;
+        var stringifiedData = "";
+        if(typeof amzn_assoc_utils !== "undefined" && typeof amzn_assoc_utils["stringify"] === "function")
+            stringifiedData = amzn_assoc_utils.stringify(data);
+        return stringifiedData;
+    }
+
+    that.recordAESImpression = function(linkCode, trackingId, data){
+        if(typeof AESPixelUrl === "string") {
+            var assocPayload = that.createAssocPayload(data, linkCode, trackingId, that.getCurrentURL());
+            var hashedImpressionToken = that.getHashedImpressionToken();
+            var finalAESPixelUrl = AESPixelUrl + hashedImpressionToken+"/pixel?assoc_payload=" + encodeURIComponent(assocPayload);
+            that.generateImage(finalAESPixelUrl);
+        }
+
+    };
+
+    that.recordTransit = function(){
+        //if transitId is not present or blog has utm_param in url, set new transitId
+        if(!(that.getTransitId()) || that.isUTMParamPresentInUrl(that.getCurrentURL())){
+            assoc_session_storage.set(TRANSIT_ID_KEY, that.generateTransitId());
+        }
+    }
+
+    that.isUTMParamPresentInUrl = function(url){
+        var utmParamExists = url.match(/utm_source=/i);
+        return (utmParamExists !== null);
+    }
+
+
+    that.addAAXClickUrls = function(links){
+        var aaxClickUrl, i, href;
+        //convert all given links with AAX click urls
+        if(typeof links === 'undefined' || typeof clickUrl === 'undefined') return;
+
+        for (i = 0; i < links.length; i++) {
+            href = String(links[i].href);
+            if(href.indexOf(clickUrl) < 0) {
+                aaxClickUrl = clickUrl + href;
+                links[i].href = aaxClickUrl;
+            }
+        }
+    };
+
+    that.addAAXClickUrl = function(url){
+        //append given url with AAX click url
+        if(typeof url === 'undefined' || url.indexOf(clickUrl) === 0) return url;
+        return clickUrl + url;
+    };
+
+    that.updateLinks = function(links, updaterFunc) {
+        var i, href;
+        if(typeof updaterFunc !== "function") return;
+        for(i = 0; i < links.length; i++) {
+            href = String(links[i].href);
+            links[i].href = updaterFunc(href);
+        }
+    };
+
+    that.elementInViewPort = function(el) {
+        var rect = el.getBoundingClientRect(),
+            inViewPort = (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+
+        return {
+            "posX": rect.left + window.pageXOffset,
+            "posY": rect.top + window.pageYOffset,
+            "inViewPort": inViewPort
+        };
+    };
+
+    that.recordViewability = function(slotNum, aboveTheFold, topPos, leftPos){
+        if(typeof pixelUrl === "string") {
+            var payload = that.createViewbilityPayload(slotNum, aboveTheFold, topPos, leftPos);
+            var finalAAXPixelUrl = pixelUrl + payload + "&cb=" + (new Date()).getTime();
+            that.generateImage(finalAAXPixelUrl);
+        }
+    };
+    that.recordAESViewability = function(slotNum, aboveTheFold, topPos, leftPos){
+        if(typeof AESPixelUrl === "string") {
+            var payload = that.createViewbilityPayload(slotNum, aboveTheFold, topPos, leftPos);
+            var hashedImpressionToken = that.getHashedImpressionToken();
+            var encodedPayload = encodeURIComponent(payload);
+            var finalAESPixelUrl = AESPixelUrl + hashedImpressionToken + "/pixel/"+encodedPayload
+                                    + "&cb=" + (new Date()).getTime();
+            that.generateImage(finalAESPixelUrl);
+        }
+    };
+
+    that.createViewbilityPayload = function(slotNum, aboveTheFold, topPos, leftPos){
+        var viewbilityAttr = {};
+        if(typeof aboveTheFold !== "undefined") viewbilityAttr["above_the_fold"] = aboveTheFold;
+        if(typeof topPos !== "undefined")       viewbilityAttr["topPos"] = topPos;
+        if(typeof leftPos !== "undefined")      viewbilityAttr["leftPos"] = leftPos;
+        if(typeof slotNum !== "undefined"){   
+            //handling case when only slotnum is passed
+            if (Object.keys(viewbilityAttr).length === 0)
+                viewbilityAttr["viewable"] = true;
+
+            viewbilityAttr["slotNum"] = slotNum;
+        }
+
+        var stringifiedData = "";
+        if(typeof amzn_assoc_utils !== "undefined" && typeof amzn_assoc_utils["stringify"] === "function")
+            stringifiedData = amzn_assoc_utils.stringify({"adViewability":[viewbilityAttr]});
+        return stringifiedData;
+    };
+
+    that.generateImage = function(imageSrc){
+        if(typeof imageSrc !== "undefined")
+            (new Image()).src = imageSrc;
+    };
+
+    that.addABPFlag = function(data, callback) {
+        var detected = false,
+        checksRemain = 2,
+        img1 = document.body ? document.body.appendChild(new Image()) : new Image(),
+        img2 = document.body ? document.body.appendChild(new Image()) : new Image(),
+        error1 = false,
+        error2 = false,
+        random = Math.random() * 11,
+        px = ABPPixelURL + "?ch=*&rn=*",
+        beforeCheck = function(callback, timeout) {
+            if (checksRemain === 0 || timeout > 1E3) {
+                data.supplySideMetadata = {
+                    ABPInstalled: checksRemain === 0 && detected
+                };
+                callback(data);
+            } else {
+                setTimeout(function() {
+                    beforeCheck(callback, timeout * 2);
+                }, timeout * 2);
+            }
+        },
+        checkImages = function() {
+            if(--checksRemain)
+                return;
+            detected = !error1 && error2;
+        };
+
+        img1.style.display = "none";
+        img2.style.display = "none";
+
+        img1.onload = checkImages;
+        img1.onerror = function() {
+            error1 = true;
+            checkImages();
+        };
+        img1.src = px.replace(/\*/, 1).replace(/\*/, random);
+
+        img2.onload = checkImages;
+        img2.onerror = function() {
+            error2 = true;
+            checkImages();
+        };
+        img2.src = px.replace(/\*/, 2).replace(/\*/, random);
+        beforeCheck(callback, 250);
+    };
+
+    return that;
+};
+if(typeof amzn_assoc_utils === "undefined") {
+    amzn_assoc_utils = {};
+}
+
+if(typeof amzn_assoc_utils.parse === "undefined") {
+    amzn_assoc_utils.parse = (function () {
+        "use strict";
+        var at,
+            ch,
+            escapee = {
+                '"': '"',
+                '\\': '\\',
+                '/': '/',
+                b: '\b',
+                f: '\f',
+                n: '\n',
+                r: '\r',
+                t: '\t'
+            },
+            text,
+
+            error = function (m) {
+                throw {
+                    name: 'SyntaxError',
+                    message: m,
+                    at: at,
+                    text: text
+                };
+            },
+            next = function (c) {
+                if (c && c !== ch) {
+                    error("Expected '" + c + "' instead of '" + ch + "'");
+                }
+
+                ch = text.charAt(at);
+                at += 1;
+                return ch;
+            },
+
+            number = function () {
+                var number,
+                    string = '';
+
+                if (ch === '-') {
+                    string = '-';
+                    next('-');
+                }
+                while (ch >= '0' && ch <= '9') {
+                    string += ch;
+                    next();
+                }
+                if (ch === '.') {
+                    string += '.';
+                    while (next() && ch >= '0' && ch <= '9') {
+                        string += ch;
+                    }
+                }
+                if (ch === 'e' || ch === 'E') {
+                    string += ch;
+                    next();
+                    if (ch === '-' || ch === '+') {
+                        string += ch;
+                        next();
+                    }
+                    while (ch >= '0' && ch <= '9') {
+                        string += ch;
+                        next();
+                    }
+                }
+                number = +string;
+                if (!isFinite(number)) {
+                    error("Bad number");
+                } else {
+                    return number;
+                }
+            },
+
+            string = function () {
+                var hex,
+                    i,
+                    string = '',
+                    uffff;
+                if (ch === '"') {
+                    while (next()) {
+                        if (ch === '"') {
+                            next();
+                            return string;
+                        }
+                        if (ch === '\\') {
+                            next();
+                            if (ch === 'u') {
+                                uffff = 0;
+                                for (i = 0; i < 4; i += 1) {
+                                    hex = parseInt(next(), 16);
+                                    if (!isFinite(hex)) {
+                                        break;
+                                    }
+                                    uffff = uffff * 16 + hex;
+                                }
+                                string += String.fromCharCode(uffff);
+                            } else if (typeof escapee[ch] === 'string') {
+                                string += escapee[ch];
+                            } else {
+                                break;
+                            }
+                        } else {
+                            string += ch;
+                        }
+                    }
+                }
+                error("Bad string");
+            },
+
+            white = function () {
+                while (ch && ch <= ' ') {
+                    next();
+                }
+            },
+
+            word = function () {
+                switch (ch) {
+                    case 't':
+                        next('t');
+                        next('r');
+                        next('u');
+                        next('e');
+                        return true;
+                    case 'f':
+                        next('f');
+                        next('a');
+                        next('l');
+                        next('s');
+                        next('e');
+                        return false;
+                    case 'n':
+                        next('n');
+                        next('u');
+                        next('l');
+                        next('l');
+                        return null;
+                }
+                error("Unexpected '" + ch + "'");
+            },
+
+            value,
+
+            array = function () {
+                var array = [];
+
+                if (ch === '[') {
+                    next('[');
+                    white();
+                    if (ch === ']') {
+                        next(']');
+                        return array;
+                    }
+                    while (ch) {
+                        array.push(value());
+                        white();
+                        if (ch === ']') {
+                            next(']');
+                            return array;
+                        }
+                        next(',');
+                        white();
+                    }
+                }
+                error("Bad array");
+            },
+
+            object = function () {
+                var key,
+                    object = {};
+
+                if (ch === '{') {
+                    next('{');
+                    white();
+                    if (ch === '}') {
+                        next('}');
+                        return object;
+                    }
+                    while (ch) {
+                        key = string();
+                        white();
+                        next(':');
+                        if (Object.hasOwnProperty.call(object, key)) {
+                            error('Duplicate key "' + key + '"');
+                        }
+                        object[key] = value();
+                        white();
+                        if (ch === '}') {
+                            next('}');
+                            return object;
+                        }
+                        next(',');
+                        white();
+                    }
+                }
+                error("Bad object");
+            };
+
+        value = function () {
+            white();
+            switch (ch) {
+                case '{':
+                    return object();
+                case '[':
+                    return array();
+                case '"':
+                    return string();
+                case '-':
+                    return number();
+                default:
+                    return ch >= '0' && ch <= '9' ? number() : word();
+            }
+        };
+        return function (source, reviver) {
+            var result;
+
+            text = source;
+            at = 0;
+            ch = ' ';
+            result = value();
+            white();
+            if (ch) {
+                error("Syntax error");
+            }
+
+            return result;
+        };
+    }());
+}
+
+if(typeof amzn_assoc_utils.stringify === "undefined"){
+    amzn_assoc_utils.stringify = function (data){
+        var stringifiedData = "";
+        if(typeof JSON !== 'undefined') {
+            stringifiedData = JSON.stringify(data);
+        }
+        return stringifiedData;
+    };
+}
+
+if(typeof amzn_assoc_utils.addCssRules === "undefined") {
+    amzn_assoc_utils.addCssRules = function (mediaQuery, rules) {
+        var styleEl = document.createElement('style'),
+            styleSheet, i = 0, mediaQueryStr = "";
+
+        // Apparently some version of Safari needs the following line? I dunno.
+        styleEl.appendChild(document.createTextNode(''));
+
+        // Append style element to head
+        document.head.appendChild(styleEl);
+
+        // Grab style sheet
+        styleSheet = styleEl.sheet;
+
+        for (i = 0, rl = rules.length; i < rl; i++) {
+            var j = 1, rule = rules[i], selector = rules[i][0], propStr = '';
+            // If the second argument of a rule is an array of arrays, correct our variables.
+            if (Object.prototype.toString.call(rule[1][0]) === "[object Array]") {
+                rule = rule[1];
+                j = 0;
+            }
+
+            for (var pl = rule.length; j < pl; j++) {
+                var prop = rule[j];
+                propStr += prop[0] + ":" + prop[1] + (prop[2] ? " !important" : "") + ";\n";
+            }
+
+            if (typeof mediaQuery === "string") {
+                styleSheet.insertRule(mediaQuery + "{" + selector + "{" + propStr + "}}",
+                    styleSheet.cssRules.length);
+            }
+            else {
+                // Insert CSS Rule
+                styleSheet.insertRule(selector + '{' + propStr + '}', styleSheet.cssRules.length);
+            }
+        }
+    };
+}
+
+if(typeof amzn_assoc_utils === "undefined") {
+    amzn_assoc_utils = {};
+}
+
+if(typeof amzn_assoc_utils.assocRuntimeMaker === "undefined") {
+    amzn_assoc_utils.assocRuntimeMaker = function (wsUrl, wsCdnUrl, slotNum) {
+        var rt = {}, that = {}, handlers = [], timer,
+            initHandler = function (handler) {
+                handlers.push(handler);
+                if (window.addEventListener) {
+                    window.addEventListener("message", handler, false);
+                }
+                else {
+                    window.attachEvent("onmessage", handler);
+                }
+            },
+            initialized = false,
+            cbRegistered = false,
+            cbs = [];
+        that.listen = function() {
+            // source of runtime data - typically the parent page (or associates page)
+            initHandler(function (e) {
+                var obj;
+                // only iframes from widget server can send messages to parent
+                if (e.origin.indexOf(wsUrl) < 0 &&
+                    e.origin.indexOf(wsCdnUrl) < 0) return;
+                if (typeof e.data === "string" && e.data) {
+                    obj = JSON.parse(e.data);
+                    if (obj.slotNum === slotNum) {
+                        if (typeof obj.op !== "undefined" && obj.op === "getRuntimeData") {
+                            e.source.postMessage(JSON.stringify({
+                                "slotNum": slotNum,
+                                "rt": rt
+                            }), "*");
+
+                        }
+                    }
+                }
+            });
+        };
+        that.init = function (rd, dontListenRightAway) {
+            if (typeof rd === "object") {
+                // source of runtime data - typically the parent page (or associates page)
+                rt = rd;
+                initialized = true;
+                if(typeof dontListenRightAway === "undefined" || !dontListenRightAway) {
+                    that.listen();
+                }
+            }
+        };
+        that.destroy = function () {
+            var i = 0;
+            initialized = false;
+            cbs = [];
+            rt = {};
+            cbRegistered = false;
+            for (i = 0; i < handlers.length; i++) {
+                window.removeEventListener("message", handlers[i], false);
+            }
+            handlers = [];
+            clearTimeout(timer);
+        };
+        that.reinit = function(rd, dontListenRightAway) {
+            var existingCallbacks = cbs, i;
+        	that.destroy();
+            that.init(rd, dontListenRightAway);
+        	for (i = 0; i < existingCallbacks.length; i++) {
+                if (typeof existingCallbacks[i] === "function") {
+                    existingCallbacks[i](rd);
+                }
+            }
+        };
+        that.append = function(rd) {
+            var prop;
+            for(prop in rd) {
+                if(rd.hasOwnProperty(prop)) {
+                    rt[prop] = rd[prop];
+                }
+            }
+        };
+        that.retrieveRuntime = function (cb, timeout, backupRt) {
+            // consumer of runtime data - typically inside the iframe
+            if (!initialized) {
+                cbs.push(cb);
+                if (!cbRegistered) {
+                    initHandler(function (e) {
+                        var i = 0;
+                        if (!initialized && typeof e.data === "string" && e.data) {
+                            // inside iframe amzn_assoc_utils may not be there
+                            // but we are sure that our iframes contain DOCTYPE tag
+                            // so it is safe to use JSON.parse here
+
+                            try {
+                                var data = JSON.parse(e.data);
+                                if (data.slotNum === slotNum && typeof data.rt !== "undefined") {
+                                    rt = data.rt;
+                                    clearTimeout(timer);
+                                    for (i = 0; i < cbs.length; i++) {
+                                        if (typeof cbs[i] === "function") {
+                                            cbs[i](rt);
+                                        }
+                                    }
+                                    initialized = true;
+                                }
+                            }
+                            catch (e) {
+                            }
+                        }
+                    });
+                    window.parent.postMessage(JSON.stringify({
+                        "slotNum": slotNum,
+                        "op": "getRuntimeData"
+                    }), "*");
+                    if (typeof timeout === "number" && typeof backupRt === "object") {
+                        timer = setTimeout(function () {
+                            rt = backupRt;
+                            for (i = 0; i < cbs.length; i++) {
+                                if (typeof cbs[i] === "function") {
+                                    cbs[i](rt);
+                                }
+                            }
+                            initialized = true;
+                        }, timeout);
+                    }
+                    cbRegistered = true;
+                }
+            }
+            else {
+                // data already initialized - can callback directly
+                if (typeof cb === "function") cb(rt);
+            }
+        };
+        that.getValue = function (key) {
+            if (rt.hasOwnProperty(key)) return rt[key];
+            else return null;
+        };
+        return that;
+    };
+}
+
+if(typeof amzn_assoc_utils.assocRuntime !== "object") amzn_assoc_utils.assocRuntime = {};
+amzn_assoc_utils.assocRuntime["0"] = amzn_assoc_utils.assocRuntimeMaker("//ws-na.amazon-adsystem.com", "//z-na.amazon-adsystem.com", "0");
+(function() {
+    amzn_assoc_utils.assocRuntime["0"].init({
+        "trackingId": "tv-popover-20",
+        "linkid": "eab03cd8e5efaefb657e12001b02c706",
+        "pixelURL":"https://aax-us-east.amazon-adsystem.com/x/px/QjSRoYRYp7aJIJMWhRV681oAAAGARsJ7JwEAAAFKAV08jTU/",
+        "clickURL":"https://aax-us-east.amazon-adsystem.com/x/c/QjSRoYRYp7aJIJMWhRV681oAAAGARsJ7JwEAAAFKAV08jTU/",
+        "impressionId": "QjSRoYRYp7aJIJMWhRV681oAAAGARsJ7JwEAAAFKAV08jTU",
+        "impressionToken": "4f7a3230019d90a675e5c7886a35f859",
+        "slotNum": "0",
+        "amznLewACAPSource": [],
+        "axf_exp_name": "",
+        "axf_treatment": "",
+        "exp_details": []
+    });
+}());
+				(function() {
+					window["amznLewTracking"] = window.trackingUtils(
+					"1",
+					"//fls-na.amazon-adsystem.com/1/associates-ads/1/OP/r/json",
+					"https://aax-us-east.amazon-adsystem.com/x/px/QjSRoYRYp7aJIJMWhRV681oAAAGARsJ7JwEAAAFKAV08jTU/",
+					"https://aax-us-east.amazon-adsystem.com/x/c/QjSRoYRYp7aJIJMWhRV681oAAAGARsJ7JwEAAAFKAV08jTU/",
+					"4f7a3230019d90a675e5c7886a35f859", "0");
+				}());
+			 //# sourceURL=dynscript-0.js</script>
+        <title>MakerBot account</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Language" content="EN">
+        <meta http-equiv="imagetoolbar" content="no">
+        <meta name="keywords" content="things, digital design, physical objects, rapid prototyping, 3D objects, 3D printing, reprap, fabrication, laser cutter, laser, thingaverse, thingyverse">
+        <meta name="abstract" content="Share your digital designs for physical objects.">
+        <meta name="author" content="Thingiverse.com">
+        <meta name="distribution" content="Global">
+        <meta name="revisit-after" content="1 days">
+        <meta name="robots" content="follow,index">
+        <meta name="description" content="Download files and build them with your 3D printer, laser cutter, or CNC. Thingiverse is a universe of things.">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="theme-color" content="#248bfb">
+
+                    <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-PKW6VF6"></script><script src="https://cdn.thingiverse.com/site/js/thingiverse/build/lib-afbc32d766.js"></script><script src="https://cdn.thingiverse.com/site/js/thingiverse/build/header-aa33d7b171.js"></script><script src="https://cdn.thingiverse.com/site/js/thingiverse/build/footer-a19bba0c7c.js"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-T9X4TPDJBT&amp;l=dataLayer&amp;cx=c"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-150743306-1"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                                    gtag('config', 'UA-150743306-1');
+                
+                                    gtag('config', 'G-T9X4TPDJBT');
+                            </script>
+        
+                    <meta property="og:type" content="website">                    <meta property="og:title" content="MakerBot account">                    <meta property="og:description" content="Download files and build them with your 3D printer, laser cutter, or CNC. Thingiverse is a universe of things.">                    <meta property="og:image" content="https://cdn.thingiverse.com/site/img/thingiverse-avatar-4_3.png">                    <meta property="twitter:card" content="summary">                    <meta property="twitter:site" content="@thingiverse">        
+                    <link rel="apple-touch-icon" sizes="57x57" href="https://cdn.thingiverse.com/site/img/favicons/apple-touch-icon-57x57.png">
+            <link rel="apple-touch-icon" sizes="114x114" href="https://cdn.thingiverse.com/site/img/favicons/apple-touch-icon-114x114.png">
+            <link rel="apple-touch-icon" sizes="72x72" href="https://cdn.thingiverse.com/site/img/favicons/apple-touch-icon-72x72.png">
+            <link rel="apple-touch-icon" sizes="144x144" href="https://cdn.thingiverse.com/site/img/favicons/apple-touch-icon-144x144.png">
+            <link rel="apple-touch-icon" sizes="60x60" href="https://cdn.thingiverse.com/site/img/favicons/apple-touch-icon-60x60.png">
+            <link rel="apple-touch-icon" sizes="120x120" href="https://cdn.thingiverse.com/site/img/favicons/apple-touch-icon-120x120.png">
+            <link rel="apple-touch-icon" sizes="76x76" href="https://cdn.thingiverse.com/site/img/favicons/apple-touch-icon-76x76.png">
+            <link rel="apple-touch-icon" sizes="152x152" href="https://cdn.thingiverse.com/site/img/favicons/apple-touch-icon-152x152.png">
+            <link rel="icon" type="image/png" href="https://cdn.thingiverse.com/site/img/favicons/favicon-192x192.png" sizes="192x192">
+            <link rel="icon" type="image/png" href="https://cdn.thingiverse.com/site/img/favicons/favicon-160x160.png" sizes="160x160">
+            <link rel="icon" type="image/png" href="https://cdn.thingiverse.com/site/img/favicons/favicon-96x96.png" sizes="96x96">
+            <link rel="icon" type="image/png" href="https://cdn.thingiverse.com/site/img/favicons/favicon-16x16.png" sizes="16x16">
+            <link rel="icon" type="image/png" href="https://cdn.thingiverse.com/site/img/favicons/favicon-32x32.png" sizes="32x32">
+            <meta name="msapplication-TileColor" content="#ffffff">
+            <meta name="msapplication-TileImage" content="https://cdn.thingiverse.com/site/img/favicons/mstile-144x144.png">
+        
+        
+        <link rel="stylesheet" href="https://cdn.thingiverse.com/site/css/build/basic-56d181d3e8.css"><link rel="stylesheet" href="https://cdn.thingiverse.com/site/css/build/main-17ca39195b.css"><link rel="stylesheet" href="https://cdn.thingiverse.com/site/css/build/sso-15619cde6e.css">
+                <script type="text/javascript" src="https://www.datadoghq-browser-agent.com/datadog-logs-us.js"></script>
+        <script>
+            const ddClientToken = "pub24a00142f6aa558abe1827e911e11e58";
+            const ddEnv = "production";
+            const ddVersion = "2.41.0";
+
+            DD_LOGS.init({
+                clientToken: ddClientToken,
+                forwardErrorsToLogs: true,
+                service: "thingiverse-client",
+                env: ddEnv,
+                version: ddVersion,
+                sampleRate: 20
+            });
+
+            
+            const ddIsTvNext = false;
+            const ddBuildTime = "1650407594";
+
+            DD_LOGS.addLoggerGlobalContext("is_thingiverse_next", ddIsTvNext);
+            DD_LOGS.addLoggerGlobalContext("build_time", ddBuildTime);
+        </script>
+        
+        <script>
+            
+            var scripts     = ["https://cdn.thingiverse.com/site/js/thingiverse/build/lib-afbc32d766.js","https://cdn.thingiverse.com/site/js/thingiverse/build/header-aa33d7b171.js","https://cdn.thingiverse.com/site/js/thingiverse/build/footer-a19bba0c7c.js"];
+            var stylesheets = [];
+            var build_time  = 1650407594;
+        </script>
+            <style>.button-primary{min-width:80px !important;background:#248bfb !important;min-height:30px !important;padding:0 !important;line-height:1.8rem !important;text-transform:none;width:100%}.button-primary:hover{background:#0063ce !important}.i-button.left{margin:0 !important}.i-button>span{color:#fff !important;font-size:12px !important;font-weight:400 !important;line-height:16px !important;margin-left:35px !important}.SearchInput__searchContainer--3NCc-{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center;height:40px;background:#0063ce;border-radius:3px}.SearchInput__searchContainer--3NCc- .SearchInput__searchInput--TvGY2{background:#0063ce;height:auto}.SearchInput__searchContainerEduPage--1aVu3{-webkit-box-flex:0;-ms-flex:0 5 940px;flex:0 5 940px;background:#555}.SearchInput__searchContainerEduPage--1aVu3 .SearchInput__searchInput--TvGY2{background:#555}.SearchInput__searchContainerSearchPage--3QBwq,.SearchInput__searchContainerUserProfilePage--1hzM2{-webkit-box-flex:1;-ms-flex:1 0 940px;flex:1 0 940px}@media only screen and (max-width: 1960px), only screen and (max-device-width: 1960px){.SearchInput__searchContainerSearchPage--3QBwq,.SearchInput__searchContainerUserProfilePage--1hzM2{-webkit-box-flex:1;-ms-flex:1 1 940px;flex:1 1 940px}}.SearchInput__searchContainerUserProfileSearchPage--2gGan{background:#fff;height:30px}.SearchInput__searchContainerUserProfileSearchPage--2gGan .SearchInput__searchInput--TvGY2{color:#555 !important;background:#fff}.SearchInput__searchContainerUserProfileSearchPage--2gGan .SearchInput__searchInput--TvGY2::-webkit-input-placeholder{color:#555;font-size:12px;font-weight:400;line-height:16px}.SearchInput__searchContainerUserProfileSearchPage--2gGan .SearchInput__searchInput--TvGY2::-moz-placeholder{color:#555;font-size:12px;font-weight:400;line-height:16px}.SearchInput__searchContainerUserProfileSearchPage--2gGan .SearchInput__searchInput--TvGY2:-ms-input-placeholder{color:#555;font-size:12px;font-weight:400;line-height:16px}.SearchInput__searchContainerUserProfileSearchPage--2gGan .SearchInput__searchInput--TvGY2::-ms-input-placeholder{color:#555;font-size:12px;font-weight:400;line-height:16px}.SearchInput__searchContainerUserProfileSearchPage--2gGan .SearchInput__searchInput--TvGY2::placeholder{color:#555;font-size:12px;font-weight:400;line-height:16px}.SearchInput__searchContainerUserProfileSearchPage--2gGan .SearchInput__searchIcon--sxu8B{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#555;padding-left:15px}.SearchInput__searchContainerThingPage--3eLdV{-webkit-box-flex:0;-ms-flex:0 1 300px;flex:0 1 300px}.SearchInput__searchContainer--3NCc- .SearchInput__searchInput--TvGY2{border:none;outline:none;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-size:12px;font-weight:400;line-height:16px;width:0;-webkit-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto;padding:0 10px;-webkit-box-sizing:border-box;box-sizing:border-box;margin:0;border-radius:3px}.SearchInput__searchInput--TvGY2::-webkit-input-placeholder{color:#fff;font-size:12px;font-weight:400;line-height:16px}.SearchInput__searchInput--TvGY2::-moz-placeholder{color:#fff;font-size:12px;font-weight:400;line-height:16px}.SearchInput__searchInput--TvGY2:-ms-input-placeholder{color:#fff;font-size:12px;font-weight:400;line-height:16px}.SearchInput__searchInput--TvGY2::-ms-input-placeholder{color:#fff;font-size:12px;font-weight:400;line-height:16px}.SearchInput__searchInput--TvGY2::placeholder{color:#fff;font-size:12px;font-weight:400;line-height:16px}.SearchInput__searchIcon--sxu8B{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#fff;padding-left:15px}.SearchInput__searchIcon--sxu8B>img{height:16px;width:16px}.SearchInput__searchInput--TvGY2::-ms-clear{display:none}
+</style><style>.button-primary{min-width:80px !important;background:#248bfb !important;min-height:30px !important;padding:0 !important;line-height:1.8rem !important;text-transform:none;width:100%}.button-primary:hover{background:#0063ce !important}.i-button.left{margin:0 !important}.i-button>span{color:#fff !important;font-size:12px !important;font-weight:400 !important;line-height:16px !important;margin-left:35px !important}.Dropdown__dropdown--1CEXv{position:relative;display:inline-block}.Dropdown__dropdownButton--1iEp1{display:-webkit-box;display:-ms-flexbox;display:flex;width:-webkit-max-content;width:-moz-max-content;width:max-content;height:100%;-webkit-box-align:center;-ms-flex-align:center;align-items:center;font-weight:400;padding:0;background-color:transparent;border:none;border-radius:0;cursor:pointer;outline:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:flex;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";text-transform:none;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"}.Dropdown__dropdownButton--1iEp1:disabled{background-color:#eee;cursor:default}.Dropdown__dropdownItems--N6MD4{position:absolute;visibility:hidden;height:0;overflow:hidden;z-index:9;background-color:#fff;border:1px solid #248bfb;border-top:unset;border-bottom-left-radius:2px;border-bottom-right-radius:2px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"}.Dropdown__dropdownItemsOpen--2kXrx{visibility:visible;height:auto;overflow:visible}.Dropdown__dropdownButton--1iEp1::before,.Dropdown__dropdownButton--1iEp1::after{display:none;margin:0 5px;content:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB3aWR0aD0iMTNweCIgaGVpZ2h0PSI3cHgiIHZpZXdCb3g9IjAgMCAxMyA3IiB2ZXJzaW9uPSIxLjEiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZXNjPkNyZWF0ZWQgd2l0aCBMdW5hY3k8L2Rlc2M+CiAgPHBhdGggZD0iTTEyIDBMNS45NzE3MiA2TDAgMC4wNTc1OTI3IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUgMC41KSIgaWQ9IlN0cm9rZS0xLUNvcHktNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRkZGRkZGIiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgLz4KPC9zdmc+);-webkit-transition:-webkit-transform 0.3s;transition:-webkit-transform 0.3s;transition:transform 0.3s;transition:transform 0.3s, -webkit-transform 0.3s}@media all and (-ms-high-contrast: none), (-ms-high-contrast: active){.Dropdown__dropdownButton--1iEp1::before,.Dropdown__dropdownButton--1iEp1::after{display:table-caption}}.Dropdown__dropdownButton--1iEp1.Dropdown__open--10j_e::before,.Dropdown__dropdownButton--1iEp1.Dropdown__open--10j_e::after{-webkit-transform-origin:50% 56% 0;transform-origin:50% 56% 0;-webkit-transform:rotate(180deg);transform:rotate(180deg)}.Dropdown__dropdownButton--1iEp1.Dropdown__arrowWhite--tO24J::before,.Dropdown__dropdownButton--1iEp1.Dropdown__arrowWhite--tO24J::after{content:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB3aWR0aD0iMTNweCIgaGVpZ2h0PSI3cHgiIHZpZXdCb3g9IjAgMCAxMyA3IiB2ZXJzaW9uPSIxLjEiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZXNjPkNyZWF0ZWQgd2l0aCBMdW5hY3k8L2Rlc2M+CiAgPHBhdGggZD0iTTEyIDBMNS45NzE3MiA2TDAgMC4wNTc1OTI3IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUgMC41KSIgaWQ9IlN0cm9rZS0xLUNvcHktNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRkZGRkZGIiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgLz4KPC9zdmc+);height:7px}.Dropdown__dropdownButton--1iEp1.Dropdown__arrowGray--1i3WT::before,.Dropdown__dropdownButton--1iEp1.Dropdown__arrowGray--1i3WT::after{content:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB3aWR0aD0iMTNweCIgaGVpZ2h0PSI3cHgiIHZpZXdCb3g9IjAgMCAxMyA3IiB2ZXJzaW9uPSIxLjEiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZXNjPkNyZWF0ZWQgd2l0aCBMdW5hY3k8L2Rlc2M+CiAgPHBhdGggZD0iTTEyIDBMNS45NzE3MiA2TDAgMC4wNTc1OTI3IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUgMC41KSIgaWQ9IlN0cm9rZS0xLUNvcHktNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNTU1NTU1IiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgLz4KPC9zdmc+);height:7px}.Dropdown__dropdownButtonArrowLeft--2LH_G::before,.Dropdown__dropdownButtonArrowRight--3mfH2::after{display:-webkit-box;display:-ms-flexbox;display:flex;height:30px;-webkit-box-align:center;-ms-flex-align:center;align-items:center}@media all and (-ms-high-contrast: none), (-ms-high-contrast: active){.Dropdown__dropdownButtonArrowLeft--2LH_G::before,.Dropdown__dropdownButtonArrowRight--3mfH2::after{height:7px}}
+</style><style>.button-primary{min-width:80px !important;background:#248bfb !important;min-height:30px !important;padding:0 !important;line-height:1.8rem !important;text-transform:none;width:100%}.button-primary:hover{background:#0063ce !important}.i-button.left{margin:0 !important}.i-button>span{color:#fff !important;font-size:12px !important;font-weight:400 !important;line-height:16px !important;margin-left:35px !important}.SiteWideNotification__overlayWrapper--1HT2S{position:fixed;z-index:998;height:20px;left:0;right:0}@media only screen and (max-width: 1000px), only screen and (max-device-width: 1000px){.SiteWideNotification__overlayWrapper--1HT2S{height:40px}}.SiteWideNotification__ok--3B2f9{background-color:#72b878}.SiteWideNotification__info--3vZgs{background-color:#fb9300}.SiteWideNotification__problem--2oAir{background-color:#f33}.SiteWideNotification__tv--1VCMW{background-color:#0062cd}.SiteWideNotification__notificationWrapper--2jTFS{display:-webkit-box;display:-ms-flexbox;display:flex;height:20px;position:relative;z-index:999}.SiteWideNotification__notificationWrapper--2jTFS p{position:fixed;margin:0;font-size:12px;color:#fff;line-height:18px;opacity:1}.SiteWideNotification__notificationWrapper--2jTFS p a{color:#fff;text-decoration:underline}@media all and (-ms-high-contrast: none), (-ms-high-contrast: active){.SiteWideNotification__notificationWrapper--2jTFS p{top:0}}@media only screen and (max-width: 1000px), only screen and (max-device-width: 1000px){.SiteWideNotification__notificationWrapper--2jTFS{height:40px}}
+</style><style>.button-primary{min-width:80px !important;background:#248bfb !important;min-height:30px !important;padding:0 !important;line-height:1.8rem !important;text-transform:none;width:100%}.button-primary:hover{background:#0063ce !important}.i-button.left{margin:0 !important}.i-button>span{color:#fff !important;font-size:12px !important;font-weight:400 !important;line-height:16px !important;margin-left:35px !important}.LegalLinks__legalLinks--2yQOs{font-size:10px;font-weight:400;line-height:15px;color:#555}.LegalLinks__legalLinks--2yQOs a{text-decoration:none;color:#248bfb}.LegalLinks__legalLinks--2yQOs div{margin:0 4px}.LegalLinks__legalLinks--2yQOs.LegalLinks__inline--3_Z4F{font-size:9px;color:#fff;display:-webkit-box;display:-ms-flexbox;display:flex}.LegalLinks__legalLinks--2yQOs.LegalLinks__inline--3_Z4F a{color:#fff}.LegalLinks__legalLinks--2yQOs.LegalLinks__inline--3_Z4F .LegalLinks__copyRight--1GUsF{margin-left:auto}@media only screen and (max-width: 1000px), only screen and (max-device-width: 1000px){.LegalLinks__legalLinks--2yQOs.LegalLinks__inline--3_Z4F .LegalLinks__copyRight--1GUsF.LegalLinks__isHideCopyRight--3C7Mm{display:none}}.LegalLinks__linksRow--3pmSP{display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap}
+</style><style>.button-primary{min-width:80px !important;background:#248bfb !important;min-height:30px !important;padding:0 !important;line-height:1.8rem !important;text-transform:none;width:100%}.button-primary:hover{background:#0063ce !important}.i-button.left{margin:0 !important}.i-button>span{color:#fff !important;font-size:12px !important;font-weight:400 !important;line-height:16px !important;margin-left:35px !important}.MetricButton__tabButton--2rvo1,.MetricButton__tabButtonMake--1G-ti{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-negative:1;flex-shrink:1;-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;padding:10px;border-radius:3px;background-color:#fff;-webkit-box-shadow:0px 0px 30px rgba(0,0,0,0.0509804);box-shadow:0px 0px 30px rgba(0,0,0,0.0509804);-webkit-box-sizing:border-box;box-sizing:border-box;cursor:pointer}.MetricButton__tabButton--2rvo1{min-width:130px;max-width:150px;margin:10px 20px 10px 0}@media only screen and (max-width: 940px), only screen and (max-device-width: 940px){.MetricButton__tabButton--2rvo1{margin:10px 20px 10px 0}}.MetricButton__tabButton--2rvo1:last-child{margin-right:0}.MetricButton__tabButtonMake--1G-ti{min-width:150px;margin:10px 0 10px 0}@media only screen and (max-width: 940px), only screen and (max-device-width: 940px){.MetricButton__tabButtonMake--1G-ti{margin:10px 0 10px 0}}.MetricButton__metric--FqxBi{color:#555;font-family:"SFUIText-Light";font-size:18px;font-weight:400;line-height:22px;letter-spacing:-0.2px}.MetricButton__tabTitle--2Xau7{opacity:0.8;color:#555;font-family:"SFProText-Regular";font-size:12px;font-weight:400;line-height:16px}.MetricButton__selected--BGAr0{border:1px solid #248bfb;max-height:56.8px}.MetricButton__disable--3_9qY{opacity:0.5}.MetricButton__loading--tPl-E{min-width:130px;max-width:140px;height:48px;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-negative:1;flex-shrink:1;padding:10px;border-radius:3px;background-color:#fff;-webkit-box-shadow:0px 0px 30px rgba(0,0,0,0.0509804);box-shadow:0px 0px 30px rgba(0,0,0,0.0509804);-webkit-box-sizing:border-box;box-sizing:border-box;cursor:pointer;margin:10px 20px 10px 0}.MetricButton__loading--tPl-E:last-child{margin-right:0px}.MetricButton__tabButton--2rvo1:first-child{margin-left:0px}@media only screen and (max-width: 940px), only screen and (max-device-width: 940px){.MetricButton__tabButton--2rvo1:first-child{margin:10px 20px 10px 0}}.MetricButton__hide--Uf7g4{visibility:hidden}
+</style><style>.button-primary{min-width:80px !important;background:#248bfb !important;min-height:30px !important;padding:0 !important;line-height:1.8rem !important;text-transform:none;width:100%}.button-primary:hover{background:#0063ce !important}.i-button.left{margin:0 !important}.i-button>span{color:#fff !important;font-size:12px !important;font-weight:400 !important;line-height:16px !important;margin-left:35px !important}.LinkButton__linkButton--U_cBr{text-decoration:none;cursor:pointer;color:#248bfb}
+</style><style>.button-primary{min-width:80px !important;background:#248bfb !important;min-height:30px !important;padding:0 !important;line-height:1.8rem !important;text-transform:none;width:100%}.button-primary:hover{background:#0063ce !important}.i-button.left{margin:0 !important}.i-button>span{color:#fff !important;font-size:12px !important;font-weight:400 !important;line-height:16px !important;margin-left:35px !important}.Button__button--2kecZ{margin:auto 20px;padding-left:10px;height:30px;border:0;border-radius:3px;color:#fff;font-size:14px;font-weight:400;line-height:16px;padding:0 15px;cursor:pointer}.Button__blue--1HC2y{background:#248bfb}.Button__red--3XFwC{background:#f33}.Button__white--3elkE{background-color:#fff;color:#248bfb;outline:none}
+</style><style>.button-primary{min-width:80px !important;background:#248bfb !important;min-height:30px !important;padding:0 !important;line-height:1.8rem !important;text-transform:none;width:100%}.button-primary:hover{background:#0063ce !important}.i-button.left{margin:0 !important}.i-button>span{color:#fff !important;font-size:12px !important;font-weight:400 !important;line-height:16px !important;margin-left:35px !important}.Select__select--2H8oK{-moz-appearance:none;-webkit-appearance:none;appearance:none;display:inline-block;height:40px;line-height:15px;padding:4px 30px 4px 10px;color:#fff;background-image:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB3aWR0aD0iMTNweCIgaGVpZ2h0PSI3cHgiIHZpZXdCb3g9IjAgMCAxMyA3IiB2ZXJzaW9uPSIxLjEiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZXNjPkNyZWF0ZWQgd2l0aCBMdW5hY3k8L2Rlc2M+CiAgPHBhdGggZD0iTTEyIDBMNS45NzE3MiA2TDAgMC4wNTc1OTI3IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUgMC41KSIgaWQ9IlN0cm9rZS0xLUNvcHktNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRkZGRkZGIiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgLz4KPC9zdmc+);background-repeat:no-repeat, repeat;background-position:right 10px top 50%, 0 0;background-size:1em auto, 100%;border:none;background-color:#0062cd;font-size:12px;border-radius:0}.Select__select--2H8oK.Select__arrowWhite--3YHzx{background-image:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB3aWR0aD0iMTNweCIgaGVpZ2h0PSI3cHgiIHZpZXdCb3g9IjAgMCAxMyA3IiB2ZXJzaW9uPSIxLjEiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZXNjPkNyZWF0ZWQgd2l0aCBMdW5hY3k8L2Rlc2M+CiAgPHBhdGggZD0iTTEyIDBMNS45NzE3MiA2TDAgMC4wNTc1OTI3IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUgMC41KSIgaWQ9IlN0cm9rZS0xLUNvcHktNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRkZGRkZGIiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgLz4KPC9zdmc+)}.Select__select--2H8oK.Select__arrowGray--1pcxi{background-image:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB3aWR0aD0iMTNweCIgaGVpZ2h0PSI3cHgiIHZpZXdCb3g9IjAgMCAxMyA3IiB2ZXJzaW9uPSIxLjEiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZXNjPkNyZWF0ZWQgd2l0aCBMdW5hY3k8L2Rlc2M+CiAgPHBhdGggZD0iTTEyIDBMNS45NzE3MiA2TDAgMC4wNTc1OTI3IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUgMC41KSIgaWQ9IlN0cm9rZS0xLUNvcHktNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNTU1NTU1IiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgLz4KPC9zdmc+)}.Select__select--2H8oK::-ms-expand{display:none}
+</style><style>.button-primary{min-width:80px !important;background:#248bfb !important;min-height:30px !important;padding:0 !important;line-height:1.8rem !important;text-transform:none;width:100%}.button-primary:hover{background:#0063ce !important}.i-button.left{margin:0 !important}.i-button>span{color:#fff !important;font-size:12px !important;font-weight:400 !important;line-height:16px !important;margin-left:35px !important}.Radio__input--2Tqc-{display:none}.Radio__outerCircle--3CVAH{-webkit-box-sizing:border-box;box-sizing:border-box;position:absolute;top:0;left:0;height:20px;width:20px;border-radius:50%;border:1px solid #555;background-color:#fff}.Radio__innerCircle--1lq65{-webkit-box-sizing:border-box;box-sizing:border-box;position:absolute;left:0;top:0;border-radius:50%;border:4px solid #555;height:20px;width:20px;-webkit-transform:scale(0.8);transform:scale(0.8)}.Radio__label--5cA4H{display:-webkit-box;display:-ms-flexbox;display:flex;cursor:pointer}.Radio__labelWrapper--1Xrpo{-webkit-box-sizing:border-box;box-sizing:border-box;position:relative;height:20px;width:20px;-ms-flex-negative:0;flex-shrink:0;margin-right:14px}
+</style><style>.button-primary{min-width:80px !important;background:#248bfb !important;min-height:30px !important;padding:0 !important;line-height:1.8rem !important;text-transform:none;width:100%}.button-primary:hover{background:#0063ce !important}.i-button.left{margin:0 !important}.i-button>span{color:#fff !important;font-size:12px !important;font-weight:400 !important;line-height:16px !important;margin-left:35px !important}.Checkbox__blackBorder--1_DPY,.Checkbox__checkboxLabel--10mig .Checkbox__checkboxCustom--z1ZQJ,.Checkbox__checkboxLabel--10mig input:checked ~ .Checkbox__checkboxCustom--z1ZQJ,.Checkbox__checkboxLabel--10mig .Checkbox__checkboxCustom--z1ZQJ::after{border:1px solid #555}.Checkbox__checkboxLabel--10mig{display:block;position:relative;margin:auto;cursor:pointer;font-size:20px;line-height:24px;height:24px;width:24px;clear:both}.Checkbox__checkboxLabel--10mig input{position:absolute;opacity:0;cursor:pointer}.Checkbox__checkboxLabel--10mig .Checkbox__checkboxCustom--z1ZQJ{position:absolute;top:0px;left:0px;height:24px;width:24px;background-color:transparent;transition:all 0.3s ease-out;-webkit-transition:all 0.3s ease-out;-moz-transition:all 0.3s ease-out;-ms-transition:all 0.3s ease-out;-o-transition:all 0.3s ease-out;padding-bottom:0 !important}.Checkbox__checkboxLabel--10mig input:checked ~ .Checkbox__checkboxCustom--z1ZQJ{background-color:#fff;-webkit-transform:rotate(0deg) scale(1);transform:rotate(0deg) scale(1);opacity:1}.Checkbox__checkboxLabel--10mig .Checkbox__checkboxCustom--z1ZQJ::after{position:absolute;content:"";left:12px;top:12px;height:0px;width:0px;border-width:0 3px 3px 0;-webkit-transform:rotate(0deg) scale(0);transform:rotate(0deg) scale(0);opacity:1;transition:all 0.3s ease-out;-webkit-transition:all 0.3s ease-out;-moz-transition:all 0.3s ease-out;-ms-transition:all 0.3s ease-out;-o-transition:all 0.3s ease-out}.Checkbox__checkboxLabel--10mig input:checked ~ .Checkbox__checkboxCustom--z1ZQJ::after{-webkit-transform:rotate(45deg) scale(1);transform:rotate(45deg) scale(1);opacity:1;left:8px;top:3px;width:6px;height:12px;border:1px solid #555;border-width:0 2px 2px 0;background-color:transparent;border-radius:0}
+</style><style>.button-primary{min-width:80px !important;background:#248bfb !important;min-height:30px !important;padding:0 !important;line-height:1.8rem !important;text-transform:none;width:100%}.button-primary:hover{background:#0063ce !important}.i-button.left{margin:0 !important}.i-button>span{color:#fff !important;font-size:12px !important;font-weight:400 !important;line-height:16px !important;margin-left:35px !important}.Avatar__avatarBody--2U7bI{float:left;display:-webkit-box;display:-ms-flexbox;display:flex;height:40px}.Avatar__avatar--Fmfci{display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-item-align:center;align-self:center;height:50px;width:50px;border-radius:50%}.Avatar__loading--1_7bt{border-radius:50%;background-color:#e4e4e4}
+</style><style>.button-primary{min-width:80px !important;background:#248bfb !important;min-height:30px !important;padding:0 !important;line-height:1.8rem !important;text-transform:none;width:100%}.button-primary:hover{background:#0063ce !important}.i-button.left{margin:0 !important}.i-button>span{color:#fff !important;font-size:12px !important;font-weight:400 !important;line-height:16px !important;margin-left:35px !important}.PageHeader__header--3fzKh{background-color:#248bfb;height:50px;position:fixed;left:0;right:0;z-index:998}@media only screen and (max-width: 1000px), only screen and (max-device-width: 1000px){.PageHeader__header--3fzKh{height:85px}}.PageHeader__header--3fzKh.PageHeader__sitenotification--GcB40{height:70px}@media only screen and (max-width: 1000px), only screen and (max-device-width: 1000px){.PageHeader__header--3fzKh.PageHeader__sitenotification--GcB40{height:125px}}.PageHeader__darkHeader--1dLeM{background-color:#2a2929}.PageHeader__desktopHeader--30kkV,.PageHeader__mobileHeader--3w41C{color:#fff;z-index:999;position:fixed;display:-webkit-box;display:-ms-flexbox;display:flex;max-width:inherit;width:calc(100% - 40px);margin-top:5px}@media only screen and (max-width: 600px), only screen and (max-device-width: 600px){.PageHeader__desktopHeader--30kkV,.PageHeader__mobileHeader--3w41C{width:calc(100% - 20px)}}.PageHeader__desktopHeaderPlaceholder--3wOz9{height:50px;margin-bottom:10px}.PageHeader__logo--HEa-y{cursor:pointer;display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-item-align:center;align-self:center;min-width:40px;margin-top:5px}.PageHeader__dropdown--3NFY3,.PageHeader__sigUpDropdown--3VWVU{cursor:pointer;font-size:12px;color:#eee;max-width:140px;margin-left:20px}@media only screen and (max-width: 680px), only screen and (max-device-width: 680px){.PageHeader__dropdown--3NFY3,.PageHeader__sigUpDropdown--3VWVU{margin-left:5px}}@media only screen and (max-width: 680px), only screen and (max-device-width: 680px){.PageHeader__sigUpDropdown--3VWVU{margin-left:15px}}.PageHeader__educationDropdown--1yLdo{max-width:140px;margin-left:20px}@media only screen and (max-width: 680px), only screen and (max-device-width: 680px){.PageHeader__educationDropdown--1yLdo{margin-left:5px}}.PageHeader__exploreDropdown--2vSkc{max-width:140px;margin-left:20px;font-size:12px}@media only screen and (max-width: 680px), only screen and (max-device-width: 680px){.PageHeader__exploreDropdown--2vSkc{margin-left:0px}}.PageHeader__navBar--1Jdbe{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end}.PageHeader__dropdownContentColumn--3rqVK,.PageHeader__dropdownContentLinksColumn--1kJwN,.PageHeader__dropdownContentUserLinksColumn--qg6hW,.PageHeader__loginDropdownContent--3l-qt,.PageHeader__notificationDropdownContent--3FGtc{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;padding:5px 0}.PageHeader__dropdownButton--1AeO8{height:100%;width:-webkit-max-content;width:-moz-max-content;width:max-content;color:white !important;-webkit-box-align:center;-ms-flex-align:center;align-items:center;font-weight:400;padding:0;background-color:transparent;border:none;border-radius:0;cursor:pointer;outline:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:-webkit-box;display:-ms-flexbox;display:flex;color:#fff;text-transform:none;font-size:12px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";text-decoration:none;line-height:normal}.PageHeader__dropdownLink--aSzMW,.PageHeader__dropdownContentLinksColumn--1kJwN a,.PageHeader__dropdownContentUserLinksColumn--qg6hW a{text-decoration:none;color:#248bfb;height:30px;line-height:30px;font-size:14px;padding:0 15px;white-space:nowrap}.PageHeader__dropdownLink--aSzMW:hover,.PageHeader__dropdownContentLinksColumn--1kJwN a:hover,.PageHeader__dropdownContentUserLinksColumn--qg6hW a:hover{color:#fff;background-color:#248bfb}.PageHeader__dropdownLink--aSzMW a,.PageHeader__dropdownContentLinksColumn--1kJwN a a,.PageHeader__dropdownContentUserLinksColumn--qg6hW a a{color:#248bfb;text-decoration:none}.PageHeader__createTitle--1WroY{display:-webkit-box;display:-ms-flexbox;display:flex;font-size:12px}.PageHeader__createIcon--1fG7m{height:13px;margin-top:2px;margin-left:7px;-ms-flex-item-align:center;align-self:center}.PageHeader__lineSeparator--2TfLT{border:1px solid #f2f2f2}.PageHeader__dropdownItems--2TqE5,.PageHeader__dropdownItemsLeft--UvuPe{margin-top:5px}@media only screen and (max-width: 680px), only screen and (max-device-width: 680px){.PageHeader__dropdownItems--2TqE5,.PageHeader__dropdownItemsLeft--UvuPe{margin-top:0px}}.PageHeader__dropdownItemsLeft--UvuPe{right:0}.PageHeader__loginDropdownContent--3l-qt{width:250px}.PageHeader__loginButtonWrapper--2lhyJ{padding:10px 15px;text-transform:none}.PageHeader__loginButton--2XkxL{height:35px;margin:0;width:100%;text-transform:none}.PageHeader__createAccountWrapper--34W08{font-size:14px;color:#555;margin:10px 15px}.PageHeader__createAccountWrapper--34W08 a{text-decoration:none}.PageHeader__legalLinksWrapper--21_HM{margin:10px 15px}.PageHeader__avatar--2CmJK{height:25px;width:25px}.PageHeader__notificationIcon--GEt8Q{-ms-flex-item-align:center;align-self:center;height:22px}.PageHeader__notificationSignIcon--33j4M{height:14px}.PageHeader__viewDashboardWrapper--vToMF{text-align:center;font-size:14px;margin:10px 15px}.PageHeader__notificationDropdownContent--3FGtc{width:250px}.PageHeader__notificationListIcon--6dmzt{height:20px}.PageHeader__notificationListIconWrapper--2ZNu2{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center;margin:10px 15px}.PageHeader__notificationMessageWrapper--3WXIC{font-size:14px}.PageHeader__notificationListItem--2E5P_{display:-webkit-box;display:-ms-flexbox;display:flex;margin:5px 0}.PageHeader__dashboardLink--10X_9{display:-webkit-box;display:-ms-flexbox;display:flex;margin-left:15px;font-size:12px;min-width:22px}.PageHeader__mobileHeader--3w41C{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;min-width:300px;margin-top:0}.PageHeader__mobileHeaderPlaceholder--3tqt2{height:85px;margin-bottom:10px}.PageHeader__topRow--1fzSk{display:-webkit-box;display:-ms-flexbox;display:flex;height:40px}.PageHeader__eduPageDesktopLogo--3NCP7{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-flex:1;-ms-flex:1 1 445px;flex:1 1 445px}.PageHeader__eduPageDesktopNavbar--1_8oH{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;-webkit-box-flex:1;-ms-flex:1 1 405px;flex:1 1 405px}.PageHeader__eduPageMobileLogo--2LMGK{-webkit-box-flex:1;-ms-flex:1 2 485px;flex:1 2 485px}.PageHeader__eduPageMobileNavbar--3hspm{-webkit-box-flex:1;-ms-flex:1 1 485px;flex:1 1 485px}.PageHeader__searchPageDesktopLogo--1-UIl,.PageHeader__searchPageDesktopNavbar--UQpRH,.PageHeader__userProfileDesktopLogo--2L9bY,.PageHeader__userProfileDesktopNavbar--232vU{-webkit-box-flex:1;-ms-flex:1 1 0px;flex:1 1 0px}@media only screen and (max-width: 1960px), only screen and (max-device-width: 1960px){.PageHeader__searchPageDesktopLogo--1-UIl,.PageHeader__searchPageDesktopNavbar--UQpRH,.PageHeader__userProfileDesktopLogo--2L9bY,.PageHeader__userProfileDesktopNavbar--232vU{-webkit-box-flex:0;-ms-flex:0 0 320px;flex:0 0 320px}}.PageHeader__searchPageMobileLogo--3r5bK,.PageHeader__userProfilePageMobileLogo--4M8mE{-webkit-box-flex:1;-ms-flex:1 1 300px;flex:1 1 300px}.PageHeader__searchPageMobileNavbar--1Xo3x,.PageHeader__userProfilePageMobileNavbar--19_LZ{-webkit-box-flex:1;-ms-flex:1 1 350px;flex:1 1 350px}.PageHeader__thingDesktopLogo--2cpHV,.PageHeader__thingDesktopNavbar--HITRk{-webkit-box-flex:1;-ms-flex:1 0 330px;flex:1 0 330px}.PageHeader__thingPageMobileLogo--11veO{-webkit-box-flex:2;-ms-flex:2 4 320px;flex:2 4 320px}.PageHeader__thingPageMobileNavbar--2-nij{-webkit-box-flex:1;-ms-flex:1 1 330px;flex:1 1 330px}.PageHeader__inputMobileFlex--1xo_8{-webkit-box-flex:0;-ms-flex:0 0.5 40px;flex:0 0.5 40px}
+</style><style>.amzn-lew-adsDiv{position:fixed;display:none;left:0;z-index:999;background:#FFF;margin:0;padding:0;outline:0;height:80px;-webkit-transition:height .3s ease;-moz-transition:height .3s ease;-o-transition:height .3s ease;-ms-transition:height .3s ease;transition:height .3s ease}.amzn-lew-adsDiv #amzn-lew-closeButton{cursor:pointer;width:40px;height:15px;display:none;position:absolute;right:10px;top:-15px;outline:0;margin:0;padding:0;border:1px solid rgba(255,255,255,0);border-radius:5px 5px 0 0;background-color:rgba(245,156,56,0.35);background-repeat:no-repeat;background-position:-1px -85px;z-index:999}button#amzn-lew-closeButton::before{position:absolute;content:'';left:-10px;right:-10px;top:-10px;bottom:-10px}img#amzn-lew-cues{display:inline-block;height:1em;border:0;padding:0;margin:0;outline:0;width:auto;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none}img.amzn_view_checked{-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none}button::-moz-focus-inner{border:0}.amznTextLinkWidget_a::after{content:' ';display:block;position:absolute;top:0;left:0;right:0;bottom:0}.amzn-lew-a{display:block;width:100%;overflow:visible}.amzn-lew-iframe{border:1px solid #f59c38;border-bottom:0;max-height:80px;width:calc(100% - 2px)}</style></head>
+
+    
+
+    <body class="thingiverse loggedout">
+        
+
+            <div class="loading-screen">
+                
+                <img src="https://cdn.thingiverse.com/site/img/loading.gif" alt="Loading" width="50" height="50" class="center">
+
+                <span class="message center">Signing you in...</span>
+            </div>
+
+            <div class="page-container">
+                <div id="push-wrap">
+                    <div id="push-main">
+
+                        <a name="top" class="nodisplay"></a>
+
+                                                    <div id="header" style="max-width: 965px;margin: 0 auto;"><div class="PageHeader__header--3fzKh" id="page-header"></div><div class="PageHeader__desktopHeader--30kkV"><div class="PageHeader__logo--HEa-y PageHeader__thingDesktopLogo--2cpHV"><a href="https://www.thingiverse.com/"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB3aWR0aD0iMjIwcHgiIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAwIDIyMCAyNCIgdmVyc2lvbj0iMS4xIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVzYz5DcmVhdGVkIHdpdGggTHVuYWN5PC9kZXNjPgogIDxkZWZzPgogICAgPHBhdGggZD0iTTAgMEwxMy42Njk5IDBMMTMuNjY5OSAxNS41ODU4TDAgMTUuNTg1OEwwIDBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDAuMDQyNzY5MjMpIiBpZD0icGF0aF8xIiAvPgogICAgPHBhdGggZD0iTTAgMjEuNDMyNEwxMTQuNDM5IDIxLjQzMjRMMTE0LjQzOSAwTDAgMEwwIDIxLjQzMjRaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjA5Nzc4MDc1IDAuNTY3NikiIGlkPSJwYXRoXzIiIC8+CiAgICA8Y2xpcFBhdGggaWQ9Im1hc2tfMSI+CiAgICAgIDx1c2UgeGxpbms6aHJlZj0iI3BhdGhfMSIgLz4KICAgIDwvY2xpcFBhdGg+CiAgICA8Y2xpcFBhdGggaWQ9Im1hc2tfMiI+CiAgICAgIDx1c2UgeGxpbms6aHJlZj0iI3BhdGhfMiIgLz4KICAgIDwvY2xpcFBhdGg+CiAgPC9kZWZzPgogIDxnIGlkPSJHcm91cC00MCI+CiAgICA8ZyBpZD0iR3JvdXAtMjAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgMS43NzczNDQpIj4KICAgICAgPHBhdGggZD0iTTEwLjIxNjIgNy4xMjQ5MkMxMC45NTExIDcuNjQ0MzEgMTEuMzkxNyA4LjUzNDc3IDExLjM5MTcgOS40OTk2OUwxMS4zOTE3IDEyLjY5MTFDMTEuMzkxNyAxNC4zMjQzIDEwLjA2ODcgMTUuNTg1OCA4LjUyNTc3IDE1LjU4NThMMS4yNDk4MyAxNS41ODU4QzAuOTU1NSAxNS41ODU4IDAuNTg4MDQ3IDE1LjQzNzUgMC4zNjc0NTMgMTUuMjE0OEMwLjE0NzQ2OSAxNC45OTIgMCAxNC42OTU0IDAgMTQuMzI0M0wwIDEuMzM2QzAgMC41OTMyMzEgMC41ODgwNDcgMCAxLjMyMjk1IDBMNy40OTY1MyAwQzkuMTEzMiAwIDEwLjM2MyAxLjI2MTU0IDEwLjM2MyAyLjgyMDMxTDEwLjM2MyA2LjMwODMxQzEwLjM2MyA2LjYwNTU0IDEwLjI4OTMgNi45MDIxNSAxMC4yMTYyIDcuMTI0OTJaTTIuODY2NSA2LjM4Mjc3QzIuNzE5NjQgNi4zODI3NyAyLjU3Mjc4IDYuMjMzODUgMi41NzI3OCA2LjA4NTU0TDIuNTcyNzggMi44OTQxNUMyLjU3Mjc4IDIuNzQ1ODUgMi43MTk2NCAyLjU5NzU0IDIuODY2NSAyLjU5NzU0TDcuNDIzNDEgMi41OTc1NEM3LjU3MDI2IDIuNTk3NTQgNy43MTcxMiAyLjY3MTM4IDcuNzE3MTIgMi44MjAzMUw3LjcxNzEyIDYuMDg1NTRDNy43MTcxMiA2LjIzMzg1IDcuNjQzMzkgNi4zMDgzMSA3LjQ5NjUzIDYuMzgyNzdMMi44NjY1IDYuMzgyNzdaTTIuODY2NSAxMi45MTM4QzIuNzE5NjQgMTIuOTEzOCAyLjU3Mjc4IDEyLjc2NTUgMi41NzI3OCAxMi42MTcyTDIuNTcyNzggOS40MjU4NUMyLjU3Mjc4IDkuMjc2OTIgMi43MTk2NCA5LjEyODYyIDIuODY2NSA5LjEyODYyTDguNTI1NzcgOS4xMjg2MkM4LjY3MjYyIDkuMTI4NjIgOC44MTk0OCA5LjI3NjkyIDguODE5NDggOS40MjU4NUw4LjgxOTQ4IDEyLjYxNzJDOC44MTk0OCAxMi43NjU1IDguNjcyNjIgMTIuOTEzOCA4LjUyNTc3IDEyLjkxMzhMMi44NjY1IDEyLjkxMzhaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg2Mi44Mzc2NSAwLjA0MjgzMDc3KSIgaWQ9IkZpbGwtMSIgZmlsbD0iI0ZGRkZGRiIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2U9Im5vbmUiIC8+CiAgICAgIDxnIGlkPSJHcm91cC01Ij4KICAgICAgICA8cGF0aCBkPSJNMCAwTDEzLjY2OTkgMEwxMy42Njk5IDE1LjU4NThMMCAxNS41ODU4TDAgMFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgMC4wNDI3NjkyMykiIGlkPSJDbGlwLTQiIGZpbGw9Im5vbmUiIHN0cm9rZT0ibm9uZSIgLz4KICAgICAgICA8ZyBjbGlwLXBhdGg9InVybCgjbWFza18xKSI+CiAgICAgICAgICA8cGF0aCBkPSJNNS40Mzg2NyAxNC4yNDk4QzUuNDM4NjcgMTQuOTkyIDYuMDI2NzIgMTUuNTg1OCA2Ljc2MTYzIDE1LjU4NThDNy40OTY1MyAxNS41ODU4IDguMDg0NTggMTQuOTkyIDguMDg0NTggMTQuMjQ5OEw4LjA4NDU4IDIuODk0MTVDOC4wODQ1OCAyLjc0NTg1IDguMjMxNDQgMi41OTc1NCA4LjM3ODMgMi41OTc1NEwxMC43MzA1IDIuNTk3NTRDMTAuODc3MyAyLjU5NzU0IDExLjAyNDIgMi43NDU4NSAxMS4wMjQyIDIuODk0MTVMMTEuMDI0MiAxNC4yNDk4QzExLjAyNDIgMTQuOTkyIDExLjYxMjMgMTUuNTg1OCAxMi4zNDcyIDE1LjU4NThDMTMuMDgyMSAxNS41ODU4IDEzLjY3MDEgMTQuOTkyIDEzLjY3MDEgMTQuMjQ5OEwxMy42NzAxIDIuODk0MTVDMTMuNjcwMSAxLjMzNiAxMi40MjA5IDAgMTAuODAzNiAwTDIuODY2NSAwQzEuMzIyOTUgMCAwIDEuMjYxNTQgMCAyLjg5NDE1TDAgMTQuMjQ5OEMwIDE0Ljk5MiAwLjU4ODA0NyAxNS41ODU4IDEuMzIyOTUgMTUuNTg1OEMyLjA1Nzg2IDE1LjU4NTggMi42NDU5MSAxNC45OTIgMi42NDU5MSAxNC4yNDk4TDIuNjQ1OTEgMi44OTQxNUMyLjY0NTkxIDIuNzQ1ODUgMi43OTI3NyAyLjU5NzU0IDIuOTM5NjMgMi41OTc1NEw1LjI5MTgxIDIuNTk3NTRDNS40Mzg2NyAyLjU5NzU0IDUuNTg1NTMgMi43NDU4NSA1LjU4NTUzIDIuODk0MTVMNS40Mzg2NyAxNC4yNDk4WiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTAuMDAwMTgyODEyNSAwLjA0Mjc2OTIzKSIgaWQ9IkZpbGwtMyIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSJub25lIiAvPgogICAgICAgIDwvZz4KICAgICAgPC9nPgogICAgICA8cGF0aCBkPSJNNS43MzIzOSA2LjkwMjE1QzYuNDY3MyA2LjkwMjE1IDcuMDU1MzQgNi4zMDgzMSA3LjA1NTM0IDUuNTY2MTVDNy4wNTUzNCA0LjgyNCA2LjQ2NzMgNC4yMzAxNSA1LjczMjM5IDQuMjMwMTVMMS4zMjI5NSA0LjIzMDE1QzAuNTg4MDQ3IDQuMjMwMTUgMCA0LjgyNCAwIDUuNTY2MTVMMCAxMC4wOTM1QzAgMTAuODM1NyAwLjU4ODA0NyAxMS40Mjk1IDEuMzIyOTUgMTEuNDI5NUw4LjU5ODg5IDExLjQyOTVDMTAuMTQxOCAxMS40Mjk1IDExLjQ2NDggMTAuMTY4IDExLjQ2NDggOC41MzQ3N0wxMS40NjQ4IDIuODk0MTVDMTEuNDY0OCAxLjMzNiAxMC4yMTU2IDAgOC41OTg4OSAwTDEuMzIyOTUgMEMwLjU4ODA0NyAwIDAgMC41OTM4NDYgMCAxLjMzNkMwIDIuMDc4MTUgMC41ODgwNDcgMi42NzEzOCAxLjMyMjk1IDIuNjcxMzhMOC41OTg4OSAyLjY3MTM4QzguNzQ1NzUgMi42NzEzOCA4Ljg5MjYxIDIuODIwMzEgOC44OTI2MSAyLjk2ODYyTDguODkyNjEgOC42MDkyM0M4Ljg5MjYxIDguNzU3NTQgOC43NDU3NSA4LjkwNTg1IDguNTk4ODkgOC45MDU4NUwyLjg2NTg5IDguOTA1ODVDMi43MTkwMyA4LjkwNTg1IDIuNTcyMTcgOC43NTc1NCAyLjU3MjE3IDguNjA5MjNMMi41NzIxNyA3LjE5ODc3QzIuNTcyMTcgNy4wNTA0NiAyLjcxOTAzIDYuOTAyMTUgMi44NjU4OSA2LjkwMjE1TDUuNzMyMzkgNi45MDIxNVoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE1LjA2NjY4IDQuMTk5MDE2KSIgaWQ9IkZpbGwtNiIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSJub25lIiAvPgogICAgICA8cGF0aCBkPSJNOC44OTMyMiAyLjgyMDMxQzguODkzMjIgMi42NzIgOC43NDYzNiAyLjUyMzY5IDguNTk5NSAyLjUyMzY5TDIuODY2NSAyLjUyMzY5QzIuNzE5NjQgMi41MjM2OSAyLjU3MjE3IDIuNjcyIDIuNTcyMTcgMi44MjAzMUwyLjU3MjE3IDguNDYwOTJDMi41NzIxNyA4LjYwOTIzIDIuNzE5NjQgOC43NTc1NCAyLjg2NjUgOC43NTc1NEwxMC4xNDI0IDguNzU3NTRDMTAuODc3MyA4Ljc1NzU0IDExLjQ2NTQgOS4zNTEzOSAxMS40NjU0IDEwLjA5MzVDMTEuNDY1NCAxMC44MzU3IDEwLjg3NzMgMTEuNDI5NSAxMC4xNDI0IDExLjQyOTVMMi44NjY1IDExLjQyOTVDMS4zMjI5NSAxMS40Mjk1IDAgMTAuMTY4IDAgOC41MzUzOUwwIDIuODk0NzdDMCAxLjMzNiAxLjI0OTgzIDAgMi44NjY1IDBMOC41OTk1IDBDMTAuMTQyNCAwIDExLjQ2NTQgMS4zMzYgMTEuNDY1NCAyLjg5NDc3TDExLjQ2NTQgNS43ODg5MkMxMS40NjU0IDYuNTMxMDggMTAuODc3MyA3LjEyNDkyIDEwLjE0MjQgNy4xMjQ5Mkw1LjczMjM5IDcuMTI0OTJDNC45OTc0OCA3LjEyNDkyIDQuNDEwMDUgNi41MzEwOCA0LjQxMDA1IDUuNzg4OTJDNC40MTAwNSA1LjA0Njc3IDQuOTk3NDggNC40NTI5MiA1LjczMjM5IDQuNDUyOTJMOC41MjU3NiA0LjQ1MjkyQzguNjcyNjIgNC40NTI5MiA4LjgxOTQ4IDQuMzA0NjIgOC44MTk0OCA0LjE1NjMxTDguODkzMjIgMi44MjAzMVoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQxLjAwOTcyIDQuMjczMDQ2KSIgaWQ9IkZpbGwtOCIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSJub25lIiAvPgogICAgICA8cGF0aCBkPSJNOC43NDU3NSA4LjM4NjQ2QzEwLjI4OTMgOC4zODY0NiAxMS42MTIyIDkuNjQ4IDExLjYxMjIgMTEuMjgxMkwxMS42MTIyIDE0LjI0OThDMTEuNjEyMiAxNC45OTIgMTEuMDI0MiAxNS41ODU4IDEwLjI4OTMgMTUuNTg1OEM5LjU1NDM5IDE1LjU4NTggOC45NjYzNCAxNC45OTIgOC45NjYzNCAxNC4yNDk4TDguOTY2MzQgMTEuMjgxMkM4Ljk2NjM0IDExLjEzMjMgOC44MTk0OCAxMC45ODQgOC42NzIwMiAxMC45ODRMMi45Mzk2MiAxMC45ODRDMi43OTI3NyAxMC45ODQgMi42NDU5MSAxMS4xMzIzIDIuNjQ1OTEgMTEuMjgxMkwyLjY0NTkxIDE0LjI0OThDMi42NDU5MSAxNC45OTIgMi4wNTc4NiAxNS41ODU4IDEuMzIyOTUgMTUuNTg1OEMwLjU4ODA0NyAxNS41ODU4IDAgMTQuOTkyIDAgMTQuMjQ5OEwwIDEuMzM1MzhDMCAwLjU5MzIzMSAwLjU4ODA0NyAwIDEuMzIyOTUgMEMyLjA1Nzg2IDAgMi42NDU5MSAwLjU5MzIzMSAyLjY0NTkxIDEuMzM1MzhMMi42NDU5MSA4LjE2MzY5QzIuNjQ1OTEgOC4zMTIgMi43OTI3NyA4LjQ2MDkyIDIuOTM5NjIgOC40NjA5Mkw1LjM2NDk0IDguNDYwOTJDNS41MTE4IDguNDYwOTIgNS42NTkyNyA4LjMxMiA1LjY1OTI3IDguMTYzNjlMNS42NTkyNyA1LjQxNzg1QzUuNjU5MjcgNC42NzU2OSA2LjI0NjcgNC4wODE4NSA2Ljk4MTYxIDQuMDgxODVDNy43MTcxMiA0LjA4MTg1IDguMzA0NTYgNC42NzU2OSA4LjMwNDU2IDUuNDE3ODVMOC4zMDQ1NiA4LjE2MzY5QzguMzA0NTYgOC4zMTIgOC40NTIwMyA4LjQ2MDkyIDguNTk4ODkgOC40NjA5Mkw4Ljc0NTc1IDguMzg2NDZaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyNy45MjgwMiAwLjA0MjgzMDc3KSIgaWQ9IkZpbGwtMTAiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0ibm9uZSIgLz4KICAgICAgPHBhdGggZD0iTTcuMjc1OTQgMS4zMzZDNy4yNzU5NCAyLjA3ODE1IDYuNjg3ODkgMi42NzIgNS45NTI5OCAyLjY3MkwyLjkzOTYyIDIuNjcyQzIuNzkyNzcgMi42NzIgMi42NDU5MSAyLjgyMDMxIDIuNjQ1OTEgMi45Njg2MkwyLjY0NTkxIDEwLjE2OEMyLjY0NTkxIDEwLjkxMDIgMi4wNTc4NiAxMS41MDQgMS4zMjI5NSAxMS41MDRDMC41ODgwNDcgMTEuNTA0IDAgMTAuOTEwMiAwIDEwLjE2OEwwIDIuODk0NzdDMCAxLjMzNiAxLjI0OTIyIDAgMi44NjY1IDBMNS44NzkyNSAwQzYuNzYxNjIgMC4wNzQ0NjE1IDcuMjc1OTQgMC42NjgzMDggNy4yNzU5NCAxLjMzNiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNTMuOTQ1MTEgNC4xMjQ1NTQpIiBpZD0iRmlsbC0xMiIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSJub25lIiAvPgogICAgICA8cGF0aCBkPSJNMi44NjU4OSAwTDguNTk4ODkgMEMxMC4yMTU2IDAgMTEuNDY1NCAxLjI2MjE1IDExLjQ2NTQgMi44OTQ3N0wxMS40NjU0IDguNTM1MzlDMTEuNDY1NCAxMC4xNjggMTAuMTQyNCAxMS40MzAyIDguNTk4ODkgMTEuNDMwMkwyLjg2NTg5IDExLjQzMDJDMS4yNDkyMiAxMS40MzAyIDAgMTAuMDk0MiAwIDguNTM1MzlMMCAyLjg5NDc3QzAgMS4yNjIxNSAxLjMyMjk1IDAgMi44NjU4OSAwWk04LjU5ODg5IDguODMyQzguNzQ1NzUgOC44MzIgOC44OTI2MSA4LjY4MzY5IDguODkyNjEgOC41MzUzOEw4Ljg5MjYxIDIuODk0NzdDOC44OTI2MSAyLjc0NjQ2IDguNzQ1NzUgMi41OTgxNSA4LjU5ODg5IDIuNTk4MTVMMi44NjU4OSAyLjU5ODE1QzIuNzE5MDMgMi41OTgxNSAyLjU3MjE3IDIuNzQ2NDYgMi41NzIxNyAyLjg5NDc3TDIuNTcyMTcgOC41MzUzOEMyLjU3MjE3IDguNjgzNjkgMi43MTkwMyA4LjgzMiAyLjg2NTg5IDguODMyTDguNTk4ODkgOC44MzJaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg3NS43NzI5OCA0LjE5ODY0NikiIGlkPSJGaWxsLTE0IiBmaWxsPSIjRkZGRkZGIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZT0ibm9uZSIgLz4KICAgICAgPHBhdGggZD0iTTQuNTU2OTEgMi4yMjY0NkM1LjI5MTgxIDIuMjI2NDYgNS44Nzk4NiAyLjgyMDMxIDUuODc5ODYgMy41NjI0NkM1Ljg3OTg2IDQuMzA0NjIgNS4yOTE4MSA0Ljg5ODQ2IDQuNTU2OTEgNC44OTg0NkwyLjg2NjUgNC44OTg0NkMyLjcxOTY0IDQuODk4NDYgMi41NzI3OCA1LjA0Njc3IDIuNTcyNzggNS4xOTUwOEwyLjU3Mjc4IDEwLjgzNTdDMi41NzI3OCAxMC45ODQgMi43MTk2NCAxMS4xMzI5IDIuODY2NSAxMS4xMzI5TDIuOTQwMjMgMTEuMTMyOUwzLjAxMzM2IDExLjEzMjlMNS44Nzk4NiAxMS4xMzI5QzYuNjE0NzcgMTEuMTMyOSA3LjIwMjgxIDExLjcyNjggNy4yMDI4MSAxMi40Njg5QzcuMjAyODEgMTMuMjExMSA2LjYxNDc3IDEzLjgwNDMgNS44Nzk4NiAxMy44MDQzTDMuMDEzMzYgMTMuODA0M0wyLjk0MDIzIDEzLjgwNDNMMi44NjY1IDEzLjgwNDNDMS4zMjI5NSAxMy44MDQzIDAgMTIuNTQyOCAwIDEwLjkxMDJMMCAxLjMzNkMwIDAuNTkzODQ2IDAuNTg4MDQ3IDAgMS4zMjI5NSAwQzIuMDU3ODYgMCAyLjY0NTkxIDAuNTkzODQ2IDIuNjQ1OTEgMS4zMzZMMi42NDU5MSAxLjkyOTg1QzIuNjQ1OTEgMi4wNzgxNSAyLjc5Mjc3IDIuMjI2NDYgMi45NDAyMyAyLjIyNjQ2TDQuNTU2OTEgMi4yMjY0NloiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDg4Ljc4MTI0IDEuOTcyMzY5KSIgaWQ9IkZpbGwtMTYiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0ibm9uZSIgLz4KICAgICAgPHBhdGggZD0iTTQuMTI5NzMgMTUuNDQ2OEw0LjEyOTczIDMuNTMxMDhMMCAzLjUzMTA4TDAgMEwxMS45NzQyIDBMMTEuOTc0MiAzLjUzMTA4TDcuODY1ODEgMy41MzEwOEw3Ljg2NTgxIDE1LjQ0NjhMNC4xMjk3MyAxNS40NDY4WiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTA0LjkwOTggMC4yMTI0MzA4KSIgaWQ9IkZpbGwtMTgiIGZpbGw9IiNGRUZFRkUiIHN0cm9rZT0ibm9uZSIgLz4KICAgIDwvZz4KICAgIDxnIGlkPSJHcm91cC0yOCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTA1IDAuNzc3MzQzOCkiPgogICAgICA8cGF0aCBkPSJNMy41MDY1OCAwTDMuNTA2NTggNC44MDEwM0M0LjM2NjMxIDMuNzE5MjYgNS42MDE3OSAzLjQwMzcxIDYuODgwMzIgMy40MDM3MUMxMC4yNzYyIDMuNDQ4MzQgMTEuMjI0NSA2LjAxNzk0IDExLjE4MDggOS4wNjA4NkwxMS4xODA4IDE1Ljc3NzhMNy42NzQyNSAxNS43Nzc4TDcuNjc0MjUgOS4wODM0OUM3LjY3NDI1IDUuNjEyNTEgMy42ODMwNyA2LjM1NjExIDMuNjgzMDcgOS4xNTA3NEwzLjY4MzA3IDE1Ljc3NzhMMCAxNS43Nzc4TDAgMEwzLjUwNjU4IDBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMi43Nzg5IDEuNDc0NDQpIiBpZD0iRmlsbC0yMSIgZmlsbD0iI0ZFRkVGRSIgc3Ryb2tlPSJub25lIiAvPgogICAgICA8cGF0aCBkPSJNMCAyMS40MzI0TDExNC40MzkgMjEuNDMyNEwxMTQuNDM5IDBMMCAwTDAgMjEuNDMyNFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuMDk3NzgwNzUgMC41Njc2KSIgaWQ9IkNsaXAtMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0ibm9uZSIgLz4KICAgICAgPGcgY2xpcC1wYXRoPSJ1cmwoI21hc2tfMikiPgogICAgICAgIDxwYXRoIGQ9Ik0wIDIuMDc5QzAgNC43Mzg0OSA0LjE2NzY3IDQuNzM4NDkgNC4xNjc2NyAyLjA3OUM0LjE2NzY3IC0wLjY5MyAwIC0wLjY5MyAwIDIuMDc5Wk0zLjg1ODk2IDE2LjY4NDVMMC4zMzA4NTYgMTYuNjg0NUwwLjMzMDg1NiA0LjQ5MDgzTDMuODU4OTYgNC40OTA4M0wzLjg1ODk2IDE2LjY4NDVaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyNC44ODY3NCAwLjU2NzI4NTcpIiBpZD0iRmlsbC0yMyIgZmlsbD0iI0ZFRkVGRSIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2U9Im5vbmUiIC8+CiAgICAgICAgPHBhdGggZD0iTTMuNTA2NTggMC4xODA0TDMuNTA2NTggMS4zOTczMUM0LjM0NDc5IDAuMzE1NTQzIDUuNjAxMTggMCA2Ljg4MDMyIDBDMTAuMjc2MiAwLjA0NTI1NzEgMTEuMjAzIDIuNjE0ODYgMTEuMTgwOCA1LjY1Nzc3TDExLjE4MDggMTIuMzc0MUw3LjY1MjExIDEyLjM3NDFMNy42NTIxMSA1LjY3OTc3QzcuNjUyMTEgMi4yMDk0MyAzLjY4MzA4IDIuOTUzMDMgMy42ODMwOCA1Ljc0NzY2TDMuNjgzMDggMTIuMzc0MUwwIDEyLjM3NDFMMCAwLjE4MDRMMy41MDY1OCAwLjE4MDRaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMC4wOTA4OSA0Ljg3NzU4OSkiIGlkPSJGaWxsLTI1IiBmaWxsPSIjRkVGRUZFIiBzdHJva2U9Im5vbmUiIC8+CiAgICAgICAgPHBhdGggZD0iTTUuNzMzNCAwLjAwMDE0MTgwM0MxLjk0MDg2IC0wLjAyMzExNTMgMCAyLjgxNzQgMCA2LjMzMzYzQzAgOS42OTIwOSAxLjkxODcyIDEyLjI4MzcgNS43NTU1MyAxMi4yODM3QzYuOTQ2MTIgMTIuMjgzNyA4LjA3MDkxIDExLjk0NjEgOC44NDI3IDExLjAyMTVDOC44NDI3IDE0LjYyODMgNC4zNDQxNyAxNC4wODcxIDMuOTkxNzkgMTIuNTA5M0wwLjM1Mjk5NSAxMi41MDkzQzAuNzA1Mzc0IDE4LjQzNzQgMTIuMzkyOSAxOS4yNzA5IDEyLjMwNSAxMC45NTM2TDEyLjMwNSAwLjEzNDY1Nkw4Ljg0MjcgMC4xMzQ2NTZMOC44NDI3IDEuMzUyMkM4LjA0ODc3IDAuMzE1Njg1IDYuODgwMzIgMC4wMDAxNDE4MDMgNS43MzM0IDAuMDAwMTQxODAzWk02LjE1MjgxIDguOTI1MjNDNC44MjkzOSA4LjkyNTIzIDMuNTA2NTggOC4wOTE3NCAzLjQ4NDQ0IDYuMzc4MjZDMy40NjIzIDQuOTEzNjggNC4zNDQxNyAzLjM4MDYgNi4xNTI4MSAzLjM4MDZDNy42Mjk5NyAzLjM4MDYgOC44NDI3IDQuNzEwNjYgOC44NDI3IDYuMzMzNjNDOC44NDI3IDguMDIzODYgNy40OTc3NSA4LjkwMzIzIDYuMTUyODEgOC45MjUyM1oiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQxLjk3ODMyIDQuOTIzMDgxKSIgaWQ9IkZpbGwtMjYiIGZpbGw9IiNGRUZFRkUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSJub25lIiAvPgogICAgICAgIDxwYXRoIGQ9Ik0wIDIuMDc5QzAgNC43Mzg0OSA0LjE2NzY3IDQuNzM4NDkgNC4xNjc2NyAyLjA3OUM0LjE2NzY3IC0wLjY5MyAwIC0wLjY5MyAwIDIuMDc5Wk0zLjg1ODk2IDE2LjY4NDVMMC4zMzA4NTYgMTYuNjg0NUwwLjMzMDg1NiA0LjQ5MDgzTDMuODU4OTYgNC40OTA4M0wzLjg1ODk2IDE2LjY4NDVaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg1NS4wMzY0MiAwLjU2NzI4NTcpIiBpZD0iRmlsbC0yNyIgZmlsbD0iI0ZFRkVGRSIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2U9Im5vbmUiIC8+CiAgICAgIDwvZz4KICAgIDwvZz4KICAgIDxnIGlkPSJHcm91cC0zOSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTY1IDQuNzc3MzQ0KSI+CiAgICAgIDxwYXRoIGQ9Ik02Ljc0OTExIDMuODQwNTdMOC4yMzkgMEwxMS44MTA5IDBMMTEuODEwOSAwLjU1NTI4Nkw3LjMxODY3IDEyLjA1NDFMNC40OTIyOCAxMi4wNTQxTDAgMC41NTUyODZMMCAwTDMuNTkzMzMgMEw1LjA2MTgzIDMuODQwNTdMNS45MTYxNyA2LjkwMzYyTDYuNzQ5MTEgMy44NDA1N1oiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuMDE1NDYxMTEgMC42NDc3NzE0KSIgaWQ9IkZpbGwtMjkiIGZpbGw9IiNGRUZFRkUiIHN0cm9rZT0ibm9uZSIgLz4KICAgICAgPHBhdGggZD0iTTMuNjE1MzMgNy41MzYyOUwxMi4xMTc3IDcuNTM2MjlDMTIuMjA1NyA3LjA5MTgxIDEyLjI0OTEgNi42NDg1NyAxMi4yNDkxIDYuMTYwMTRDMTIuMjQ5MSAtMi4wNTMzOCAwIC0yLjA1MzM4IDAgNi4xNjAxNEMwIDEzLjU3MzkgOS44ODIyOCAxNC4zMDY4IDExLjg5ODkgOC40MDE3MUw4LjE1MTYxIDguNDAxNzFDNi45Njc4OSA5LjcxMTYyIDQuMzM4ODkgOS40NDU0MyAzLjYxNTMzIDcuNTM2MjlaTTYuMDY5NTYgMy4wNTI1MkM3LjE4NzI4IDMuMDUyNTIgOC4xNTE2MSAzLjYwNzE5IDguNDgwMzkgNC44MDU2N0wzLjc0NjcyIDQuODA1NjdDNC4wOTc1IDMuNjI5NDggNS4wMzk4MyAzLjA1MjUyIDYuMDY5NTYgMy4wNTI1MloiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDExLjI4MDA3IDAuNDU5NTE5MSkiIGlkPSJGaWxsLTMxIiBmaWxsPSIjRkVGRUZFIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZT0ibm9uZSIgLz4KICAgICAgPHBhdGggZD0iTTMuNDM5OTQgMTIuMjU2N0wwIDEyLjI1NjdMMCAwLjI0Nzc2TDMuMTExMTcgMC4yNDc3NkwzLjI0MzE3IDEuMDQ2OTVDNC4zMzg4OSAtMC4wMTkwNDk1IDUuNjUzMzkgLTAuMTk2MDk3IDcuMTY1MjggMC4xODA5MDNMNy4xMjE4OSAzLjQ2NjE5QzUuNjUzMzkgMi45Nzc3NiAzLjQzOTk0IDMuNDY2MTkgMy40Mzk5NCA1LjU5NzU3TDMuNDM5OTQgMTIuMjU2N1oiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI0LjQwNzM1IDAuNDAwNTA2NikiIGlkPSJGaWxsLTMzIiBmaWxsPSIjRkVGRUZFIiBzdHJva2U9Im5vbmUiIC8+CiAgICAgIDxwYXRoIGQ9Ik00Ljk3NDQ0IDBDNy40OTQ2NyAwIDkuNjY0MTEgMS4zMDkyOSA5LjY4NjExIDQuMTA2NzZMNi40MjA5NSA0LjEwNjc2QzYuMzk4OTQgMy4xNzM4NiA1LjUwMDYxIDMuMTA3NjIgNC43OTkwNiAzLjEwNzYyQzQuMjk0ODkgMy4xMDc2MiAzLjU5Mzk0IDMuMjg1MjkgMy41OTM5NCAzLjkyOTFDMy41OTM5NCA0LjU1MDYyIDQuNTE0MjggNC41NzI5MSA0Ljk5NjQ1IDQuNTk0NTdDNy40NTA2NyA0LjY2MTQzIDkuOTI2ODkgNS43MjY4MSA5LjkyNjg5IDguNTY4MjRDOS45MjY4OSAxMS41ODczIDcuNTM4NjcgMTIuNjA4MSA0Ljk1MjQ0IDEyLjYwODFDMi4xNDc0NCAxMi42MDgxIDAuMDQ0IDExLjMyMTEgMCA4LjI1NzQ4TDMuNDE4NTYgOC4yNTc0OEMzLjQ0MDU2IDkuMDU2NjcgNC4yNTE1IDkuMzg5NzEgNS4wMTg0NCA5LjM4OTcxQzUuOTE2NzggOS40MTIgNi41MDgzMyA5LjA3ODk1IDYuNTA4MzMgOC42NTY3NkM2LjUwODMzIDcuNzkxMzMgNS4yMTU4MyA3LjkwMjE0IDQuNjY3NjcgNy44NTc1N0MyLjQ1NDgzIDcuNjU4MjQgMC4xNzUzODkgNi43OTI4MSAwLjE3NTM4OSA0LjE1MDcxQzAuMTc1Mzg5IDEuMjQzMDUgMi4zNjY4MyAwIDQuOTc0NDQgMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzEuOTAyMDIgMC4zNTk2NjY3KSIgaWQ9IkZpbGwtMzUiIGZpbGw9IiNGRUZFRkUiIHN0cm9rZT0ibm9uZSIgLz4KICAgICAgPHBhdGggZD0iTTMuNjE1MzMgNy41MzYyOUwxMi4xMTc3IDcuNTM2MjlDMTIuMjA1NyA3LjA5MTgxIDEyLjI0OTEgNi42NDg1NyAxMi4yNDkxIDYuMTYwMTRDMTIuMjQ5MSAtMi4wNTMzOCAwIC0yLjA1MzM4IDAgNi4xNjAxNEMwIDEzLjU3MzkgOS44ODI4OSAxNC4zMDY4IDExLjg5ODkgOC40MDE3MUw4LjE1MTYxIDguNDAxNzFDNi45Njg1IDkuNzExNjIgNC4zMzg4OSA5LjQ0NTQzIDMuNjE1MzMgNy41MzYyOVpNNi4wNjk1NiAzLjA1MjUyQzcuMTg3MjggMy4wNTI1MiA4LjE1MTYxIDMuNjA3MTkgOC40ODAzOSA0LjgwNTY3TDMuNzQ3MzMgNC44MDU2N0M0LjA5NzUgMy42Mjk0OCA1LjAzOTgzIDMuMDUyNTIgNi4wNjk1NiAzLjA1MjUyWiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNDIuMjkwMjkgMC40NTk1MTkxKSIgaWQ9IkZpbGwtMzciIGZpbGw9IiNGRUZFRkUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSJub25lIiAvPgogICAgPC9nPgogIDwvZz4KPC9zdmc+" alt="MakerBot logo"></a></div><div class="SearchInput__searchContainer--3NCc- SearchInput__searchContainerThingPage--3eLdV"><div class="SearchInput__searchIcon--sxu8B"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB3aWR0aD0iMThweCIgaGVpZ2h0PSIxOHB4IiB2aWV3Qm94PSIwIDAgMTggMTgiIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlc2M+Q3JlYXRlZCB3aXRoIEx1bmFjeTwvZGVzYz4KICA8ZyBpZD0iUGFnZS0xIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUgMC41KSI+CiAgICA8cGF0aCBkPSJNMTIuODA4IDYuNDA0QzEyLjgwOCAyLjg2NyA5Ljk0MSAwIDYuNDA1IDBDMi44NjggMCAwIDIuODY3IDAgNi40MDRDMCA5Ljk0MSAyLjg2OCAxMi44MDggNi40MDUgMTIuODA4QzkuOTQxIDEyLjgwOCAxMi44MDggOS45NDEgMTIuODA4IDYuNDA0WiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMy40NzYgMC40OTk2KSIgaWQ9IlN0cm9rZS0xIiBmaWxsPSJub25lIiBzdHJva2U9IiNGRkZGRkYiIHN0cm9rZS13aWR0aD0iMSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiAvPgogICAgPHBhdGggZD0iTTQuODc1IDBMMCA0Ljg3NSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMC40OTk4IDExLjQwOTUpIiBpZD0iU3Ryb2tlLTMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0ZGRkZGRiIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIC8+CiAgPC9nPgo8L3N2Zz4=" alt="search control"></div><input type="text" placeholder="Search Thingiverse" class="SearchInput__searchInput--TvGY2" value=""></div><div class="PageHeader__navBar--1Jdbe PageHeader__thingDesktopNavbar--HITRk"><div class="PageHeader__exploreDropdown--2vSkc Dropdown__dropdown--1CEXv"><button class="PageHeader__dropdownButton--1AeO8 Dropdown__dropdownButton--1iEp1 Dropdown__arrowWhite--tO24J">Explore</button><div class="PageHeader__dropdownItems--2TqE5 Dropdown__dropdownItems--N6MD4"><div class="PageHeader__dropdownContentLinksColumn--1kJwN"><a href="https://www.thingiverse.com/search?type=things">Things</a><a href="https://www.thingiverse.com/search?sort=followers&amp;type=users">Designers</a><a href="https://www.thingiverse.com/groups">Groups</a><a href="https://www.thingiverse.com/search?type=things&amp;customizable=1">Customizable Things</a></div></div></div><div class="PageHeader__educationDropdown--1yLdo"><a class="PageHeader__dropdownButton--1AeO8" href="https://www.thingiverse.com/education">Education</a></div><div class="PageHeader__dropdown--3NFY3 Dropdown__dropdown--1CEXv"><button class="PageHeader__dropdownButton--1AeO8 Dropdown__dropdownButton--1iEp1 Dropdown__arrowWhite--tO24J"><div class="PageHeader__createTitle--1WroY">Create</div><img class="PageHeader__createIcon--1fG7m" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB3aWR0aD0iMTFweCIgaGVpZ2h0PSIxMXB4IiB2aWV3Qm94PSIwIDAgMTEgMTEiIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlc2M+Q3JlYXRlZCB3aXRoIEx1bmFjeTwvZGVzYz4KICA8ZyBpZD0iR3JvdXAtQ29weS0yIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUgMC41KSI+CiAgICA8cGF0aCBkPSJNMC4zMzMzMzMgMEwwLjMzMzMzMyAxMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNC42NjY2NjcgMCkiIGlkPSJMaW5lLTItQ29weS0yIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMSIgc3Ryb2tlLWxpbmVjYXA9InNxdWFyZSIgLz4KICAgIDxwYXRoIGQ9Ik0wLjUgLTMuMTgwMTJlLTEyTDAuNSA5LjMzMzMzIiB0cmFuc2Zvcm09Im1hdHJpeCgxLjE5MjQ4OEUtMDggMSAtMSAxLjE5MjQ4OEUtMDggOS42NjY2NjYgNC41KSIgaWQ9IkxpbmUtMi1Db3B5LTMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiAvPgogIDwvZz4KPC9zdmc+"></button><div class="PageHeader__dropdownItems--2TqE5 Dropdown__dropdownItems--N6MD4"><div class="PageHeader__dropdownContentLinksColumn--1kJwN"><a href="https://www.thingiverse.com/thing:0/edit">Upload a Thing!</a><a href="https://www.thingiverse.com/customizer">Customize a Thing</a></div></div></div><div class="PageHeader__dropdown--3NFY3 Dropdown__dropdown--1CEXv"><button class="PageHeader__dropdownButton--1AeO8 Dropdown__dropdownButton--1iEp1 Dropdown__arrowWhite--tO24J Dropdown__dropdownButtonArrowRight--3mfH2">Sign Up</button><div class="PageHeader__dropdownItemsLeft--UvuPe Dropdown__dropdownItems--N6MD4"><div class="PageHeader__loginDropdownContent--3l-qt"><div class="PageHeader__createAccountWrapper--34W08">Don’t have an account?<br><a href="https://accounts.thingiverse.com/register">Sign up here. </a></div><div class="PageHeader__lineSeparator--2TfLT"></div><div class="PageHeader__loginButtonWrapper--2lhyJ"><a href="https://accounts.thingiverse.com/"><button class="Button__button--2kecZ Button__blue--1HC2y PageHeader__loginButton--2XkxL">Log In</button></a></div><div class="PageHeader__lineSeparator--2TfLT"></div><div class="PageHeader__legalLinksWrapper--21_HM"><div class="LegalLinks__legalLinks--2yQOs"><div class="LegalLinks__linksRow--3pmSP"><a href="https://www.thingiverse.com/about/">About Thingiverse ®</a><div>·</div><a href="https://www.thingiverse.com/legal/">Legal</a><div>·</div><a href="https://www.makerbot.com/legal/privacy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a><div>·</div><a href="https://www.thingiverse.com/support">Contact Us</a><div>·</div><a href="https://www.thingiverse.com/developers">Developers</a></div><div class="LegalLinks__copyRight--1GUsF">© &nbsp;2022&nbsp;<a href="https://www.makerbot.com" target="_blank" rel="noopener noreferrer">MakerBot Industries, LLC</a></div></div></div></div></div></div></div></div><div class="PageHeader__desktopHeaderPlaceholder--3wOz9"></div></div>
+<script src="https://cdn.thingiverse.com/site/js/header.bundle.js?1650407594"></script>
+                        
+                        <div id="main">
+
+<div class="center_content top_content sso-page">
+    <article class="sso">
+                    <section class="sign-in">
+
+                                    <header class="sso-header">Sign in with your
+                        <span class="no-break">
+                            <img src="https://cdn.thingiverse.com/site/img/sso/makerbot-header-logo.png" alt="MakerBot" width="161">
+                            account
+                        </span>
+                    </header>
+                
+                <form id="sso-sign-in-form" method="post" class="standard-fields justify sso-signin">
+                    <div class="error full-width">
+                        <p class="sso-errors">Incorrect username and password combination.<br><br><a href="forgot">Forgot Password?</a></p>
+                    </div>
+
+                    
+                    <fieldset class="username-column inline-middle">
+                        <label id="username-label" for="username">
+                            Username or Email Address
+                        </label>
+                        <input type="text" id="username" name="username" required="required">
+                        <div class="remember-me">
+                            <input type="checkbox" id="remember-me" name="remember-me" tabindex="-1">
+                            <label for="remember-me" class="quiet">Remember Me</label>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="password-column inline-middle">
+                        <label id="password-label" for="username">Password</label>
+                        <input id="password" name="password" type="password" autocomplete="current-password" required="required">
+                        <div>
+                            <a id="forgot-password" class="plain-link" href="https://login.makerbot.com/forgot?site_theme=tv" tabindex="-1">
+                                Click here to reset your password.
+                            </a>
+                        </div>
+                    </fieldset>
+
+                    <input type="hidden" id="sso-theme" name="theme" value="thingiverse">
+                    <input type="hidden" id="sso-source" name="source" value="">
+                    <input type="hidden" id="sso-redirect" name="redirect" value="">
+
+                    <div class="sso-sign-in inline-middle">
+                        <button type="submit" id="sso_sign_in" class="blue-button">
+                            Sign In
+                        </button>
+                    </div>
+                </form>
+
+                                                <section class="google-sso" style="text-align: center;">
+                    <a href="/google/login" style="display: inline-block;">
+                        <button id="google-sso-btn" style="position: static;cursor: pointer;display: block;border: none;width: 300px;height: 46px;background-color: white;border-radius: 2px;box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);margin: auto;">
+                            <img src="/img/google/logo.svg" alt="Google Logo" style="vertical-align: middle;border-style:none;height:100%;padding-right:11px;width:36px">
+                            <span class="sso-text" style="color: rgba(0, 0, 0, 0.54);display: inline;font-size: 0.75rem;vertical-align: top;line-height: 50px;text-transform: none;">Sign in with Google</span>
+                        </button>
+                    </a>
+                </section>
+                
+                <h2 class="sso-callout">
+                    <a href="/register">
+                        <span>New to MakerBot?</span>
+                        <strong class="">Create an account&gt;</strong>
+                    </a>
+                </h2>
+
+                                    <section class="values justify justify-left">
+            <div class="value inline width-1">
+            <h1>Simplified</h1>
+            <h2>One Key to All Things MakerBot</h2>
+            <p>
+                With a MakerBot account, you can focus on creating amazing things
+                with your MakerBot® Desktop 3D Printer.
+            </p>
+        </div>
+
+        <div class="value inline width-1">
+            <h1>Integrated</h1>
+            <h2>With the MakerBot 3D Ecosystem</h2>
+            <p>
+                Whether you're downloading the latest design from Thingiverse
+                or stocking up on filament at the MakerBot online store.
+            </p>
+        </div>
+
+                    <div class="value inline width-1">
+                <h1>2,277,960+ Designs</h1>
+                <h2>And growing</h2>
+                <p>
+                    Browse the world's largest 3D design community for
+                    discovering, printing, and sharing 3D models. Join over
+                    5,458,110 community members in downloading,
+                    sharing, and remixing 3D designs.
+                </p>
+            </div>
+            </section>
+                            </section>
+            </article>
+
+        <p class="text-center">
+        If you have any questions about your MakerBot account, check out our
+        <a href="//support.makerbot.com/learn/account-creation/frequently-asked-questions/frequently-asked-questions_13661" target="_blank" class="plain-link"><strong>FAQ</strong></a>.
+    </p>
+
+    <div id="sso-progress"></div>
+</div>
+
+
+<script>
+    var ssoOptions = {"hostname":"www.thingiverse.com","sso_hostname":"accounts.thingiverse.com","testing":null}</script>
+
+<script>
+    if (typeof loginOrigin != 'undefined') {
+        throw new Error('loginOrigin already defined');
+    }
+
+    var loginOrigin = "https:\/\/login.makerbot.com";
+</script>
+
+<script>
+    var run = run || {};
+    run.methods = run.methods || [];
+    run.methods = run.methods.concat([{"object_name":"SSO","method_name":"Shared"}]);
+</script>
+
+
+<script>
+    var run = run || {};
+    run.methods = run.methods || [];
+    run.methods = run.methods.concat([{"object_name":"SSO","method_name":"SignInView","data":{"hostname":"www.thingiverse.com","sso_hostname":"accounts.thingiverse.com","testing":null}}]);
+</script>
+                        </div>                    </div>                </div>            </div>
+                                <div class="site-footer">
+    <div class="center_content center justify">
+        <div class="site-logo">
+            <a href="/">Thingiverse</a>
+        </div>
+
+        <nav class="footer-links">
+                        <a href="https://www.thingiverse.com/about">About Thingiverse ®</a>
+            <a href="https://www.thingiverse.com/legal">Legal</a>
+            <a href="//www.makerbot.com/legal/privacy" target="_blank">Privacy Policy</a>
+            <a href="https://www.thingiverse.com/support">Contact Us</a>
+            <a href="https://www.thingiverse.com/developers">Developers</a>
+
+            <div class="copyright">
+                © 2022
+                <a href="https://www.makerbot.com">
+                    MakerBot Industries, LLC
+                </a>
+            </div>
+        </nav>
+    </div>
+</div>
+            
+                    
+        
+        
+        <script src="https://cdn.thingiverse.com/site/js/modernizr-custom-min.js"></script>
+        <script src="https://cdn.thingiverse.com/site/js/jquery-3.2.1.min.js"></script>
+        
+
+        <script>
+            var $ = jQuery.noConflict();
+            $.holdReady(true);
+
+            function loadStyleSheet(src) {
+                if (document.createStyleSheet){
+                    document.createStyleSheet(src);
+                } else {
+                    $('head').append($('<link rel="stylesheet" href="' + src + '" type="text/css" media="screen">'));
+                }
+            }
+
+            $(function() {
+                if (stylesheets.length) {
+                    for (var i = 0; i < stylesheets.length; i++) {
+                        loadStyleSheet(stylesheets[i]);
+                    }
+                }
+            });
+
+            
+            Modernizr.load({
+                load: scripts,
+                complete: function() {
+                    $.holdReady(false);
+                }
+            });
+        </script>
+
+        
+        
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PKW6VF6');</script>
+
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKW6VF6"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    
+
+
+        <script type="text/javascript">
+    amzn_assoc_ad_type = "link_enhancement_widget";
+    amzn_assoc_tracking_id = "tv-popover-20";
+    amzn_assoc_linkid = "eab03cd8e5efaefb657e12001b02c706";
+    amzn_assoc_placement = "";
+    amzn_assoc_marketplace = "amazon";
+    amzn_assoc_region = "US";
+</script>
+<script src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&amp;Operation=GetScript&amp;ID=OneJS&amp;WS=1&amp;MarketPlace=US"></script><div id="amzn_assoc_ad_div_adunit_0">
+			</div>    
+
+<script type="text/javascript" id="">(function(a,b){if(a&&b){var c="_sawCookieBanner";if(!(-1<document.cookie.indexOf(c+"\x3d1"))){var d="AL AD AM AT BY BE BA BG CH CY CZ DE DK EE ES FO FI FR GB GE GI GR HU HR IE IS IT LT LU LV MC MK MT NO NL PL PT RO RU SE SI SK SM TR UA VA".split(" ");a.get("https://geoip.makerbot.com/json/").done(function(a){-1<d.indexOf(a.country_code)&&b.push({event:"cookie-banner"})})}}})(window.jQuery,window.dataLayer);</script><div id="amzn-assoc-ad-161d372f-88aa-4ff3-b98b-72c7e255c41a"></div><script type="text/javascript" id="" src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&amp;adInstanceId=161d372f-88aa-4ff3-b98b-72c7e255c41a"></script><div class="upload-progress" data-count="0"></div></body></html>
