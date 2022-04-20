@@ -7,7 +7,7 @@ instagram.com, {"resolved": true, "login": 4, "username": 9, "password": 10, "at
 twitter.com, {"resolved": true, "login": 5, "username": 2, "password": 0, "attempted_logins": 4, "captcha_seen": 0, "error": false}
 baidu.com, {"resolved": true, "login": 0, "username": -1, "password": -1, "attempted_logins": -1, "captcha_seen": -1, "error": false}
 linkedin.com, {"resolved": true, "login": 4, "username": 0, "password": 10, "attempted_logins": 4, "captcha_seen": 0, "error": false}
-https://en.wikipedia.org/, {"resolved": true, "login": 19, "username": 2, "password": 10, "attempted_logins": 4, "captcha_seen": 0, "error": false}
+wikipedia.org, {"resolved": true, "login": 19, "username": 2, "password": 10, "attempted_logins": 4, "captcha_seen": 0, "error": false}
 apple.com, {"resolved": true, "login": 0, "username": -1, "password": -1, "attempted_logins": -1, "captcha_seen": -1, "error": false}
 yahoo.com, {"resolved": true, "login": 5, "username": 0, "password": 0, "attempted_logins": 1, "captcha_seen": 1, "error": false}
 bilibili.com, {"resolved": true, "login": 0, "username": -1, "password": -1, "attempted_logins": -1, "captcha_seen": -1, "error": false}
@@ -18,8 +18,8 @@ netflix.net, {"resolved": true, "login": 0, "username": -1, "password": -1, "att
 googletagmanager.com, {"resolved": true, "login": 0, "username": -1, "password": -1, "attempted_logins": -1, "captcha_seen": -1, "error": false}
 wordpress.org, {"resolved": true, "login": 17, "username": 0, "password": 0, "attempted_logins": 1, "captcha_seen": 0, "error": false}
 whatsapp.com, {"resolved": true, "login": 0, "username": -1, "password": -1, "attempted_logins": -1, "captcha_seen": -1, "error": false}
-https://gitlab.com/users/sign_in, {"resolved": true, "login": 0, "username": -1, "password": -1, "attempted_logins": -1, "captcha_seen": -1, "error": false}
-https://www.reddit.com/login/, {"resolved": true, "login": 27, "username": 9, "password": 10, "attempted_logins": 4, "captcha_seen": 0, "error": false}
+gitlab.com, {"resolved": true, "login": 0, "username": -1, "password": -1, "attempted_logins": -1, "captcha_seen": -1, "error": false}
+reddit.com, {"resolved": true, "login": 27, "username": 9, "password": 10, "attempted_logins": 4, "captcha_seen": 0, "error": false}
 bing.com, {"resolved": true, "login": 5, "username": 0, "password": 10, "attempted_logins": 4, "captcha_seen": 0, "error": false}
 pinterest.com, {"resolved": true, "login": 19, "username": 17, "password": 0, "attempted_logins": -1, "captcha_seen": -1, "error": true}
 youtu.be, {"resolved": false, "login": -1, "username": -1, "password": -1, "attempted_logins": -1, "captcha_seen": -1, "error": false}
