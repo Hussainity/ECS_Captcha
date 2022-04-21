@@ -13,6 +13,25 @@ captchaResult= ''
 whereReCAPTCHAS= ''
 recaptchaResult= ''
 Totalinstances=0
+hcaptchaResult= ''
+hcaptchasfound= 0
+whereHCAPTCHAS= ''
+
+funcaptchaResult= ''
+funcaptchasfound= 0
+whereFUNCAPTCHAS= ''
+
+fancycaptchaResult= ''
+fancycaptchasfound= 0
+whereFANCYCAPTCHAS= ''
+
+jetpackResult= ''
+jetpacksfound= 0
+whereJETPACKS= ''
+
+pxcaptchaResult= ''
+pxcaptchasfound= 0
+wherePXCAPTCHAS= ''
 
 for fi in directory:
     with open(fi, encoding="utf-8") as f:
@@ -22,6 +41,32 @@ for fi in directory:
         content = f.read() 
         content= str(content)
         try:
+                if (content.find('jetpack_protect') != -1) :# finds instance of captcha- all lowercase
+                    x = content.find('jetpack_protect') +7
+                    content= content[:x]
+                    try: ## finds result CAPTCHA and text before instance UNTIL SPEC CHAR
+                        captchaStart = []
+                        if 'http' in content :
+                            f= content.rfind("http", 0, x)
+                            captchaStart.append(content.rfind("http", 0, x))
+                        if '?' in content :
+                            captchaStart.append(content.rfind("?", 0, x))
+                        if ':' in content :
+                            captchaStart.append(content.rfind(":", 0, x))
+                        if '_' in content :
+                            captchaStart.append(content.rfind("_", 0, x))
+                        if '"*' in content :
+                            captchaStart.append(content.rfind("'*", 0, x))
+                        if '\*' in content:
+                            captchaStart.append(content.rfind("\*", 0, x))
+                        captchaStart= max(captchaStart) # takes highest value- least amount of chars
+                    except:
+                        captchaStart.append(content.rfind("/", 0, x))
+                        print('error at point 1')
+                    content= content[captchaStart:]
+                    jetpackResult += "\n" + content
+                    jetpacksfound += 1
+                
                 if (content.find('captcha') != -1) :# finds instance of captcha- all lowercase
                     x = content.find('captcha') +7
                     content= content[:x]
@@ -95,10 +140,12 @@ for fi in directory:
                         print('error at point 1')
                     captchaResult+= "\n" + content[captchaStart:]
                     captchasfound += 1
-                else :
+                elif (jetpacksfound!=0) :
                     captchasnotfound +=1
                     whereCAPTCHAnotfound += fi
                     continue
+
+
                 if (content.find('recaptcha')!= -1) :# finds instance of recaptcha- all lowercase
                     x = content.find('recaptcha')+9
                     content= content[:x]
@@ -196,9 +243,9 @@ for fi in directory:
                     except:
                         captchaStart.append(content.rfind("/", 0, x))
                         print('error at point 1') 
-                    recaptchaResult+= "\n" + content[captchaStart:]
-                    recaptchasfound += 1
-                    whereReCAPTCHAS+= fi
+                    hcaptchaResult+= "\n" + content[captchaStart:]
+                    hcaptchasfound += 1
+                    whereHCAPTCHAS+= fi
                 elif (content.find("reCaptcha")!= -1) :
                     x = content.find("reCaptcha")+9
                     content= content[:x]
@@ -224,10 +271,191 @@ for fi in directory:
                     recaptchaResult+= "\n" + content[captchaStart:]
                     recaptchasfound += 1
                     whereReCAPTCHAS+= fi
+
+
+                if (content.find('hcaptcha')!= -1) :# finds instance of recaptcha- all lowercase
+                    x = content.find('hcaptcha')+9
+                    content= content[:x]
+                    try: ## finds result CAPTCHA and text before instance UNTIL SPEC CHAR
+                        captchaStart = []
+                        if 'http' in content :
+                            f= content.rfind("http", 0, x)
+                            captchaStart.append(content.rfind("http", 0, x))
+                        if '?' in content :
+                            captchaStart.append(content.rfind("?", 0, x))
+                        if ':' in content :
+                            captchaStart.append(content.rfind(":", 0, x))
+                        if '_' in content :
+                            captchaStart.append(content.rfind("_", 0, x))
+                        if '"*' in content :
+                            captchaStart.append(content.rfind("'*", 0, x))
+                        if '\*' in content:
+                            captchaStart.append(content.rfind("\*", 0, x))
+                        captchaStart= max(captchaStart) # takes highest value- least amount of chars
+                    except:
+                        captchaStart.append(content.rfind("/", 0, x))
+                        print('error at point 1') 
+                    hcaptchaResult+= "\n" + content[captchaStart:]
+                    hcaptchasfound += 1
+                    whereHCAPTCHAS+= fi
+                elif (content.find("HCAPTCHA")!= -1) : # finds instance of recaptcha-all upper
+                    x = content.find("HCAPTCHA")+9
+                    content= content[:x]
+                    try: ## finds result CAPTCHA and text before instance UNTIL SPEC CHAR
+                        captchaStart = []
+                        if 'http' in content :
+                            f= content.rfind("http", 0, x)
+                            captchaStart.append(content.rfind("http", 0, x))
+                        if '?' in content :
+                            captchaStart.append(content.rfind("?", 0, x))
+                        if ':' in content :
+                            captchaStart.append(content.rfind(":", 0, x))
+                        if '_' in content :
+                            captchaStart.append(content.rfind("_", 0, x))
+                        if '"*' in content :
+                            captchaStart.append(content.rfind("'*", 0, x))
+                        if '\*' in content:
+                            captchaStart.append(content.rfind("\*", 0, x))
+                        captchaStart= max(captchaStart) # takes highest value- least amount of chars
+                    except:
+                        captchaStart.append(content.rfind("/", 0, x))
+                        print('error at point 1') 
+                    hcaptchaResult+= "\n" + content[captchaStart:]
+                    hcaptchasfound += 1
+                    whereHCAPTCHAS+= fi
+                elif (content.find("HCaptcha")!= -1) :
+                    x = content.find("HCaptcha")+9
+                    content= content[:x]
+                    try: ## finds result CAPTCHA and text before instance UNTIL SPEC CHAR
+                        captchaStart = []
+                        if 'http' in content :
+                            f= content.rfind("http", 0, x)
+                            captchaStart.append(content.rfind("http", 0, x))
+                        if '?' in content :
+                            captchaStart.append(content.rfind("?", 0, x))
+                        if ':' in content :
+                            captchaStart.append(content.rfind(":", 0, x))
+                        if '_' in content :
+                            captchaStart.append(content.rfind("_", 0, x))
+                        if '"*' in content :
+                            captchaStart.append(content.rfind("'*", 0, x))
+                        if '\*' in content:
+                            captchaStart.append(content.rfind("\*", 0, x))
+                        captchaStart= max(captchaStart) # takes highest value- least amount of chars
+                    except:
+                        captchaStart.append(content.rfind("/", 0, x))
+                        print('error at point 1') 
+                    hcaptchaResult+= "\n" + content[captchaStart:]
+                    hcaptchasfound += 1
+                    whereHCAPTCHAS+= fi
+                elif (content.find("Hcaptcha")!= -1) :
+                    x = content.find("Hcaptcha")+9
+                    content= content[:x]
+                    try: ## finds result CAPTCHA and text before instance UNTIL SPEC CHAR
+                        captchaStart = []
+                        if 'http' in content :
+                            f= content.rfind("http", 0, x)
+                            captchaStart.append(content.rfind("http", 0, x))
+                        if '?' in content :
+                            captchaStart.append(content.rfind("?", 0, x))
+                        if ':' in content :
+                            captchaStart.append(content.rfind(":", 0, x))
+                        if '_' in content :
+                            captchaStart.append(content.rfind("_", 0, x))
+                        if '"*' in content :
+                            captchaStart.append(content.rfind("'*", 0, x))
+                        if '\*' in content:
+                            captchaStart.append(content.rfind("\*", 0, x))
+                        captchaStart= max(captchaStart) # takes highest value- least amount of chars
+                    except:
+                        captchaStart.append(content.rfind("/", 0, x))
+                        print('error at point 1') 
+                    hcaptchaResult+= "\n" + content[captchaStart:]
+                    hcaptchasfound += 1
+                    whereHCAPTCHAS+= fi
                 whereCAPTCHAfound+= fi
+
+                if (content.find('fun-captcha')!= -1) :# finds instance of recaptcha- all lowercase
+                    x = content.find('fun-aptcha')+9
+                    content= content[:x]
+                    try: ## finds result CAPTCHA and text before instance UNTIL SPEC CHAR
+                        captchaStart = []
+                        if 'http' in content :
+                            f= content.rfind("http", 0, x)
+                            captchaStart.append(content.rfind("http", 0, x))
+                        if '?' in content :
+                            captchaStart.append(content.rfind("?", 0, x))
+                        if ':' in content :
+                            captchaStart.append(content.rfind(":", 0, x))
+                        if '_' in content :
+                            captchaStart.append(content.rfind("_", 0, x))
+                        if '"*' in content :
+                            captchaStart.append(content.rfind("'*", 0, x))
+                        if '\*' in content:
+                            captchaStart.append(content.rfind("\*", 0, x))
+                        captchaStart= max(captchaStart) # takes highest value- least amount of chars
+                    except:
+                        captchaStart.append(content.rfind("/", 0, x))
+                        print('error at point 1') 
+                    FUNcaptchaResult+= "\n" + content[captchaStart:]
+                    FUNcaptchasfound += 1
+                    whereFUNCAPTCHAS+= fi
+
+                if (content.find('fancycaptcha')!= -1) :# finds instance of recaptcha- all lowercase
+                    x = content.find('fancycaptcha')+9
+                    content= content[:x]
+                    try: ## finds result CAPTCHA and text before instance UNTIL SPEC CHAR
+                        captchaStart = []
+                        if 'http' in content :
+                            f= content.rfind("http", 0, x)
+                            captchaStart.append(content.rfind("http", 0, x))
+                        if '?' in content :
+                            captchaStart.append(content.rfind("?", 0, x))
+                        if ':' in content :
+                            captchaStart.append(content.rfind(":", 0, x))
+                        if '_' in content :
+                            captchaStart.append(content.rfind("_", 0, x))
+                        if '"*' in content :
+                            captchaStart.append(content.rfind("'*", 0, x))
+                        if '\*' in content:
+                            captchaStart.append(content.rfind("\*", 0, x))
+                        captchaStart= max(captchaStart) # takes highest value- least amount of chars
+                    except:
+                        captchaStart.append(content.rfind("/", 0, x))
+                        print('error at point 1') 
+                    FANCYcaptchaResult+= "\n" + content[captchaStart:]
+                    FANCYcaptchasfound += 1
+                    whereFANCYCAPTCHAS+= fi
+                if (content.find('perimeterx')!= -1) :# finds instance of recaptcha- all lowercase
+                    x = content.find('perimeterx')+9
+                    content= content[:x]
+                    try: ## finds result CAPTCHA and text before instance UNTIL SPEC CHAR
+                        captchaStart = []
+                        if 'http' in content :
+                            f= content.rfind("http", 0, x)
+                            captchaStart.append(content.rfind("http", 0, x))
+                        if '?' in content :
+                            captchaStart.append(content.rfind("?", 0, x))
+                        if ':' in content :
+                            captchaStart.append(content.rfind(":", 0, x))
+                        if '_' in content :
+                            captchaStart.append(content.rfind("_", 0, x))
+                        if '"*' in content :
+                            captchaStart.append(content.rfind("'*", 0, x))
+                        if '\*' in content:
+                            captchaStart.append(content.rfind("\*", 0, x))
+                        captchaStart= max(captchaStart) # takes highest value- least amount of chars
+                    except:
+                        captchaStart.append(content.rfind("/", 0, x))
+                        print('error at point 1') 
+                    pxcaptchaResult+= "\n" + content[captchaStart:]
+                    pxcaptchasfound += 1
+                    wherePXCAPTCHAS+= fi
+
+                
         except:
             print("error")
-        
+captchasfound = captchasfound + jetpacksfound
 with open("AnalysisResults", "w", encoding="utf-8") as h:
         h.write(str(Totalinstances))
         h.write(' Totalinstances \n')
@@ -241,11 +469,30 @@ with open("AnalysisResults", "w", encoding="utf-8") as h:
         h.write(l)
         h.write(str(whereReCAPTCHAS))
 
+
 #CAPTCHA source code
 with open("CAPTCHAInstances", "w", encoding="utf-8") as p:
         p.write(str(Totalinstances))
         p.write(' Totalinstances \n')
-        k= '{}{}{}{}'.format(captchasfound,' CAPTCHAInstances \n', captchaResult, '\n\n')
+        k= '{}{}{}{}'.format(captchasfound,' CAPTCHAInstance Percentage : ', captchasfound/Totalinstances, '\n')
         p.write(k)
-        j= '{}{}{}{}'.format(recaptchasfound, ' RECAPTCHAInstances \n', recaptchaResult, '\n\n')
+        j= '{}{}{}{}'.format(recaptchasfound, ' RECAPTCHAInstances \n', recaptchasfound/captchasfound, '\n')
         p.write(j)
+        j= '{}{}{}{}'.format(hcaptchasfound, ' HCAPTCHAInstances \n', hcaptchasfound/captchasfound, '\n')
+        p.write(j)
+        j= '{}{}{}{}'.format(funcaptchasfound, ' FUNCAPTCHAInstances \n', funcaptchasfound/captchasfound, '\n')
+        p.write(j)
+        j= '{}{}{}{}'.format(fancycaptchasfound, ' FANCYCAPTCHAInstances \n', fancycaptchasfound/captchasfound, '\n')
+        p.write(j)
+        j= '{}{}{}{}'.format(jetpacksfound, ' JETPACK_PROTECT Instances \n', jetpacksfound/captchasfound, '\n')
+        p.write(j)
+        j= '{}{}{}{}'.format(pxcaptchasfound, ' PXCAPTCHA Instances \n', pxcaptchasfound/captchasfound, '\n')
+        p.write(j)
+        # k= '{}{}{}{}'.format(hcaptchasfound,' HCAPTCHAInstances \n', hcaptchaResult, '\n\n')
+        # p.write(k)
+        # k= '{}{}{}{}'.format(funcaptchasfound,' FUNCAPTCHAInstances \n', funcaptchaResult, '\n\n')
+        # p.write(k)
+        # k= '{}{}{}{}'.format(captchasfound,' CAPTCHAInstances \n', captchaResult, '\n\n')
+        # p.write(k)
+        # j= '{}{}{}{}'.format(recaptchasfound, ' RECAPTCHAInstances \n', recaptchaResult, '\n\n')
+        # p.write(j)
